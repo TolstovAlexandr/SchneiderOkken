@@ -1,0 +1,1225 @@
+﻿<Window x:Class="Okken.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Okken"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1500"
+        xmlns:ml="clr-namespace:MoralesLarios.Utilities.Excel;assembly=MoralesLarios.Utilities">
+    <Window.Resources>
+        <Style x:Key="ColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="3">
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding}">
+                                <TextBlock.LayoutTransform>
+                                    <RotateTransform Angle="360" />
+                                </TextBlock.LayoutTransform>
+                            </TextBlock>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="LightGreen"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="ToolTip" Value="Нажмите для сортировки."/>
+                    <Setter Property="Background" Value="LightBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ColumnHeaderStyle2" 
+               TargetType="DataGridColumnHeader"
+               BasedOn="{StaticResource ColumnHeaderStyle}">
+            <Setter Property="Background" Value="LightYellow"></Setter>
+        </Style>
+
+        <Style x:Key="ColumnHeaderStyle3" 
+               TargetType="DataGridColumnHeader"
+               BasedOn="{StaticResource ColumnHeaderStyle}">
+            <Setter Property="Background" Value="LightSteelBlue"></Setter>
+
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="3">
+                            <TextBlock Text="{Binding}">
+                                <TextBlock.LayoutTransform>
+                                    <RotateTransform Angle="270" />
+                                </TextBlock.LayoutTransform>
+                            </TextBlock>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ColumnHeaderStyle4" 
+               TargetType="DataGridColumnHeader"
+               BasedOn="{StaticResource ColumnHeaderStyle3}">
+            <Setter Property="Background" Value="MediumAquamarine"></Setter>
+        </Style>
+
+        <Style x:Key="ColumnHeaderStyle5" 
+               TargetType="DataGridColumnHeader"
+               BasedOn="{StaticResource ColumnHeaderStyle}">
+            <Setter Property="Background" Value="MediumTurquoise"></Setter>
+        </Style>
+
+        <!--Стиль ComboBox для Выбора АВР-->
+        <Style x:Key="ATSComboBoxStyle" 
+               TargetType="DataGridColumnHeader"
+               BasedOn="{StaticResource ColumnHeaderStyle}">
+            <Setter Property="Background" Value="SandyBrown"></Setter>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="3">
+                            <TextBlock Text="{Binding}">
+                                <TextBlock.LayoutTransform>
+                                    <RotateTransform Angle="270" />
+                                </TextBlock.LayoutTransform>
+                            </TextBlock>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="HeaderBorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+            <Setter Property="Padding" Value="3"></Setter>
+            <Setter Property="Background" Value="LightYellow"></Setter>
+        </Style>
+
+        <Style x:Key="HeaderBorderStyle1" TargetType="Border" BasedOn="{StaticResource HeaderBorderStyle}">
+            <Setter Property="Background" Value="LightSteelBlue"></Setter>
+        </Style>
+
+        <Style x:Key="HeaderBorderStyle2" TargetType="Border" BasedOn="{StaticResource HeaderBorderStyle}">
+            <Setter Property="Background" Value="MediumAquamarine"></Setter>
+        </Style>
+
+        <Style x:Key="HeaderBorderStyle3" TargetType="Border" BasedOn="{StaticResource HeaderBorderStyle}">
+            <Setter Property="Background" Value="MediumTurquoise"></Setter>
+        </Style>
+
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        </Style>
+
+        <Style x:Key="TextCenterStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <GroupBox Header="OKKEN"
+                  Margin="10"
+                  Padding="10">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+
+                    <!--Бордеры для заголовка для выравнивания привязаны к ширене первых трех столбцов-->
+                    <Border Background="White"
+                        Height="65" 
+                        Width="1000"
+                        Margin="-1000 0 0 0" Panel.ZIndex="1"/>
+                    <Border Background="White"
+                        Height="65" 
+                        Width="7"
+                        Margin="0 0 0 0" Panel.ZIndex="1"/>
+                    <Border Background="White"
+                        Height="65" 
+                        Width="25"
+                        Margin="0 0 0 0" Panel.ZIndex="1"/>
+
+                    <!--Бордеры для скрытия заголовка-->
+                    <Border Background="White"
+                        Height="65" 
+                        Width="{Binding ElementName=NoColText, Path=ActualWidth, Mode=OneWay}"
+                        Margin="0 0 0 0" Panel.ZIndex="1"/>
+                    <Border Background="White"
+                        Height="65" 
+                        Width="{Binding ElementName=NameOfSheetText, Path=ActualWidth, Mode=OneWay}"
+                        Margin="0 0 0 0" Panel.ZIndex="1"/>
+
+                    <!--Таблица надзаголовка для надзаголовка-->
+                    <Grid x:Name="HeaderGrid"
+                        ShowGridLines="False" Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{Binding ElementName=NumsOfPoleComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=TypeOfServiceComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=TypesOfInstallComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=TypesOfAutomationlComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=ShotCurrentText, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=GrSystemsComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=DegreeIPComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=PowerSupplyComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=MetalBusCoatingComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=EpoxyBusCoatingComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=PaintingComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=SpaceReserveComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=ATSPresentComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=INCLocationComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=INCConnectionComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=INC1ComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=INC2ComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=INC3ComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=BusTieComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=TypeOfBusTieComboBox, Path=ActualWidth, Mode=OneWay}"/>
+
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider1Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider2Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider3Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider4Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider5Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider6Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider7Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider8Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider9Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider10Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider11Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider12Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider13Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1Fider14Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1FiderLastText, Path=ActualWidth, Mode=OneWay}"/>
+
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider1Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider2Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider3Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider4Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider5Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider6Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider7Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider8Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider9Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider10Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider11Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider12Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider13Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2Fider14Text, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2FiderLastText, Path=ActualWidth, Mode=OneWay}"/>
+
+                            <ColumnDefinition Width="{Binding ElementName=Sect1MCC1, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1MCC2, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1MCC3, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1MCC4, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1MCC5, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1MCC6, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1MCC7, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1MCC8, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1MCC_Last, Path=ActualWidth, Mode=OneWay}"/>
+
+                            <ColumnDefinition Width="{Binding ElementName=Sect2MCC1, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2MCC2, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2MCC3, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2MCC4, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2MCC5, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2MCC6, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2MCC7, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2MCC8, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2MCC_Last, Path=ActualWidth, Mode=OneWay}"/>
+
+                            <ColumnDefinition Width="{Binding ElementName=Sect1SS1, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1SS2, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1SS3, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1SS4, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1SS5, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1SS_Last, Path=ActualWidth, Mode=OneWay}"/>
+
+                            <ColumnDefinition Width="{Binding ElementName=Sect2SS1, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2SS2, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2SS3, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2SS4, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2SS5, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2SS_Last, Path=ActualWidth, Mode=OneWay}"/>
+
+                            <ColumnDefinition Width="{Binding ElementName=Sect1VSD1, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1VSD2, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1VSD3, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1VSD4, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1VSD5, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect1VSD_Last, Path=ActualWidth, Mode=OneWay}"/>
+
+                            <ColumnDefinition Width="{Binding ElementName=Sect2VSD1, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2VSD2, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2VSD3, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2VSD4, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2VSD5, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2VSD_Last, Path=ActualWidth, Mode=OneWay}"/>
+
+                            <ColumnDefinition Width="{Binding ElementName=Sect1CompPowerComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                            <ColumnDefinition Width="{Binding ElementName=Sect2CompPowerComboBox, Path=ActualWidth, Mode=OneWay}"/>
+
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <!--Бордеры для надзаголовка-->
+                        <Border x:Name="IncomersBorder"
+                            Style="{StaticResource HeaderBorderStyle}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Вводные аппараты
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="BTBorder"                          
+                                Style="{StaticResource HeaderBorderStyle}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center"  FontWeight="Bold" FontSize="12">
+                                Секционный аппарат
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="Sec1FidersBorder"
+                                Style="{StaticResource HeaderBorderStyle1}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Секция 1
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="Sec2FidersBorder"
+                                Style="{StaticResource HeaderBorderStyle2}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Секция 2
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="FiderBorder"
+                                Style="{StaticResource HeaderBorderStyle}"
+                                Grid.Row="0">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Отходящие фидеры DF
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="Sec1MCCBorder"
+                                Style="{StaticResource HeaderBorderStyle1}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Секция 1
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="Sec2MCCBorder"
+                                Style="{StaticResource HeaderBorderStyle2}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Секция 2
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="MCCBorder"
+                                Style="{StaticResource HeaderBorderStyle}"
+                                Grid.Row="0">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Управление двигателями MCC
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="Sect1SSBorder"
+                                Style="{StaticResource HeaderBorderStyle1}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Секция 1
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="Sect2SSBorder"
+                                Style="{StaticResource HeaderBorderStyle2}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Секция 2
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="SSBorder"
+                                Style="{StaticResource HeaderBorderStyle}"
+                                Grid.Row="0">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Устройство плавного пуска SS
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="Sect1VSDBorder"
+                                Style="{StaticResource HeaderBorderStyle1}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Секция 1
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="Sect2VSDBorder"
+                                Style="{StaticResource HeaderBorderStyle2}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Секция 2
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="VSDBorder"
+                                Style="{StaticResource HeaderBorderStyle}"
+                                Grid.Row="0">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Частотный преобразователь VSD
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="PFCBorder"
+                                Style="{StaticResource HeaderBorderStyle}"
+                                Grid.Row="1">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                Компенсация
+                            </TextBlock>
+                        </Border>
+
+                    </Grid>
+                </StackPanel>
+
+                <DataGrid x:Name="MainDataGrid"
+                              AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray"
+                              RowBackground="LightGray" AlternatingRowBackground="White"
+                              ml:ExcelActions.EnabledCopyExcel="True"
+                              ml:ExcelActions.EnabledPasteExcel="True"
+                              ml:ExcelActions.CreateContextMenu="True"
+                              ml:ExcelActions.ContainsHeader="False"
+                              ml:ExcelActions.CancelWithErrors="True"
+                              ml:ExcelActions.PaintFlash="True"
+                              ml:ExcelActions.ColorFlash="Yellow"
+                              ml:ExcelActions.ShowErrorMessages="True"
+                              CanUserAddRows="False"
+                              CurrentCellChanged="MainDataGrid_CurrentCellChanged"
+                              FrozenColumnCount="3"
+                              HorizontalScrollBarVisibility="Auto"
+                              ScrollViewer.ScrollChanged="MainDataGrid_ScrollChanged"        
+                              MaxHeight="550">
+
+                    <DataGrid.Resources>
+                        <!--Стиль для выбранного столбца-->
+                        <Style TargetType="DataGridCell" x:Key="SelectedColumnStyle">
+                            <!--<Setter Property="Background" Value="#0079d8"/>-->
+                            <Setter Property="Background" Value="Red"/>
+                        </Style>
+
+                        <!--Стиль для вводных аппаратов секции 1-->
+                        <Style TargetType="DataGridCell" x:Key="IncomerColumnStyle1">
+                            <Setter Property="Background" Value="LightSteelBlue"/>
+                        </Style>
+
+                        <!--Стиль для вводных аппаратов секции 2-->
+                        <Style TargetType="DataGridCell" x:Key="IncomerColumnStyle2">
+                            <Setter Property="Background" Value="MediumAquamarine"/>
+                        </Style>
+
+                        <Style TargetType="ScrollBar">
+                            <Style.Triggers>
+                                <Trigger Property="Orientation" Value="Horizontal">
+                                    <Setter Property="Height" Value="22"/>
+                                </Trigger>
+                                <Trigger Property="Orientation" Value="Vertical">
+                                    <Setter Property="Width" Value="22"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+
+                    </DataGrid.Resources>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="FontWeight"  Value="Bold" />
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.Items>
+
+                    </DataGrid.Items>
+
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn x:Name="MinusBtnCol" 
+                                                Width="25"
+                                                CanUserResize="False">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="DeletRow" Content="-" Tag="{Binding}" Command="Delete"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn 
+                                        x:Name="NoColText"
+                                        Header="№"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                        Binding="{Binding Path=Id, Mode=OneWay}" 
+                                        Width="40"/>
+
+                        <DataGridTextColumn x:Name="NameOfSheetText"
+                                        Header="Наименование щита"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                        Binding="{Binding Path=Name, Mode=TwoWay}" 
+                                        Width="120"/>
+
+                        <DataGridComboBoxColumn x:Name="NumsOfPoleComboBox"
+                                            Width="70"
+                                            Header="Кол-во полюсов"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding NumOfPole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding NumsOfPole}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="TypeOfServiceComboBox"
+                                            Width="110"
+                                            Header="Обслуживание"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding TypeOfService, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding TypeOfServices}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="TypesOfInstallComboBox"
+                                            Width="100"
+                                            Header="Тип установки"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding TypeOfInstall, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding TypesOfInstall}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="TypesOfAutomationlComboBox"
+                                            Width="100"
+                                            Header="Тип автоматизации"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding TypeOfAutomation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding TypesOfAutomation}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridTextColumn x:Name="ShotCurrentText"
+                                        Header="Ток КЗ (кА)"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                        ElementStyle="{StaticResource TextCenterStyle}"
+                                        Binding="{Binding Path=ShotCurr, Mode=TwoWay}" 
+                                        Width="120"/>
+
+                        <!--<DataGridComboBoxColumn x:Name="ShotCurrentsComboBox"
+                                            Width="60"
+                                            Header="Ток КЗ (кА)"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding ShotCurr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding ShotCurrents}">
+                        </DataGridComboBoxColumn>-->
+
+                        <DataGridComboBoxColumn x:Name="GrSystemsComboBox"
+                                            Header="Система заземления"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            Width="80"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding GrSystem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding GrSystems}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="DegreeIPComboBox"
+                                            Header="Степень защиты"
+                                            Width="80"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding DegreeIP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding DegreeIPs}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="PowerSupplyComboBox"
+                                            Header="Подвод питания"
+                                            Width="110"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding PowerSupply, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding PowerSupplys}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="MetalBusCoatingComboBox"
+                                            Header="Металлизированное покрытие шин"
+                                            Width="130"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding MetalBusCoating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding MetalBusCoatings}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="EpoxyBusCoatingComboBox"
+                                            Header="Эпоксидное покрытие шин"
+                                            Width="100"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding EpoxyBusCoating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding EpoxyBusCoatings}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="PaintingComboBox"
+                                            Header="Покраска"
+                                            Width="90"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding Painting, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding Paintings}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="SpaceReserveComboBox"
+                                            Header="Свободное пространство, %"
+                                            Width="100"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding SpaceReserve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding SpaceReserves}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="ATSPresentComboBox"
+                                            Header="Наличие АВР"
+                                            Width="40"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ATSComboBoxStyle}"
+                                            SelectedValueBinding="{Binding ATSPresent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding ATSPresents}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="INCLocationComboBox"
+                                            Header="Расположение"
+                                            Width="95"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle2}"
+                                            SelectedValueBinding="{Binding IncomerLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding IncomerLocations}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="INCConnectionComboBox"
+                                            Header="Подключение"
+                                            Width="95"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle2}"
+                                            SelectedValueBinding="{Binding TypeOfConnection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding TypeOfConnections}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="INC1ComboBox"
+                                            Header="INC1 (А)"
+                                            Width="60"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle2}"
+                                            SelectedValueBinding="{Binding StringIncomerCurrent_Sect1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding StringIncomersCurrents}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="INC2ComboBox"
+                                            Header="INC2 (А)"
+                                            Width="60"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle2}"
+                                            SelectedValueBinding="{Binding StringIncomerCurrent_Sect2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding StringIncomersCurrents}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="INC3ComboBox"
+                                            Header="Доп-ный INC3 (А)"
+                                            Width="70"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle2}"
+                                            SelectedValueBinding="{Binding StringIncomerCurrent_Sect3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding StringIncomersCurrents}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="BusTieComboBox"
+                                            Header="BT (А)"
+                                            Width="85"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle2}"
+                                            SelectedValueBinding="{Binding StringBustieCurrent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding StringIncomersCurrents}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="TypeOfBusTieComboBox"
+                                            Header="Тип"
+                                            Width="110"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle2}"
+                                            SelectedValueBinding="{Binding TypeOfSectApp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding TypeOfSectApps}">
+                        </DataGridComboBoxColumn>
+
+                        <!--Отходящие фидеры секция 1/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider1Text"
+                                        Header="100А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider1, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider2Text"
+                                        Header="160А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider2, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider3Text"
+                                        Header="250А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider3, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider4Text"
+                                        Header="400А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider4, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider5Text"
+                                        Header="630А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider5, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider6Text"
+                                        Header="800А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider6, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider7Text"
+                                        Header="1000А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider7, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider8Text"
+                                        Header="1200А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider8, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider9Text"
+                                        Header="1600А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider9, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider10Text"
+                                        Header="2000А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider10, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider11Text"
+                                        Header="2500А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider11, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider12Text"
+                                        Header="3200А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider12, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider13Text"
+                                        Header="4000А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider13, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1Fider14Text"
+                                        Header="5000А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider14, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1FiderLastText"
+                                        Header="6300А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfFider15, Mode=TwoWay}" 
+                                        Width="25"/>
+
+                        <!--Отходящие фидеры секция 2/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider1Text"
+                                        Header="100А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider2Text"
+                                        Header="160А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider3Text"
+                                        Header="250А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider4Text"
+                                        Header="400А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider5Text"
+                                        Header="630А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider6Text"
+                                        Header="800А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider7Text"
+                                        Header="1000А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider8Text"
+                                        Header="1200А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider9Text"
+                                        Header="1600А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider10Text"
+                                        Header="2000А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider10, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider11Text"
+                                        Header="2500А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider11, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider12Text"
+                                        Header="3200А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider12, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider13Text"
+                                        Header="4000А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider13, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2Fider14Text"
+                                        Header="5000А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider14, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2FiderLastText"
+                                        Header="6300А"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfFider15, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <!--Управление двигателями секция 1/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <DataGridTextColumn 
+                                        x:Name="Sect1MCC1"
+                                        Header="4kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfMCC1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1MCC2"
+                                        Header="5,5-7,5kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfMCC2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1MCC3"
+                                        Header="11-15kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfMCC3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1MCC4"
+                                        Header="18,5-22kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfMCC4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1MCC5"
+                                        Header="30-37kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfMCC5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1MCC6"
+                                        Header="45-75kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfMCC6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1MCC7"
+                                        Header="90-110kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfMCC7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1MCC8"
+                                        Header="132-160kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfMCC8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1MCC_Last"
+                                        Header="200-250kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfMCC9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <!--Управление двигателями секция 2/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <DataGridTextColumn 
+                                        x:Name="Sect2MCC1"
+                                        Header="4kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfMCC1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2MCC2"
+                                        Header="5,5-7,5kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfMCC2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2MCC3"
+                                        Header="11-15kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfMCC3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2MCC4"
+                                        Header="18,5-22kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfMCC4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2MCC5"
+                                        Header="30-37kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfMCC5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2MCC6"
+                                        Header="45-75kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfMCC6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2MCC7"
+                                        Header="90-110kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfMCC7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2MCC8"
+                                        Header="132-160kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfMCC8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2MCC_Last"
+                                        Header="200-250kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfMCC9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <!--Плавный пуск SS секция 1/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <DataGridTextColumn 
+                                        x:Name="Sect1SS1"
+                                        Header="5,5kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfSS1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1SS2"
+                                        Header="7,5-18,5kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfSS2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1SS3"
+                                        Header="22-45kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfSS3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1SS4"
+                                        Header="55-110kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfSS4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1SS5"
+                                        Header="132-250kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfSS5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1SS_Last"
+                                        Header="315-400kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfSS6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <!--Плавный пуск SS секция 2/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <DataGridTextColumn 
+                                        x:Name="Sect2SS1"
+                                        Header="5,5kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfSS1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2SS2"
+                                        Header="7,5-18,5kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfSS2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2SS3"
+                                        Header="22-45kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect1NumOfSS3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2SS4"
+                                        Header="55-110kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfSS4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2SS5"
+                                        Header="132-250kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfSS5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2SS_Last"
+                                        Header="315-400kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfSS6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <!--Частотный преобразователь VSD секция 1/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <DataGridTextColumn 
+                                        x:Name="Sect1VSD1"
+                                        Header="5,5kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfVSD1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1VSD2"
+                                        Header="7,5-18,5kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfVSD2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1VSD3"
+                                        Header="22-45kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfVSD3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1VSD4"
+                                        Header="55-110kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfVSD4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1VSD5"
+                                        Header="132-250kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfVSD5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect1VSD_Last"
+                                        Header="315-400kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfVSD6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <!--Плавный пуск SS секция 2/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <DataGridTextColumn 
+                                        x:Name="Sect2VSD1"
+                                        Header="5,5kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfVSD1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2VSD2"
+                                        Header="7,5-18,5kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfVSD2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2VSD3"
+                                        Header="22-45kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect1NumOfVSD3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2VSD4"
+                                        Header="55-110kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfVSD4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2VSD5"
+                                        Header="132-250kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfVSD5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <DataGridTextColumn 
+                                        x:Name="Sect2VSD_Last"
+                                        Header="315-400kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfVSD6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                        <!--Компенсация реактивной мощности-->
+                        <DataGridComboBoxColumn x:Name="Sect1CompPowerComboBox"
+                                            Header="PFC1 (kVAR)"
+                                            Width="50"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                            SelectedValueBinding="{Binding StrCompPowerSect1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding CompPowers}">
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="Sect2CompPowerComboBox"
+                                            Header="PFC2 (kVAR)"
+                                            Width="50"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                            SelectedValueBinding="{Binding StrCompPowerSect2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding CompPowers}">
+                        </DataGridComboBoxColumn>
+
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
+                <StackPanel Orientation="Horizontal">
+                    <!--Бордеры для выравнивания кнопки привязаны к ширене первых трех столбцов-->
+                    <Border Background="White"
+                        Height="22" 
+                        Width="7"
+                        Margin="0 -23 0 0"/>
+                    <Border Background="White"
+                        Height="22"
+                        Width="{Binding ElementName=MinusBtnCol, Path=ActualWidth, Mode=OneWay}"
+                        Margin="0 -23 0 0"/>
+                    <Border Background="White"
+                        Height="22"
+                        Width="{Binding ElementName=NoColText, Path=ActualWidth, Mode=OneWay}"
+                        Margin="0 -23 0 0"/>
+                    <!--Кнопка добавить новую панель-->
+                    <Button x:Name="AddRowBtn" 
+                        Content="Добавить панель" 
+                        Click="AddRowBtn_Click" 
+                        Width="{Binding ElementName=NameOfSheetText, Path=ActualWidth, Mode=OneWay}" 
+                        Height="22" Margin="0 -23 0 0">
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>
