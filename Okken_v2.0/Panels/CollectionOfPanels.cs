@@ -9,13 +9,14 @@ namespace Okken
 {
     public class CollectionOfPanels
     {
+        CollectionOfPanels() { }
 
         Base @base;
 
         /// <summary>
         /// Коллекция панелей
         /// </summary>
-        public ObservableCollection<Panel> PanelList { get; }
+        public ObservableCollection<Panel> PanelList { get; set; }
 
         private int numOfPanel;
         /// <summary>

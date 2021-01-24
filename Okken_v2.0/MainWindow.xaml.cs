@@ -27,6 +27,8 @@ namespace Okken
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Полное имя для сохранения
+        string fileNameToSave;
         CollectionOfPanels CollectionOfPanels { get; set; }
         DataGridColumn CurrentColumn = null;
 
@@ -65,10 +67,10 @@ namespace Okken
 
         public MainWindow()
         {
+
             //------------------------------------------Считывание базы из файла-------------------------------------//
 
             Base @base = new Base("Base.xlsx", "CB_Base", "MCC-Base", "SS-Base", "VSD-Base", "PFC-Base", "Collons-Base");
-
 
             //------------------------------------------Инициализация и основная логика------------------------------------//
             InitializeComponent();
@@ -226,6 +228,7 @@ namespace Okken
             MainDataGrid.Columns[numOfCol_Sect2VSD_Last].CellStyle = IncomerColumnStyle2;
 
 
+            //Событие изменения коллекции****************************************************************************************
             CollectionOfPanels.PanelList.CollectionChanged += PanelList_CollectionChanged;
 
 
@@ -247,7 +250,7 @@ namespace Okken
             MainDataGrid.ItemsSource = CollectionOfPanels.PanelList;
         }
 
-        //Событие изменения таблицы
+        //Событие изменения таблицы****************************************************************************************
         private void PanelList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             CollectionOfPanels.SetLinkToSelf(CollectionOfPanels);
@@ -358,6 +361,134 @@ namespace Okken
             if (e.HorizontalChange != 0)
             {
                 HeaderGrid.Margin = new Thickness(HeaderGrid.Margin.Left - e.HorizontalChange, 0, 0, 0);
+            }
+        }
+        
+        //*************************************************************************************************************************************************
+        //Событие сохранения проекта
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {          
+            if(fileNameToSave != null)
+            {
+                // Save document
+                SerializeXML(out fileNameToSave, fileNameToSave);
+            }
+            else
+            {
+                try
+                {
+                    // Configure open file dialog box
+                    Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                    dlg.FileName = "Document"; // Default file name
+                    dlg.DefaultExt = ".xml"; // Default file extension
+                    dlg.Filter = "XML файл (.xml)|*.xml"; // Filter files by extension
+
+                    // Show open file dialog box
+                    Nullable<bool> result = dlg.ShowDialog();
+
+                    // Process open file dialog box results
+                    if (result == true)
+                    {
+                        // Save document
+                        SerializeXML(out fileNameToSave, dlg.FileName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        //Событие сохранения как проекта 
+        private void SaveAs_Click(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show("Нажали SaveAs");     
+            try
+            {
+                // Configure save file dialog box
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+                dlg.FileName = "Document"; // Default file name
+                dlg.DefaultExt = ".xml"; // Default file extension
+                dlg.Filter = "XML файл (.xml)|*.xml"; // Filter files by extension
+
+                // Show save file dialog box
+                Nullable<bool> result = dlg.ShowDialog();
+
+                // Process save file dialog box results
+                if (result == true)
+                {
+                    // Save document
+                    SerializeXML(out fileNameToSave, dlg.FileName);
+                }
+                else { MessageBox.Show("Файл не сохранен"); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //Событие открытие проекта 
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Configure open file dialog box
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.FileName = "Document"; // Default file name
+                dlg.DefaultExt = ".xml"; // Default file extension
+                dlg.Filter = "XML файл (.xml)|*.xml"; // Filter files by extension
+
+                // Show open file dialog box
+                Nullable<bool> result = dlg.ShowDialog();
+
+                // Process open file dialog box results
+                if (result == true)
+                {
+                    // Open document
+                    DeserializeXML(out fileNameToSave, dlg.FileName);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Файл не соответствует формату!");
+            }
+        }
+
+        /// <summary>
+        /// Серриализация и перезапись файла
+        /// </summary>
+        /// <param name="fileNameToSave">Глобальная переменная для сохранения имяни файла</param>
+        /// <param name="fileName">Новое имя файла</param>
+        public void SerializeXML(out string fileNameToSave, string fileName)
+        {
+            fileNameToSave = fileName;
+
+            XmlSerializer formater = new XmlSerializer(typeof(CollectionOfPanels));
+            File.Delete(fileNameToSave);
+            using (FileStream fs = new FileStream(fileNameToSave, FileMode.Create))
+            {
+                formater.Serialize(fs, CollectionOfPanels);
+                MessageBox.Show("Файл сохранен");
+            }
+        }
+
+        /// <summary>
+        /// Открытие и Дессериализация файла
+        /// </summary>
+        /// <param name="fileNameToSave">Глобальная переменная для сохранения имяни файла</param>
+        /// <param name="fileName">Новое имя файла</param>
+        public void DeserializeXML(out string fileNameToSave, string fileName)
+        {
+            fileNameToSave = fileName;
+
+            XmlSerializer formater = new XmlSerializer(typeof(CollectionOfPanels));
+            using (FileStream fs = new FileStream(fileNameToSave, FileMode.OpenOrCreate))
+            {
+                CollectionOfPanels = (CollectionOfPanels)formater.Deserialize(fs);
+                RefreshTable();
+                CollectionOfPanels.PanelList.CollectionChanged += PanelList_CollectionChanged;
             }
         }
     }
