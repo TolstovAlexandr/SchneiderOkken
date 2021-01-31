@@ -141,7 +141,7 @@
                     </MenuItem>
 
                     <MenuItem Header="Сохранить">
-                        <MenuItem Header="Сохранить" InputGestureText="Ctrl+S"
+                        <MenuItem Header="Сохранить"
                                   Click="Save_Click"/>
                         <MenuItem Header="Сохранить как"
                                   Click="SaveAs_Click"/>
