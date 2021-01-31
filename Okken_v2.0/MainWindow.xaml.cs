@@ -35,7 +35,6 @@ namespace Okken
         Style IncomerColumnStyle1 = null;
         Style IncomerColumnStyle2 = null;
 
-
         static int numOfCol_Inc; //Номер столбца Вводных аппаратов
         static int numOfCol_Sect; //Номер столбца Секционника
 
@@ -429,8 +428,17 @@ namespace Okken
             }
         }
 
-        //Событие открытие проекта 
+        //Событие открытие проекта ------------------------------------------------------------------------------
         private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            OpenDialogWindow openDialogWindow = new OpenDialogWindow();
+            openDialogWindow.Show();
+            openDialogWindow.YesSaveButton.Click += SaveAs_Click;
+            openDialogWindow.YesSaveButton.Click += Open_Click1;
+            openDialogWindow.NoCancelButton.Click += Open_Click1;
+        }
+
+        private void Open_Click1(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -455,11 +463,38 @@ namespace Okken
                 MessageBox.Show("Файл не соответствует формату!");
             }
         }
+        //Событие открытие проекта ------------------------------------------------------------------------------
 
         //Событи создать новый файл
         private void New_Click(object sender, RoutedEventArgs e)
         {
+            SaveDialogWindow saveDialogWindow = new SaveDialogWindow();
+            saveDialogWindow.Show();
+            saveDialogWindow.YesSaveButton.Click += SaveAs_Click;
 
+            CollectionOfPanels.PanelList.Clear();
+
+            Panel newPanel = new Panel
+            {
+                Id = 1,
+                NumOfPole = "3P",
+                TypeOfService = "Одностороннее",
+                MetalBusCoating = "НЕТ",
+                EpoxyBusCoating = "НЕТ",
+                Painting = "RAL 9003",
+                SpaceReserve = "10",
+                ATSPresent = "НЕТ",
+                IncomerLocation = "По краям",
+                TypeOfConnection = "Сверху",
+                StringIncomerCurrent_Sect1 = "НЕТ",
+                StringIncomerCurrent_Sect2 = "НЕТ",
+                StringIncomerCurrent_Sect3 = "НЕТ",
+                StringBustieCurrent = "НЕТ",
+                TypeOfSectApp = "АВ",
+                StrCompPowerSect1 = "НЕТ",
+                StrCompPowerSect2 = "НЕТ"
+            };
+            CollectionOfPanels.AddPanel(newPanel);
         }
 
         /// <summary>

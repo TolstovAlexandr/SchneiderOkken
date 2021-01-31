@@ -77,6 +77,12 @@
     <Compile Include="Collections\IFunctionUnit.cs" />
     <Compile Include="MainLogic\Column.cs" />
     <Compile Include="MainLogic\FuncUnit.cs" />
+    <Compile Include="OpenDialogWindow.xaml.cs">
+      <DependentUpon>OpenDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SaveDialogWindow.xaml.cs">
+      <DependentUpon>SaveDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TypeOfApparatus\Apparat.cs" />
     <Compile Include="TypeOfCubicles\Cubicle_115.cs" />
     <Compile Include="TypeOfCubicles\Cubicle_115_70_2.cs" />
@@ -97,6 +103,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OpenDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SaveDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Panels\Panel.cs" />

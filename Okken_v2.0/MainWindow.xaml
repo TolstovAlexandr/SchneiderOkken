@@ -129,21 +129,21 @@
             <!--Меню-->
             <!--*****************************************************************************************************************-->
             <Menu IsMainMenu="True">
-                <MenuItem Header="File">
-                    <MenuItem Header="New">
-                        <MenuItem Header="Project..." InputGestureText="Ctrl+Shift+N"
+                <MenuItem Header="Файл">
+                    <MenuItem Header="Новый">
+                        <MenuItem Header="Проект..."
                                   Click="New_Click"/>
                     </MenuItem>
 
-                    <MenuItem Header="Open">
-                        <MenuItem Header="Project..."
+                    <MenuItem Header="Открыть">
+                        <MenuItem Header="Проект..."
                                   Click="Open_Click"/>
                     </MenuItem>
 
-                    <MenuItem Header="Save Project">
-                        <MenuItem Header="Save" InputGestureText="Ctrl+S"
+                    <MenuItem Header="Сохранить">
+                        <MenuItem Header="Сохранить" InputGestureText="Ctrl+S"
                                   Click="Save_Click"/>
-                        <MenuItem Header="Save As"
+                        <MenuItem Header="Сохранить как"
                                   Click="SaveAs_Click"/>
                     </MenuItem>
 
