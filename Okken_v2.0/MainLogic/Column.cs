@@ -20,6 +20,6 @@ namespace Okken
         public string Discription { get; set; }
         public string Price { get; set; }
 
-        List<FuncUnit> FuncUnits { get; set; }
+        List<Unit> FuncUnits { get; set; }
     }
 }

@@ -69,7 +69,7 @@ namespace Okken
 
             //------------------------------------------Считывание базы из файла-------------------------------------//
 
-            Base @base = new Base("Base.xlsx", "CB_Base", "MCC-Base", "SS-Base", "VSD-Base", "PFC-Base", "Collons-Base");
+            Base @base = new Base("Base.xlsx", "INC-Base", "BC-Base", "DF-Base", "MCC-Base", "SS-Base", "VSD-Base", "PFC-Base");
 
             //------------------------------------------Инициализация и основная логика------------------------------------//
             InitializeComponent();

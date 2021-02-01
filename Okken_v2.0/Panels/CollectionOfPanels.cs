@@ -199,20 +199,20 @@ namespace Okken
             StringIncomersCurrents = new ObservableCollection<string>();
             StringIncomersCurrents.Add("НЕТ");
             //Заполняем из база номинальные токи аппаратов
-            foreach (var item in @base.CB_List)
+            foreach (var item in @base.iNC_Unit)
             {
                 bool flag = false;
                 //Исключаем повторение
                 foreach (var incomerCurr in StringIncomersCurrents)
                 {
-                    if (item.Curr.ToString() == incomerCurr)
+                    if (item.RatedСurrent.ToString() == incomerCurr)
                     {
                         flag = true;
                     }
                 }
                 
-                if (flag != true && item.Curr >= 800)
-                    StringIncomersCurrents.Add(item.Curr.ToString());
+                if (flag != true && item.RatedСurrent >= 800)
+                    StringIncomersCurrents.Add(item.RatedСurrent.ToString());
                 flag = false;
             }
 

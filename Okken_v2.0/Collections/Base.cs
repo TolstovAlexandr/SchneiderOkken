@@ -18,7 +18,7 @@ namespace Okken
         ExcelWork ExcelWork { get; set; }
         Worksheet worksheet; //Рабочий лист
 
-        public List<CB_class> CB_List { get; set; }//Список автоматических выключателей
+        public List<Unit> iNC_Unit { get; set; }//Список вводных автоматических выключателей
 
         /// <summary>
         /// Конструктор
@@ -30,12 +30,19 @@ namespace Okken
         /// <param name="nmOfVSD_Sheet">Имя листа с VSD</param>
         /// <param name="nmOfPFC_Sheet">Имя листа с PFC</param>
         /// <param name="nmOfCollonsSheet">Имя листа с Колоннами</param>
-        public Base(string pathToExcell, string nmOfCB_Sheet, string nmOfMCC_Sheet, string nmOfSS_Sheet, string nmOfVSD_Sheet, string nmOfPFC_Sheet, string nmOfCollonsSheet)
+        public Base(string pathToExcell, 
+            string INC_Sheet, 
+            string BC_Sheet, 
+            string DF_Sheet, 
+            string MCC_Sheet, 
+            string SS_Sheet, 
+            string VSD_Sheet,
+            string PFC_Sheet)
         {
             try
             {
                 ExcelWork = new ExcelWork(pathToExcell);
-                CB_List = GetCB_s(nmOfCB_Sheet);
+                iNC_Unit = Get_Unit("INC", INC_Sheet);
             }
             catch (Exception ex)
             {
@@ -46,41 +53,40 @@ namespace Okken
         /// <summary>
         /// Считывания с Excell Автоматических выключателей
         /// </summary>
-        /// <param name="nameOfSheet"></param>
+        /// <param name="type">Тип юнита</param>
+        /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<CB_class> GetCB_s(string nameOfSheet)
+        public List<Unit> Get_Unit(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
 
             //Список аппаратов
-            List<CB_class> cB_s = new List<CB_class>();
+            List<Unit> Unit = new List<Unit>();
 
-            string name; //имя
-            int? numOfPole; //Количество полюсов
-            string type; //Тип устройства
-            int? shotCurr; //Ток КЗ
-            int? curr; //Номинальный ток
-            string typeOfInstall; //Тип установки
-            string discr; //Описание
-            string articul; //Артикул
-            double? price; //Цена
+            string name;
+            int? numOfPole;
+            string typeOfBreakingCapacity;
+            int? shortСircuitСurrent;
+            int? ratedСurrent;
+            int? numOfUnit;
+            string description;
+            double? priceOfUnit;
 
             for (int i = 1; i <= numOfRowCB + 1; i++)
             {
                 name = ExcelWork.ReadString(i, 0, nameOfSheet: nameOfSheet);
                 numOfPole = ExcelWork.ReadInt(i, 1, nameOfSheet: nameOfSheet);
-                type = ExcelWork.ReadString(i, 2, nameOfSheet: nameOfSheet);
-                shotCurr = ExcelWork.ReadInt(i, 3, nameOfSheet: nameOfSheet);
-                curr = ExcelWork.ReadInt(i, 4, nameOfSheet: nameOfSheet);
-                typeOfInstall = ExcelWork.ReadString(i, 5, nameOfSheet: nameOfSheet);
-                discr = ExcelWork.ReadString(i, 6, nameOfSheet: nameOfSheet);
-                articul = ExcelWork.ReadString(i, 7, nameOfSheet: nameOfSheet);
-                price = ExcelWork.ReadDouble(i, 8, nameOfSheet: nameOfSheet);
+                typeOfBreakingCapacity = ExcelWork.ReadString(i, 2, nameOfSheet: nameOfSheet);
+                shortСircuitСurrent = ExcelWork.ReadInt(i, 3, nameOfSheet: nameOfSheet);
+                ratedСurrent = ExcelWork.ReadInt(i, 4, nameOfSheet: nameOfSheet);
+                numOfUnit = ExcelWork.ReadInt(i, 5, nameOfSheet: nameOfSheet);
+                description = ExcelWork.ReadString(i, 6, nameOfSheet: nameOfSheet);
+                priceOfUnit = ExcelWork.ReadDouble(i, 7, nameOfSheet: nameOfSheet);
 
-                cB_s.Add(new CB_class(name, numOfPole, type, shotCurr, curr, typeOfInstall, discr, articul, price));
+                Unit.Add(new Unit(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, ratedСurrent, numOfUnit, description, priceOfUnit));
             }
-            return cB_s;
+            return Unit;
         }
     }
 }
