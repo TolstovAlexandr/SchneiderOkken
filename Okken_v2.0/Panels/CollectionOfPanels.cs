@@ -199,7 +199,7 @@ namespace Okken
             StringIncomersCurrents = new ObservableCollection<string>();
             StringIncomersCurrents.Add("НЕТ");
             //Заполняем из база номинальные токи аппаратов
-            foreach (var item in @base.iNC_Unit)
+            foreach (var item in @base.iNC_Units)
             {
                 bool flag = false;
                 //Исключаем повторение

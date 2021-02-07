@@ -64,6 +64,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Units\MCC_Unit.cs" />
+    <Compile Include="Units\PFC_Unit.cs" />
+    <Compile Include="Units\SS_Unit.cs" />
+    <Compile Include="Units\VSD_Unit.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,7 +77,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Collections\Base.cs" />
-    <Compile Include="Units\Unit.cs" />
+    <Compile Include="Units\BC_Unit.cs" />
+    <Compile Include="Units\DF_Unit.cs" />
+    <Compile Include="Units\IUnit.cs" />
+    <Compile Include="Units\INC_Unit.cs" />
     <Compile Include="MainLogic\Column.cs" />
     <Compile Include="OpenDialogWindow.xaml.cs">
       <DependentUpon>OpenDialogWindow.xaml</DependentUpon>
