@@ -30,6 +30,8 @@ namespace Okken
         //Полное имя для сохранения
         string fileNameToSave;
         CollectionOfPanels CollectionOfPanels { get; set; }
+        CollectionOfCalcPanels CollectionOfCalcPanels { get; set; }
+
         DataGridColumn CurrentColumn = null;
 
         Style IncomerColumnStyle1 = null;
@@ -72,7 +74,7 @@ namespace Okken
             Base @base = new Base("Base.xlsx", "INC-Base", "BC-Base", "DF-Base", "MCC-Base", "SS-Base", "VSD-Base", "PFC-Base");
 
             //------------------------------------------Инициализация и основная логика------------------------------------//
-            InitializeComponent();
+            InitializeComponent();           
 
             numOfCol_Inc = MainDataGrid.Columns.IndexOf(INCLocationComboBox);
             numOfCol_Sect = MainDataGrid.Columns.IndexOf(BusTieComboBox);
@@ -175,6 +177,9 @@ namespace Okken
 
             CollectionOfPanels.AddPanel(newPanel);
 
+            //------------------------------------------Инициализация таблицы с исходными данными------------------------------------//
+            #region Инициализация таблицы с исходными данными
+
             MainDataGrid.ItemsSource = CollectionOfPanels.PanelList;
             NumsOfPoleComboBox.ItemsSource = CollectionOfPanels.NumsOfPole;
             TypeOfServiceComboBox.ItemsSource = CollectionOfPanels.TypeOfServices;
@@ -198,6 +203,8 @@ namespace Okken
             TypeOfBusTieComboBox.ItemsSource = CollectionOfPanels.TypeOfSectApps;
             Sect1CompPowerComboBox.ItemsSource = CollectionOfPanels.CompPowers;
             Sect2CompPowerComboBox.ItemsSource = CollectionOfPanels.CompPowers;
+
+            #endregion
 
             IncomerColumnStyle1 = (Style)MainDataGrid.Resources["IncomerColumnStyle1"];
             IncomerColumnStyle2 = (Style)MainDataGrid.Resources["IncomerColumnStyle2"];
@@ -234,6 +241,14 @@ namespace Okken
             //ICubicle cubicle_230 = new Cubicle_230();
 
             //MessageBox.Show(cubicle_230.Name);
+
+            //------------------------------------------Инициализация таблицы с расчетными данными------------------------------------//
+            #region Инициализация таблицы с расчетными данными
+
+            CollectionOfCalcPanels = new CollectionOfCalcPanels();
+            CalcDataGrid.ItemsSource = CollectionOfCalcPanels.PanelList;
+
+            #endregion
         }
 
         public void RefreshTable()
@@ -531,6 +546,24 @@ namespace Okken
                 RefreshTable();
                 CollectionOfPanels.PanelList.CollectionChanged += PanelList_CollectionChanged;
             }
+        }
+
+        private void CalcDataGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CalcDataGrid_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Кнопка рассчитать панели
+        /// </summary>
+        private void CalculateButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

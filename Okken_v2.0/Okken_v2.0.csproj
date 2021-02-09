@@ -64,6 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Panels\CalcPanel.cs" />
+    <Compile Include="Panels\CollectionOfCalcPanels.cs" />
     <Compile Include="Units\MCC_Unit.cs" />
     <Compile Include="Units\PFC_Unit.cs" />
     <Compile Include="Units\SS_Unit.cs" />
