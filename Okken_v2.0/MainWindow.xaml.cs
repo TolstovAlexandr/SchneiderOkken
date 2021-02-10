@@ -29,8 +29,10 @@ namespace Okken
     {
         //Полное имя для сохранения
         string fileNameToSave;
-        CollectionOfPanels CollectionOfPanels { get; set; }
-        CollectionOfCalcPanels CollectionOfCalcPanels { get; set; }
+        CollectionOfPanels CollectionOfPanels;
+        CollectionOfCalcPanels CollectionOfCalcPanels;
+        Base @base;
+        ProjectClass projectClass { get; set; } //Переменная содержащая проект для расчета
 
         DataGridColumn CurrentColumn = null;
 
@@ -71,7 +73,7 @@ namespace Okken
 
             //------------------------------------------Считывание базы из файла-------------------------------------//
 
-            Base @base = new Base("Base.xlsx", "INC-Base", "BC-Base", "DF-Base", "MCC-Base", "SS-Base", "VSD-Base", "PFC-Base");
+            @base = new Base("Base.xlsx", "INC-Base", "BC-Base", "DF-Base", "MCC-Base", "SS-Base", "VSD-Base", "PFC-Base");
 
             //------------------------------------------Инициализация и основная логика------------------------------------//
             InitializeComponent();           
@@ -152,7 +154,7 @@ namespace Okken
             Grid.SetColumnSpan(PFCBorder, 2); 
 
 
-            CollectionOfPanels = new CollectionOfPanels(@base);
+            CollectionOfPanels = new CollectionOfPanels(ref @base);
 
             Panel newPanel = new Panel
             {
@@ -245,7 +247,7 @@ namespace Okken
             //------------------------------------------Инициализация таблицы с расчетными данными------------------------------------//
             #region Инициализация таблицы с расчетными данными
 
-            CollectionOfCalcPanels = new CollectionOfCalcPanels();
+            CollectionOfCalcPanels = new CollectionOfCalcPanels(ref @base);
             CalcDataGrid.ItemsSource = CollectionOfCalcPanels.PanelList;
 
             #endregion
@@ -563,7 +565,20 @@ namespace Okken
         /// </summary>
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
+            projectClass = new ProjectClass(ref CollectionOfPanels, ref @base); //Создаем проект и передаем по ссылке коллекцию панелей и базу
 
+            #region Логика с заполнением класса для вывода расчетной информации
+            CollectionOfCalcPanels.PanelList.Clear();
+            foreach (Sheeld sheeld in projectClass.sheelds)
+            {
+                CalcPanel calcPanel = new CalcPanel();
+                calcPanel.Id = sheeld.Id;
+                calcPanel.Name = sheeld.Name;
+
+                CollectionOfCalcPanels.PanelList.Add(calcPanel);
+            }
+            #endregion
+          
         }
     }
 }

@@ -9,6 +9,17 @@ namespace Okken
 {
     public class CollectionOfCalcPanels
     {
+        Base @base;
+        public CollectionOfCalcPanels()
+        {
+            PanelList = new ObservableCollection<CalcPanel>();
+        }
+
+        public CollectionOfCalcPanels(ref Base @base):this()
+        {
+            this.@base = @base;
+        }
+
         /// <summary>
         /// Коллекция панелей
         /// </summary>

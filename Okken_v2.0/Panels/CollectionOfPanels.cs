@@ -120,7 +120,7 @@ namespace Okken
         /// </summary>
         public ObservableCollection<string> CompPowers { get; set; }
 
-        public CollectionOfPanels(Base @base)
+        public CollectionOfPanels(ref Base @base)
         {
             this.@base = @base;
 

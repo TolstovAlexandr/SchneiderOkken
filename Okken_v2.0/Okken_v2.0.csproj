@@ -64,6 +64,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MainLogic\Colomn_115.cs" />
+    <Compile Include="MainLogic\Colomn_70_2.cs" />
+    <Compile Include="MainLogic\IColomn.cs" />
+    <Compile Include="MainLogic\ProjectClass.cs" />
+    <Compile Include="MainLogic\Sheeld.cs" />
     <Compile Include="Panels\CalcPanel.cs" />
     <Compile Include="Panels\CollectionOfCalcPanels.cs" />
     <Compile Include="Units\MCC_Unit.cs" />
@@ -83,7 +88,6 @@
     <Compile Include="Units\DF_Unit.cs" />
     <Compile Include="Units\IUnit.cs" />
     <Compile Include="Units\INC_Unit.cs" />
-    <Compile Include="MainLogic\Column.cs" />
     <Compile Include="OpenDialogWindow.xaml.cs">
       <DependentUpon>OpenDialogWindow.xaml</DependentUpon>
     </Compile>
