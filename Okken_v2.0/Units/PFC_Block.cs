@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Okken
 {
-    public class PFC_Unit : IUnit
+    public class PFC_Block : IBlock
     {
         public string Type { get; set; }
         public double? Power { get; set; } //Мощность конденсаторной установки
@@ -14,7 +14,7 @@ namespace Okken
         public string Description { get; set; }
         public double? PriceOfUnit { get; set; }
 
-        public PFC_Unit(string Type,
+        public PFC_Block(string Type,
             double? Power,
             int? NumOfUnit,
             string Description,

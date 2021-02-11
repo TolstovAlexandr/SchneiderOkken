@@ -6,34 +6,37 @@ using System.Threading.Tasks;
 
 namespace Okken
 {
-    public class INC_Unit : IUnit
+    public class SS_Block : IBlock
     {
         public string Type { get; set; }
         public string Name { get; set; }
         public int? NumOfPole { get; set; }
-        public string TypeOfBreakingCapacity { get; set; }
         public int? ShortСircuitСurrent { get; set; }
-        public int? RatedСurrent { get; set; }
+        public int? RatedСurrent { get; set; } //Номинальный ток устройства плавного пуска
+        public double? MinPower { get; set; }
+        public double? MaxPower { get; set; }
         public int? NumOfUnit { get; set; }
         public string Description { get; set; }
         public double? PriceOfUnit { get; set; }
 
-        public INC_Unit(string Type, 
-            string Name, 
-            int? NumOfPole, 
-            string TypeOfBreakingCapacity, 
-            int? ShortСircuitСurrent, 
-            int? RatedСurrent, 
-            int? NumOfUnit, 
+        public SS_Block(string Type,
+            string Name,
+            int? NumOfPole,
+            int? ShortСircuitСurrent,
+            int? RatedСurrent,
+            double? MinPower,
+            double? MaxPower,
+            int? NumOfUnit,
             string Description,
             double? PriceOfUnit)
         {
             this.Type = Type;
             this.Name = Name;
             this.NumOfPole = NumOfPole;
-            this.TypeOfBreakingCapacity = TypeOfBreakingCapacity;
             this.ShortСircuitСurrent = ShortСircuitСurrent;
             this.RatedСurrent = RatedСurrent;
+            this.MinPower = MinPower;
+            this.MaxPower = MaxPower;
             this.NumOfUnit = NumOfUnit;
             this.Description = Description;
             this.PriceOfUnit = PriceOfUnit;

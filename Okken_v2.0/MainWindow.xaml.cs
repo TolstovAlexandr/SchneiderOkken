@@ -574,6 +574,8 @@ namespace Okken
                 CalcPanel calcPanel = new CalcPanel();
                 calcPanel.Id = sheeld.Id;
                 calcPanel.Name = sheeld.Name;
+                calcPanel.NuberOfFuncUnits = sheeld.NuberOfBlocks;
+                calcPanel.SumNumberOfUnits = sheeld.SumNumberOfUnits;
 
                 CollectionOfCalcPanels.PanelList.Add(calcPanel);
             }

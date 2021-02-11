@@ -21,37 +21,37 @@ namespace Okken
         /// <summary>
         /// Список вводных автоматических выключателей
         /// </summary>
-        public List<INC_Unit> iNC_Units { get; set; }
+        public List<INC_Block> iNC_Units { get; set; }
 
         /// <summary>
         /// Список секционных автоматических выключателей
         /// </summary>
-        public List<BC_Unit> bC_Units { get; set; }
+        public List<BC_Block> bC_Units { get; set; }
 
         /// <summary>
         /// Список фмдерных автоматических выключателей
         /// </summary>
-        public List<DF_Unit> dF_Units { get; set; }
+        public List<DF_Block> dF_Units { get; set; }
 
         /// <summary>
         /// Список фмдернов MCC
         /// </summary>
-        public List<MCC_Unit> mCC_Units { get; set; }
+        public List<MCC_Block> mCC_Units { get; set; }
 
         /// <summary>
         /// Список фмдернов SS
         /// </summary>
-        public List<SS_Unit> sS_Units { get; set; }
+        public List<SS_Block> sS_Units { get; set; }
 
         /// <summary>
         /// Список фмдернов VSD
         /// </summary>
-        public List<VSD_Unit> vSD_Units { get; set; }
+        public List<VSD_Block> vSD_Units { get; set; }
 
         /// <summary>
         /// Список фмдернов PFC
         /// </summary>
-        public List<PFC_Unit> pFC_Units { get; set; }
+        public List<PFC_Block> pFC_Units { get; set; }
 
         /// <summary>
         /// Конструктор
@@ -95,12 +95,12 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<INC_Unit> Get_INC_Units(string type, string nameOfSheet)
+        public List<INC_Block> Get_INC_Units(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
 
-            List<INC_Unit> Units = new List<INC_Unit>();
+            List<INC_Block> Units = new List<INC_Block>();
 
             string name;
             int? numOfPole;
@@ -122,7 +122,7 @@ namespace Okken
                 description = ExcelWork.ReadString(i, 6, nameOfSheet: nameOfSheet);
                 priceOfUnit = ExcelWork.ReadDouble(i, 7, nameOfSheet: nameOfSheet);
 
-                Units.Add(new INC_Unit(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, ratedСurrent, numOfUnit, description, priceOfUnit));
+                Units.Add(new INC_Block(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, ratedСurrent, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }
@@ -133,12 +133,12 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<BC_Unit> Get_BC_Units(string type, string nameOfSheet)
+        public List<BC_Block> Get_BC_Units(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
 
-            List<BC_Unit> Units = new List<BC_Unit>();
+            List<BC_Block> Units = new List<BC_Block>();
 
             string name;
             int? numOfPole;
@@ -160,7 +160,7 @@ namespace Okken
                 description = ExcelWork.ReadString(i, 6, nameOfSheet: nameOfSheet);
                 priceOfUnit = ExcelWork.ReadDouble(i, 7, nameOfSheet: nameOfSheet);
 
-                Units.Add(new BC_Unit(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, ratedСurrent, numOfUnit, description, priceOfUnit));
+                Units.Add(new BC_Block(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, ratedСurrent, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }
@@ -171,12 +171,12 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<DF_Unit> Get_DF_Units(string type, string nameOfSheet)
+        public List<DF_Block> Get_DF_Units(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
 
-            List<DF_Unit> Units = new List<DF_Unit>();
+            List<DF_Block> Units = new List<DF_Block>();
 
             string name;
             int? numOfPole;
@@ -198,7 +198,7 @@ namespace Okken
                 description = ExcelWork.ReadString(i, 6, nameOfSheet: nameOfSheet);
                 priceOfUnit = ExcelWork.ReadDouble(i, 7, nameOfSheet: nameOfSheet);
 
-                Units.Add(new DF_Unit(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, ratedСurrent, numOfUnit, description, priceOfUnit));
+                Units.Add(new DF_Block(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, ratedСurrent, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }
@@ -209,12 +209,12 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<MCC_Unit> Get_MCC_Units(string type, string nameOfSheet)
+        public List<MCC_Block> Get_MCC_Units(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
 
-            List<MCC_Unit> Units = new List<MCC_Unit>();
+            List<MCC_Block> Units = new List<MCC_Block>();
 
             string name;
             int? numOfPole;
@@ -238,7 +238,7 @@ namespace Okken
                 description = ExcelWork.ReadString(i, 7, nameOfSheet: nameOfSheet);
                 priceOfUnit = ExcelWork.ReadDouble(i, 8, nameOfSheet: nameOfSheet);
 
-                Units.Add(new MCC_Unit(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, minPower, maxPower, numOfUnit, description, priceOfUnit));
+                Units.Add(new MCC_Block(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, minPower, maxPower, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }
@@ -249,12 +249,12 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<SS_Unit> Get_SS_Units(string type, string nameOfSheet)
+        public List<SS_Block> Get_SS_Units(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
 
-            List<SS_Unit> Units = new List<SS_Unit>();
+            List<SS_Block> Units = new List<SS_Block>();
 
         string name;
             int? numOfPole;
@@ -278,7 +278,7 @@ namespace Okken
                 description = ExcelWork.ReadString(i, 7, nameOfSheet: nameOfSheet);
                 priceOfUnit = ExcelWork.ReadDouble(i, 8, nameOfSheet: nameOfSheet);
 
-                Units.Add(new SS_Unit(type, name, numOfPole, shortСircuitСurrent, ratedСurrent, minPower, maxPower, numOfUnit, description, priceOfUnit));
+                Units.Add(new SS_Block(type, name, numOfPole, shortСircuitСurrent, ratedСurrent, minPower, maxPower, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }
@@ -289,12 +289,12 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<VSD_Unit> Get_VSD_Units(string type, string nameOfSheet)
+        public List<VSD_Block> Get_VSD_Units(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
 
-            List<VSD_Unit> Units = new List<VSD_Unit>();
+            List<VSD_Block> Units = new List<VSD_Block>();
 
             string name;
             int? numOfPole;
@@ -318,7 +318,7 @@ namespace Okken
                 description = ExcelWork.ReadString(i, 7, nameOfSheet: nameOfSheet);
                 priceOfUnit = ExcelWork.ReadDouble(i, 8, nameOfSheet: nameOfSheet);
 
-                Units.Add(new VSD_Unit(type, name, numOfPole, shortСircuitСurrent, ratedСurrent, minPower, maxPower, numOfUnit, description, priceOfUnit));
+                Units.Add(new VSD_Block(type, name, numOfPole, shortСircuitСurrent, ratedСurrent, minPower, maxPower, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }
@@ -329,12 +329,12 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<PFC_Unit> Get_PFC_Units(string type, string nameOfSheet)
+        public List<PFC_Block> Get_PFC_Units(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
 
-            List<PFC_Unit> Units = new List<PFC_Unit>();
+            List<PFC_Block> Units = new List<PFC_Block>();
 
             double? Power;
             int? numOfUnit;
@@ -348,7 +348,7 @@ namespace Okken
                 description = ExcelWork.ReadString(i, 2, nameOfSheet: nameOfSheet);
                 priceOfUnit = ExcelWork.ReadDouble(i, 3, nameOfSheet: nameOfSheet);
 
-                Units.Add(new PFC_Unit(type, Power, numOfUnit, description, priceOfUnit));
+                Units.Add(new PFC_Block(type, Power, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }

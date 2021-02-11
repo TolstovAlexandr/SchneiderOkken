@@ -1367,6 +1367,18 @@
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                         Binding="{Binding Path=Name, Mode=OneWay}" 
                                         Width="120"/>
+
+                                <DataGridTextColumn x:Name="CalcNuberOfFuncUnits"
+                                        Header="Количество функциональных блоков"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                        Binding="{Binding Path=NuberOfFuncUnits, Mode=OneWay}" 
+                                        Width="120"/>
+
+                                <DataGridTextColumn x:Name="CalcSumNumberOfUnits"
+                                        Header="Суммарно количество юнитов"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                        Binding="{Binding Path=SumNumberOfUnits, Mode=OneWay}" 
+                                        Width="120"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>

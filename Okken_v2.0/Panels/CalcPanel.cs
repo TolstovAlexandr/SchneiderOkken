@@ -17,5 +17,15 @@ namespace Okken
         /// Наименование щита
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Количество функциональных блоков
+        /// </summary>
+        public int NuberOfFuncUnits { get; set; }
+
+        /// <summary>
+        /// Суммарное количество занимаемых юнитов
+        /// </summary>
+        public int SumNumberOfUnits { get; set; }
     }
 }

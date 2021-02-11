@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Okken
 {
-    public interface IUnit
+    public interface IBlock
     {
         string Type { get; set; }
         int? NumOfUnit { get; set; }

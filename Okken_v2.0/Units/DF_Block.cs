@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Okken
 {
-    public class DF_Unit : IUnit
+    public class DF_Block : ICloneable, IBlock
     {
         public string Type { get; set; }
         public string Name { get; set; }
@@ -18,7 +18,7 @@ namespace Okken
         public string Description { get; set; }
         public double? PriceOfUnit { get; set; }
 
-        public DF_Unit(string Type,
+        public DF_Block(string Type,
             string Name,
             int? NumOfPole,
             string TypeOfBreakingCapacity,
@@ -37,6 +37,11 @@ namespace Okken
             this.NumOfUnit = NumOfUnit;
             this.Description = Description;
             this.PriceOfUnit = PriceOfUnit;
+        }
+
+        public object Clone()
+        {
+            return new DF_Block(Type, Name, NumOfPole, TypeOfBreakingCapacity, ShortСircuitСurrent, RatedСurrent, NumOfUnit, Description, PriceOfUnit);
         }
     }
 }

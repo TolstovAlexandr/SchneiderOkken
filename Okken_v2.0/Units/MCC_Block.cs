@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Okken
 {
-    public class MCC_Unit : IUnit
+    public class MCC_Block : IBlock
     {
         public string Type { get; set; }
         public string Name { get; set; }
@@ -20,7 +20,7 @@ namespace Okken
         public string Description { get; set; }
         public double? PriceOfUnit { get; set; }
 
-        public MCC_Unit(string Type,
+        public MCC_Block(string Type,
             string Name,
             int? NumOfPole,
             string TypeOfBreakingCapacity,
