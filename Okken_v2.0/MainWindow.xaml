@@ -215,11 +215,11 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="{Binding ElementName=NumsOfPoleComboBox, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=TypeOfServiceComboBox, Path=ActualWidth, Mode=OneWay}"/>
-                                        <ColumnDefinition Width="{Binding ElementName=TypesOfInstallComboBox, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=TypesOfAutomationlComboBox, Path=ActualWidth, Mode=OneWay}"/>
-                                        <ColumnDefinition Width="{Binding ElementName=ShotCurrentText, Path=ActualWidth, Mode=OneWay}"/>
+                                        <ColumnDefinition Width="{Binding ElementName=ShotCurrentsComboBox, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=GrSystemsComboBox, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=DegreeIPComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                                        <ColumnDefinition Width="{Binding ElementName=AmbTemperaturComboBox, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=PowerSupplyComboBox, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=MetalBusCoatingComboBox, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=EpoxyBusCoatingComboBox, Path=ActualWidth, Mode=OneWay}"/>
@@ -548,15 +548,6 @@
                                             DisplayMemberPath="{Binding TypeOfServices}">
                                     </DataGridComboBoxColumn>
 
-                                    <DataGridComboBoxColumn x:Name="TypesOfInstallComboBox"
-                                            Width="100"
-                                            Header="Тип установки"
-                                            ElementStyle="{StaticResource ComboBoxStyle}"
-                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
-                                            SelectedValueBinding="{Binding TypeOfInstall, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
-                                            DisplayMemberPath="{Binding TypesOfInstall}">
-                                    </DataGridComboBoxColumn>
-
                                     <DataGridComboBoxColumn x:Name="TypesOfAutomationlComboBox"
                                             Width="100"
                                             Header="Тип автоматизации"
@@ -566,21 +557,14 @@
                                             DisplayMemberPath="{Binding TypesOfAutomation}">
                                     </DataGridComboBoxColumn>
 
-                                    <DataGridTextColumn x:Name="ShotCurrentText"
-                                        Header="Ток КЗ (кА)"
-                                        HeaderStyle="{StaticResource ColumnHeaderStyle}"
-                                        ElementStyle="{StaticResource TextCenterStyle}"
-                                        Binding="{Binding Path=ShotCurr, Mode=TwoWay}" 
-                                        Width="120"/>
-
-                                    <!--<DataGridComboBoxColumn x:Name="ShotCurrentsComboBox"
+                                    <DataGridComboBoxColumn x:Name="ShotCurrentsComboBox"
                                             Width="60"
                                             Header="Ток КЗ (кА)"
                                             ElementStyle="{StaticResource ComboBoxStyle}"
                                             HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                             SelectedValueBinding="{Binding ShotCurr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
                                             DisplayMemberPath="{Binding ShotCurrents}">
-                        </DataGridComboBoxColumn>-->
+                                    </DataGridComboBoxColumn>
 
                                     <DataGridComboBoxColumn x:Name="GrSystemsComboBox"
                                             Header="Система заземления"
@@ -598,6 +582,15 @@
                                             HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                             SelectedValueBinding="{Binding DegreeIP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
                                             DisplayMemberPath="{Binding DegreeIPs}">
+                                    </DataGridComboBoxColumn>
+
+                                    <DataGridComboBoxColumn x:Name="AmbTemperaturComboBox"
+                                            Header="Температура окружающей среды"
+                                            Width="90"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding AmbTemperature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True,NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding AmbTemperatures}">
                                     </DataGridComboBoxColumn>
 
                                     <DataGridComboBoxColumn x:Name="PowerSupplyComboBox"

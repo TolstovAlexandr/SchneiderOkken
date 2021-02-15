@@ -46,11 +46,6 @@ namespace Okken
         public string TypeOfService { get; set; }
 
         /// <summary>
-        /// Типи установки
-        /// </summary>
-        public string TypeOfInstall { get; set; }
-
-        /// <summary>
         /// Тип автоматизации
         /// </summary>
         public string TypeOfAutomation { get; set; }
@@ -69,6 +64,11 @@ namespace Okken
         /// Степень защиты
         /// </summary>
         public string DegreeIP { get; set; }
+
+        /// <summary>
+        /// Температура окружающей среды
+        /// </summary>
+        public int AmbTemperature { get; set; }
 
         /// <summary>
         /// Тип подвода питания

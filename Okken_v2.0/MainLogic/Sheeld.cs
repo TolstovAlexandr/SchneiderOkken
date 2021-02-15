@@ -154,7 +154,7 @@ namespace Okken
             var unit = from dfunits in units
                        where dfunits.NumOfPole.ToString() + "P" == panel.NumOfPole
                        where dfunits.ShortСircuitСurrent >= panel.ShotCurr
-                       where dfunits.RatedСurrent == RatedСurrent
+                       //where dfunits.RatedСurrent == RatedСurrent
                        orderby dfunits.ShortСircuitСurrent
                        select dfunits;
 

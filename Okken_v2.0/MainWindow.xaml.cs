@@ -161,6 +161,8 @@ namespace Okken
                 Id = 1,
                 NumOfPole = "3P",
                 TypeOfService = "Одностороннее",
+                DegreeIP = "IP31",
+                AmbTemperature = 35,
                 MetalBusCoating = "НЕТ",
                 EpoxyBusCoating = "НЕТ",
                 Painting = "RAL 9003",
@@ -185,11 +187,11 @@ namespace Okken
             MainDataGrid.ItemsSource = CollectionOfPanels.PanelList;
             NumsOfPoleComboBox.ItemsSource = CollectionOfPanels.NumsOfPole;
             TypeOfServiceComboBox.ItemsSource = CollectionOfPanels.TypeOfServices;
-            TypesOfInstallComboBox.ItemsSource = CollectionOfPanels.TypesOfInstall;
             TypesOfAutomationlComboBox.ItemsSource = CollectionOfPanels.TypesOfAutomation;
-            //ShotCurrentsComboBox.ItemsSource = CollectionOfPanels.ShotCurrents;
+            ShotCurrentsComboBox.ItemsSource = CollectionOfPanels.ShotCurrents;
             GrSystemsComboBox.ItemsSource = CollectionOfPanels.GrSystems;
             DegreeIPComboBox.ItemsSource = CollectionOfPanels.DegreeIPs;
+            AmbTemperaturComboBox.ItemsSource = CollectionOfPanels.AmbTemperatures;
             PowerSupplyComboBox.ItemsSource = CollectionOfPanels.PowerSupplys;
             MetalBusCoatingComboBox.ItemsSource = CollectionOfPanels.MetalBusCoatings;
             EpoxyBusCoatingComboBox.ItemsSource = CollectionOfPanels.EpoxyBusCoatings;
@@ -283,11 +285,11 @@ namespace Okken
                 {
                     NumOfPole = CollectionOfPanels.PanelList[Lastindex].NumOfPole,
                     TypeOfService = CollectionOfPanels.PanelList[Lastindex].TypeOfService,
-                    TypeOfInstall = CollectionOfPanels.PanelList[Lastindex].TypeOfInstall,
                     TypeOfAutomation = CollectionOfPanels.PanelList[Lastindex].TypeOfAutomation,
                     ShotCurr = CollectionOfPanels.PanelList[Lastindex].ShotCurr,
                     GrSystem = CollectionOfPanels.PanelList[Lastindex].GrSystem,
                     DegreeIP = CollectionOfPanels.PanelList[Lastindex].DegreeIP,
+                    AmbTemperature = CollectionOfPanels.PanelList[Lastindex].AmbTemperature,
                     PowerSupply = CollectionOfPanels.PanelList[Lastindex].PowerSupply,
                     MetalBusCoating = CollectionOfPanels.PanelList[Lastindex].MetalBusCoating,
                     EpoxyBusCoating = CollectionOfPanels.PanelList[Lastindex].EpoxyBusCoating,
@@ -311,6 +313,8 @@ namespace Okken
                 Id = 1,
                 NumOfPole = "3P",
                 TypeOfService = "Одностороннее",
+                DegreeIP = "IP31",
+                AmbTemperature = 35,
                 MetalBusCoating = "НЕТ",
                 EpoxyBusCoating = "НЕТ",
                 Painting = "RAL 9003",
@@ -325,7 +329,7 @@ namespace Okken
                 TypeOfSectApp = "АВ",
                 StrCompPowerSect1 = "НЕТ",
                 StrCompPowerSect2 = "НЕТ"
-            }); }
+            }); ; }
         }
 
         ///Изменение цвета выбранного столбца
@@ -496,6 +500,8 @@ namespace Okken
                 Id = 1,
                 NumOfPole = "3P",
                 TypeOfService = "Одностороннее",
+                DegreeIP = "IP31",
+                AmbTemperature = 35,
                 MetalBusCoating = "НЕТ",
                 EpoxyBusCoating = "НЕТ",
                 Painting = "RAL 9003",

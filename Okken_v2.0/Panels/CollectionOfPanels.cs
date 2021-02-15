@@ -44,7 +44,7 @@ namespace Okken
         /// <summary>
         /// Коллекция типов установки
         /// </summary>
-        public ObservableCollection<string> TypesOfInstall { get; set; }
+        //public ObservableCollection<string> TypesOfInstall { get; set; }
 
         /// <summary>
         /// Коллекция типов подключения
@@ -58,7 +58,7 @@ namespace Okken
         /// <summary>
         /// Коллекция токов КЗ
         /// </summary>
-        //public ObservableCollection<int> ShotCurrents { get; set; }
+        public ObservableCollection<int> ShotCurrents { get; set; }
 
         /// <summary>
         /// Коллекция систем заземления
@@ -106,6 +106,11 @@ namespace Okken
         public ObservableCollection<string> DegreeIPs { get; set; }
 
         /// <summary>
+        /// Коллекция Температу окружающей стреды
+        /// </summary>
+        public ObservableCollection<int> AmbTemperatures { get; set; }
+
+        /// <summary>
         /// Коллекция токов в формате string
         /// </summary>
         public ObservableCollection<string> StringIncomersCurrents { get; set; }
@@ -134,21 +139,24 @@ namespace Okken
             TypeOfServices.Add("Одностороннее");
             TypeOfServices.Add("Двухстороннее");
 
-            TypesOfInstall = new ObservableCollection<string>();
-            TypesOfInstall.Add("Втычной");
-            TypesOfInstall.Add("Выкатной");
+            //TypesOfInstall = new ObservableCollection<string>();
+            //TypesOfInstall.Add("Втычной");
+            //TypesOfInstall.Add("Выкатной");
 
             TypesOfAutomation = new ObservableCollection<string>();
             TypesOfAutomation.Add("Стандартный");
             TypesOfAutomation.Add("Modbus");
             TypesOfAutomation.Add("Modbus + МЭК-61850");
 
-            //ShotCurrents = new ObservableCollection<int>();
-            //ShotCurrents.Add(35);
-            //ShotCurrents.Add(42);
-            //ShotCurrents.Add(65);
-            //ShotCurrents.Add(100);
-            //ShotCurrents.Add(150);
+            ShotCurrents = new ObservableCollection<int>();
+            ShotCurrents.Add(25);
+            ShotCurrents.Add(36);
+            ShotCurrents.Add(42);
+            ShotCurrents.Add(50);
+            ShotCurrents.Add(65);
+            ShotCurrents.Add(70);
+            ShotCurrents.Add(100);
+            ShotCurrents.Add(150);
 
             GrSystems = new ObservableCollection<string>();
             GrSystems.Add("TN-C");
@@ -159,6 +167,13 @@ namespace Okken
             DegreeIPs.Add("IP31");
             DegreeIPs.Add("IP41");
             DegreeIPs.Add("IP54");
+
+            AmbTemperatures = new ObservableCollection<int>();
+            AmbTemperatures.Add(35);
+            AmbTemperatures.Add(40);
+            AmbTemperatures.Add(45);
+            AmbTemperatures.Add(50);
+            AmbTemperatures.Add(55);
 
             PowerSupplys = new ObservableCollection<string>();
             PowerSupplys.Add("Шинопровод");

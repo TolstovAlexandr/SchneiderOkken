@@ -13,7 +13,6 @@ namespace Okken
         public int? NumOfPole { get; set; }
         public string TypeOfBreakingCapacity { get; set; }
         public int? ShortСircuitСurrent { get; set; }
-        public int? RatedСurrent { get; set; }
         public int? NumOfUnit { get; set; }
         public string Description { get; set; }
         public double? PriceOfUnit { get; set; }
@@ -23,7 +22,6 @@ namespace Okken
             int? NumOfPole,
             string TypeOfBreakingCapacity,
             int? ShortСircuitСurrent,
-            int? RatedСurrent,
             int? NumOfUnit,
             string Description,
             double? PriceOfUnit)
@@ -33,7 +31,6 @@ namespace Okken
             this.NumOfPole = NumOfPole;
             this.TypeOfBreakingCapacity = TypeOfBreakingCapacity;
             this.ShortСircuitСurrent = ShortСircuitСurrent;
-            this.RatedСurrent = RatedСurrent;
             this.NumOfUnit = NumOfUnit;
             this.Description = Description;
             this.PriceOfUnit = PriceOfUnit;
@@ -41,7 +38,7 @@ namespace Okken
 
         public object Clone()
         {
-            return new DF_Block(Type, Name, NumOfPole, TypeOfBreakingCapacity, ShortСircuitСurrent, RatedСurrent, NumOfUnit, Description, PriceOfUnit);
+            return new DF_Block(Type, Name, NumOfPole, TypeOfBreakingCapacity, ShortСircuitСurrent, NumOfUnit, Description, PriceOfUnit);
         }
     }
 }

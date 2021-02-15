@@ -182,7 +182,6 @@ namespace Okken
             int? numOfPole;
             string typeOfBreakingCapacity;
             int? shortСircuitСurrent;
-            int? ratedСurrent;
             int? numOfUnit;
             string description;
             double? priceOfUnit;
@@ -193,12 +192,11 @@ namespace Okken
                 numOfPole = ExcelWork.ReadInt(i, 1, nameOfSheet: nameOfSheet);
                 typeOfBreakingCapacity = ExcelWork.ReadString(i, 2, nameOfSheet: nameOfSheet);
                 shortСircuitСurrent = ExcelWork.ReadInt(i, 3, nameOfSheet: nameOfSheet);
-                ratedСurrent = ExcelWork.ReadInt(i, 4, nameOfSheet: nameOfSheet);
-                numOfUnit = ExcelWork.ReadInt(i, 5, nameOfSheet: nameOfSheet);
-                description = ExcelWork.ReadString(i, 6, nameOfSheet: nameOfSheet);
-                priceOfUnit = ExcelWork.ReadDouble(i, 7, nameOfSheet: nameOfSheet);
+                numOfUnit = ExcelWork.ReadInt(i, 4, nameOfSheet: nameOfSheet);
+                description = ExcelWork.ReadString(i, 5, nameOfSheet: nameOfSheet);
+                priceOfUnit = ExcelWork.ReadDouble(i, 6, nameOfSheet: nameOfSheet);
 
-                Units.Add(new DF_Block(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, ratedСurrent, numOfUnit, description, priceOfUnit));
+                Units.Add(new DF_Block(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }
