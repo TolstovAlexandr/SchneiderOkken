@@ -73,10 +73,10 @@ namespace Okken
 
             //------------------------------------------Считывание базы из файла-------------------------------------//
 
-            @base = new Base("Base.xlsx", "INC-Base", "BC-Base", "DF-Base", "MCC-Base", "SS-Base", "VSD-Base", "PFC-Base");
+            @base = new Base("Base.xlsx", "INC-Base", "BC-Base", "DF-Base", "MCC-Base", "SS-Base", "VSD-Base", "PFC-Base", "Derating");
 
             //------------------------------------------Инициализация и основная логика------------------------------------//
-            InitializeComponent();           
+            InitializeComponent();
 
             numOfCol_Inc = MainDataGrid.Columns.IndexOf(INCLocationComboBox);
             numOfCol_Sect = MainDataGrid.Columns.IndexOf(BusTieComboBox);
@@ -160,9 +160,13 @@ namespace Okken
             {
                 Id = 1,
                 NumOfPole = "3P",
+                TypeOfAutomation = "Стандартный",
                 TypeOfService = "Одностороннее",
+                ShotCurr = 25,
+                GrSystem = "TN-S",
                 DegreeIP = "IP31",
                 AmbTemperature = 35,
+                PowerSupply = "Кабель",
                 MetalBusCoating = "НЕТ",
                 EpoxyBusCoating = "НЕТ",
                 Painting = "RAL 9003",
@@ -312,9 +316,13 @@ namespace Okken
             else { CollectionOfPanels.AddPanel(new Panel {
                 Id = 1,
                 NumOfPole = "3P",
+                TypeOfAutomation = "Стандартный",
                 TypeOfService = "Одностороннее",
+                ShotCurr = 25,
+                GrSystem = "TN-S",
                 DegreeIP = "IP31",
                 AmbTemperature = 35,
+                PowerSupply = "Кабель",
                 MetalBusCoating = "НЕТ",
                 EpoxyBusCoating = "НЕТ",
                 Painting = "RAL 9003",
@@ -499,9 +507,13 @@ namespace Okken
             {
                 Id = 1,
                 NumOfPole = "3P",
+                TypeOfAutomation = "Стандартный",
                 TypeOfService = "Одностороннее",
+                ShotCurr = 25,
+                GrSystem = "TN-S",
                 DegreeIP = "IP31",
                 AmbTemperature = 35,
+                PowerSupply = "Кабель",
                 MetalBusCoating = "НЕТ",
                 EpoxyBusCoating = "НЕТ",
                 Painting = "RAL 9003",
@@ -583,10 +595,20 @@ namespace Okken
                 calcPanel.NuberOfFuncUnits = sheeld.NuberOfBlocks;
                 calcPanel.SumNumberOfUnits = sheeld.SumNumberOfUnits;
 
+                calcPanel.Message = sheeld.Message;
+
                 CollectionOfCalcPanels.PanelList.Add(calcPanel);
             }
             #endregion
-          
+
+        }
+
+        /// <summary>
+        /// Событие изменения основной таблицы
+        /// </summary>
+        private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Sect1FiderLastText.Header = "Билиберда";
         }
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="MainLogic\Sheeld.cs" />
     <Compile Include="Panels\CalcPanel.cs" />
     <Compile Include="Panels\CollectionOfCalcPanels.cs" />
+    <Compile Include="Units\Derating.cs" />
     <Compile Include="Units\MCC_Block.cs" />
     <Compile Include="Units\PFC_Block.cs" />
     <Compile Include="Units\SS_Block.cs" />

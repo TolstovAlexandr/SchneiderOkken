@@ -27,5 +27,10 @@ namespace Okken
         /// Суммарное количество занимаемых юнитов
         /// </summary>
         public int SumNumberOfUnits { get; set; }
+
+        /// <summary>
+        /// Сообщение для вывода предупреждений
+        /// </summary>
+        public string Message { get; set; }
     }
 }

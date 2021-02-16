@@ -54,15 +54,22 @@ namespace Okken
         public List<PFC_Block> pFC_Units { get; set; }
 
         /// <summary>
+        /// Список автоматических выключателей с дерайтингом
+        /// </summary>
+        public List<Derating> deratngCBs { get; set; }
+
+        /// <summary>
         /// Конструктор
         /// </summary>
         /// <param name="pathToExcell">Путь к файлу Excell с базой</param>
-        /// <param name="nmOfCB_Sheet">Имя листа с CB</param>
-        /// <param name="nmOfMCC_Sheet">Имя листа с MCC</param>
-        /// <param name="nmOfSS_Sheet">Имя листа с SS</param>
-        /// <param name="nmOfVSD_Sheet">Имя листа с VSD</param>
-        /// <param name="nmOfPFC_Sheet">Имя листа с PFC</param>
-        /// <param name="nmOfCollonsSheet">Имя листа с Колоннами</param>
+        /// <param name="INC_Sheet">Имя листа с INC</param>
+        /// <param name="BC_Sheet">Имя листа с BC</param>
+        /// <param name="DF_Sheet">Имя листа с DF</param>
+        /// <param name="MCC_Sheet">Имя листа с MCC</param>
+        /// <param name="SS_Sheet">Имя листа с SS</param>
+        /// <param name="VSD_Sheet">Имя листа с VSD</param>
+        /// <param name="PFC_Sheet">Имя листа с PFC</param>
+        /// <param name="derating_Sheet">Имя листа с таблицей дерайтинга</param>
         public Base(string pathToExcell, 
             string INC_Sheet, 
             string BC_Sheet, 
@@ -70,7 +77,8 @@ namespace Okken
             string MCC_Sheet, 
             string SS_Sheet, 
             string VSD_Sheet,
-            string PFC_Sheet)
+            string PFC_Sheet,
+            string derating_Sheet)
         {
             try
             {
@@ -82,6 +90,7 @@ namespace Okken
                 sS_Units = Get_SS_Units("SS", SS_Sheet);
                 vSD_Units = Get_VSD_Units("VSD", VSD_Sheet);
                 pFC_Units = Get_PFC_Units("PFC", PFC_Sheet);
+                deratngCBs = Get_DeratngCBs(derating_Sheet);
             }
             catch (Exception ex)
             {
@@ -349,6 +358,56 @@ namespace Okken
                 Units.Add(new PFC_Block(type, Power, numOfUnit, description, priceOfUnit));
             }
             return Units;
+        }
+
+        /// <summary>
+        /// Считывание с Excell таблицы дерэйтинга
+        /// </summary>
+        /// <param name="nameOfSheet">Имя листа</param>
+        /// <returns></returns>
+        public List<Derating> Get_DeratngCBs(string nameOfSheet)
+        {
+            worksheet = ExcelWork.GetWorksheet(nameOfSheet);
+            numOfRowCB = worksheet.Cells.MaxDataRow;
+
+            List<Derating> deratngCBs = new List<Derating>();
+
+            string name; //Имя блока(автомата)
+            //IP31
+            int? ratedСurrent_IP31_35C; //Номинальный ток при IP31_35C
+            int? ratedСurrent_IP31_40C; //Номинальный ток при IP31_40C
+            int? ratedСurrent_IP31_45C; //Номинальный ток при IP31_45C
+            int? ratedСurrent_IP31_50C; //Номинальный ток при IP31_50C
+            int? ratedСurrent_IP31_55C; //Номинальный ток при IP31_55C
+
+            //IP41
+            int? ratedСurrent_IP41_35C; //Номинальный ток при IP41_35C
+            int? ratedСurrent_IP41_40C; //Номинальный ток при IP41_40C
+            int? ratedСurrent_IP41_45C; //Номинальный ток при IP41_45C
+            int? ratedСurrent_IP41_50C; //Номинальный ток при IP41_50C
+            int? ratedСurrent_IP41_55C; //Номинальный ток при IP41_55C
+
+            for (int i = 3; i <= numOfRowCB + 1; i++)
+            {
+                name = ExcelWork.ReadString(i, 0, nameOfSheet: nameOfSheet);
+                ratedСurrent_IP31_35C = ExcelWork.ReadInt(i, 1, nameOfSheet: nameOfSheet);
+                ratedСurrent_IP31_40C = ExcelWork.ReadInt(i, 2, nameOfSheet: nameOfSheet);
+                ratedСurrent_IP31_45C = ExcelWork.ReadInt(i, 3, nameOfSheet: nameOfSheet);
+                ratedСurrent_IP31_50C = ExcelWork.ReadInt(i, 4, nameOfSheet: nameOfSheet);
+                ratedСurrent_IP31_55C = ExcelWork.ReadInt(i, 5, nameOfSheet: nameOfSheet);
+
+                ratedСurrent_IP41_35C = ExcelWork.ReadInt(i, 6, nameOfSheet: nameOfSheet);
+                ratedСurrent_IP41_40C = ExcelWork.ReadInt(i, 7, nameOfSheet: nameOfSheet);
+                ratedСurrent_IP41_45C = ExcelWork.ReadInt(i, 8, nameOfSheet: nameOfSheet);
+                ratedСurrent_IP41_50C = ExcelWork.ReadInt(i, 9, nameOfSheet: nameOfSheet);
+                ratedСurrent_IP41_55C = ExcelWork.ReadInt(i, 10, nameOfSheet: nameOfSheet);
+
+
+                deratngCBs.Add(new Derating(name, 
+                    ratedСurrent_IP31_35C, ratedСurrent_IP31_40C, ratedСurrent_IP31_45C, ratedСurrent_IP31_50C, ratedСurrent_IP31_55C,
+                    ratedСurrent_IP41_35C, ratedСurrent_IP41_40C, ratedСurrent_IP41_45C, ratedСurrent_IP41_50C, ratedСurrent_IP41_55C));
+            }
+            return deratngCBs;
         }
     }
 }

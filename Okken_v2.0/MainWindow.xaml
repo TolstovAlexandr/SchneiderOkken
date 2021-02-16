@@ -464,7 +464,8 @@
                                       FrozenColumnCount="3"
                                       HorizontalScrollBarVisibility="Auto"
                                       ScrollViewer.ScrollChanged="MainDataGrid_ScrollChanged"        
-                                      MaxHeight="550">
+                                      MaxHeight="550"
+                                      SelectionChanged="MainDataGrid_SelectionChanged">
 
                                 <DataGrid.Resources>
                                     <!--Стиль для выбранного столбца-->
@@ -585,7 +586,7 @@
                                     </DataGridComboBoxColumn>
 
                                     <DataGridComboBoxColumn x:Name="AmbTemperaturComboBox"
-                                            Header="Температура окружающей среды"
+                                            Header="Температура окружающей среды, °C"
                                             Width="90"
                                             ElementStyle="{StaticResource ComboBoxStyle}"
                                             HeaderStyle="{StaticResource ColumnHeaderStyle}"
@@ -1372,6 +1373,11 @@
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                         Binding="{Binding Path=SumNumberOfUnits, Mode=OneWay}" 
                                         Width="120"/>
+
+                                <DataGridTextColumn x:Name="CalcMessage"
+                                        Header="Предупреждения"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                        Binding="{Binding Path=Message, Mode=OneWay}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
