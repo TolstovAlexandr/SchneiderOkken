@@ -29,6 +29,11 @@ namespace Okken
         public int SumNumberOfUnits { get; set; }
 
         /// <summary>
+        /// Суммарная стоимость
+        /// </summary>
+        public double SumPrice { get; set; }
+
+        /// <summary>
         /// Сообщение для вывода предупреждений
         /// </summary>
         public string Message { get; set; }

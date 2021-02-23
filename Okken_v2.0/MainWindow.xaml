@@ -1374,6 +1374,12 @@
                                         Binding="{Binding Path=SumNumberOfUnits, Mode=OneWay}" 
                                         Width="120"/>
 
+                                <DataGridTextColumn x:Name="CalcSumPrice"
+                                        Header="Стоимость, EUR"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                        Binding="{Binding Path=SumPrice, Mode=OneWay}" 
+                                        Width="120"/>
+
                                 <DataGridTextColumn x:Name="CalcMessage"
                                         Header="Предупреждения"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"

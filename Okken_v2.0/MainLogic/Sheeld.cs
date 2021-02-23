@@ -32,6 +32,11 @@ namespace Okken
         public int SumNumberOfUnits { get; set; }
 
         /// <summary>
+        /// Суммарная стоимость
+        /// </summary>
+        public double SumPrice { get; set; }
+
+        /// <summary>
         /// Сообщение предупреждение о дерэйтинге
         /// </summary>
         public string Message { get; set; } = "";
@@ -99,6 +104,7 @@ namespace Okken
             this.@base = @base;
 
             SumNumberOfUnits = 0; //Суммарное количество юнитов
+            SumPrice = 0.0; //Суммарная стоимость
             AllBlocks = new List<IBlock>(); //Создаем экземпляр класса списка всех функциональных блоков
             dF_Blocks_Sect1 = new List<DF_Block>(); //Создаем экземпляр класса списка фидерных функциональных блоков для секции 1
             dF_Blocks_Sect2 = new List<DF_Block>(); //Создаем экземпляр класса списка фидерных функциональных блоков для секции 2
@@ -241,8 +247,8 @@ namespace Okken
             {
                 AllBlocks.Add(item);
 
-                //Считаем суммарное количество занимаемых модулей
-                SumNumberOfUnits += (int)item.NumOfUnit;
+                SumNumberOfUnits += (int)item.NumOfUnit; //Считаем суммарное количество занимаемых модулей
+                SumPrice += (double)item.PriceOfUnit; //Суммарная стоимость
             }
             #endregion
 

@@ -594,6 +594,7 @@ namespace Okken
                 calcPanel.Name = sheeld.Name;
                 calcPanel.NuberOfFuncUnits = sheeld.NuberOfBlocks;
                 calcPanel.SumNumberOfUnits = sheeld.SumNumberOfUnits;
+                calcPanel.SumPrice = sheeld.SumPrice;
 
                 calcPanel.Message = sheeld.Message;
 
