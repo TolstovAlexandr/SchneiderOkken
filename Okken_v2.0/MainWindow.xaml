@@ -273,7 +273,6 @@
                                         <ColumnDefinition Width="{Binding ElementName=Sect1MCC5, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect1MCC6, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect1MCC7, Path=ActualWidth, Mode=OneWay}"/>
-                                        <ColumnDefinition Width="{Binding ElementName=Sect1MCC8, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect1MCC_Last, Path=ActualWidth, Mode=OneWay}"/>
 
                                         <ColumnDefinition Width="{Binding ElementName=Sect2MCC1, Path=ActualWidth, Mode=OneWay}"/>
@@ -283,7 +282,6 @@
                                         <ColumnDefinition Width="{Binding ElementName=Sect2MCC5, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect2MCC6, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect2MCC7, Path=ActualWidth, Mode=OneWay}"/>
-                                        <ColumnDefinition Width="{Binding ElementName=Sect2MCC8, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect2MCC_Last, Path=ActualWidth, Mode=OneWay}"/>
 
                                         <ColumnDefinition Width="{Binding ElementName=Sect1SS1, Path=ActualWidth, Mode=OneWay}"/>
@@ -926,129 +924,115 @@
                                     <!--Управление двигателями секция 1/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                                     <DataGridTextColumn 
                                         x:Name="Sect1MCC1"
-                                        Header="4kW"
+                                        Header="0-4kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfMCC1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1MCC2"
-                                        Header="5,5-7,5kW"
+                                        Header="4,1-8kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfMCC2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1MCC3"
-                                        Header="11-15kW"
+                                        Header="8,1-22kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfMCC3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1MCC4"
-                                        Header="18,5-22kW"
+                                        Header="22,1-45kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfMCC4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1MCC5"
-                                        Header="30-37kW"
+                                        Header="45,1-75kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfMCC5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1MCC6"
-                                        Header="45-75kW"
+                                        Header="75,1-110kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfMCC6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1MCC7"
-                                        Header="90-110kW"
+                                        Header="110,1-160kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfMCC7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
-                                        x:Name="Sect1MCC8"
-                                        Header="132-160kW"
+                                        x:Name="Sect1MCC_Last"
+                                        Header="160,1-250kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfMCC8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
-                                        Width="25"/>
-
-                                    <DataGridTextColumn 
-                                        x:Name="Sect1MCC_Last"
-                                        Header="200-250kW"
-                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
-                                        Binding="{Binding Path=Sect1NumOfMCC9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <!--Управление двигателями секция 2/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                                     <DataGridTextColumn 
                                         x:Name="Sect2MCC1"
-                                        Header="4kW"
+                                        Header="0-4kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfMCC1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect2MCC2"
-                                        Header="5,5-7,5kW"
+                                        Header="4,1-8kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfMCC2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect2MCC3"
-                                        Header="11-15kW"
+                                        Header="8,1-22kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfMCC3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect2MCC4"
-                                        Header="18,5-22kW"
+                                        Header="22,1-45kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfMCC4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect2MCC5"
-                                        Header="30-37kW"
+                                        Header="45,1-75kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfMCC5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect2MCC6"
-                                        Header="45-75kW"
+                                        Header="75,1-110kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfMCC6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect2MCC7"
-                                        Header="90-110kW"
+                                        Header="110,1-160kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfMCC7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
-                                        x:Name="Sect2MCC8"
-                                        Header="132-160kW"
+                                        x:Name="Sect2MCC_Last"
+                                        Header="160,1-250kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfMCC8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
-                                        Width="25"/>
-
-                                    <DataGridTextColumn 
-                                        x:Name="Sect2MCC_Last"
-                                        Header="200-250kW"
-                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
-                                        Binding="{Binding Path=Sect2NumOfMCC9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <!--Плавный пуск SS секция 1/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->

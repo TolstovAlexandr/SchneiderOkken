@@ -21,37 +21,37 @@ namespace Okken
         /// <summary>
         /// Список вводных автоматических выключателей
         /// </summary>
-        public List<INC_Block> iNC_Units { get; set; }
+        public List<INC_Block> iNC_Blocks { get; set; }
 
         /// <summary>
         /// Список секционных автоматических выключателей
         /// </summary>
-        public List<BC_Block> bC_Units { get; set; }
+        public List<BC_Block> bC_Blocks { get; set; }
 
         /// <summary>
         /// Список фмдерных автоматических выключателей
         /// </summary>
-        public List<DF_Block> dF_Units { get; set; }
+        public List<DF_Block> dF_Blocks { get; set; }
 
         /// <summary>
         /// Список фмдернов MCC
         /// </summary>
-        public List<MCC_Block> mCC_Units { get; set; }
+        public List<MCC_Block> mCC_Blocks { get; set; }
 
         /// <summary>
         /// Список фмдернов SS
         /// </summary>
-        public List<SS_Block> sS_Units { get; set; }
+        public List<SS_Block> sS_Blocks { get; set; }
 
         /// <summary>
         /// Список фмдернов VSD
         /// </summary>
-        public List<VSD_Block> vSD_Units { get; set; }
+        public List<VSD_Block> vSD_Blocks { get; set; }
 
         /// <summary>
         /// Список фмдернов PFC
         /// </summary>
-        public List<PFC_Block> pFC_Units { get; set; }
+        public List<PFC_Block> pFC_Blocks { get; set; }
 
         /// <summary>
         /// Список автоматических выключателей с дерайтингом
@@ -83,13 +83,13 @@ namespace Okken
             try
             {
                 ExcelWork = new ExcelWork(pathToExcell);
-                iNC_Units = Get_INC_Units("INC", INC_Sheet);
-                bC_Units = Get_BC_Units("BC", BC_Sheet);
-                dF_Units = Get_DF_Units("DF", DF_Sheet);
-                mCC_Units = Get_MCC_Units("MCC", MCC_Sheet);
-                sS_Units = Get_SS_Units("SS", SS_Sheet);
-                vSD_Units = Get_VSD_Units("VSD", VSD_Sheet);
-                pFC_Units = Get_PFC_Units("PFC", PFC_Sheet);
+                iNC_Blocks = Get_INC_Units("INC", INC_Sheet);
+                bC_Blocks = Get_BC_Units("BC", BC_Sheet);
+                dF_Blocks = Get_DF_Units("DF", DF_Sheet);
+                mCC_Blocks = Get_MCC_Units("MCC", MCC_Sheet);
+                sS_Blocks = Get_SS_Units("SS", SS_Sheet);
+                vSD_Blocks = Get_VSD_Units("VSD", VSD_Sheet);
+                pFC_Blocks = Get_PFC_Units("PFC", PFC_Sheet);
                 deratngCBs = Get_DeratngCBs(derating_Sheet);
             }
             catch (Exception ex)
@@ -227,8 +227,9 @@ namespace Okken
             int? numOfPole;
             string typeOfBreakingCapacity;
             int? shortСircuitСurrent;
-            double? minPower;
-            double? maxPower;
+            double? power;
+            string degreeOfProtection;
+            int? temperature;
             int? numOfUnit;
             string description;
             double? priceOfUnit;
@@ -239,13 +240,14 @@ namespace Okken
                 numOfPole = ExcelWork.ReadInt(i, 1, nameOfSheet: nameOfSheet);
                 typeOfBreakingCapacity = ExcelWork.ReadString(i, 2, nameOfSheet: nameOfSheet);
                 shortСircuitСurrent = ExcelWork.ReadInt(i, 3, nameOfSheet: nameOfSheet);
-                minPower = ExcelWork.ReadDouble(i, 4, nameOfSheet: nameOfSheet);
-                maxPower = ExcelWork.ReadDouble(i, 5, nameOfSheet: nameOfSheet);
-                numOfUnit = ExcelWork.ReadInt(i, 6, nameOfSheet: nameOfSheet);
-                description = ExcelWork.ReadString(i, 7, nameOfSheet: nameOfSheet);
-                priceOfUnit = ExcelWork.ReadDouble(i, 8, nameOfSheet: nameOfSheet);
+                power = ExcelWork.ReadDouble(i, 4, nameOfSheet: nameOfSheet);
+                degreeOfProtection = ExcelWork.ReadString(i, 5, nameOfSheet: nameOfSheet);
+                temperature = ExcelWork.ReadInt(i, 6, nameOfSheet: nameOfSheet);
+                numOfUnit = ExcelWork.ReadInt(i, 7, nameOfSheet: nameOfSheet);
+                description = ExcelWork.ReadString(i, 8, nameOfSheet: nameOfSheet);
+                priceOfUnit = ExcelWork.ReadDouble(i, 9, nameOfSheet: nameOfSheet);
 
-                Units.Add(new MCC_Block(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, minPower, maxPower, numOfUnit, description, priceOfUnit));
+                Units.Add(new MCC_Block(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, power, degreeOfProtection, temperature, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }

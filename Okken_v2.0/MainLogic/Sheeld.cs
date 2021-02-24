@@ -52,20 +52,31 @@ namespace Okken
         /// </summary>
         public int CurrenOf6300 { get; set; } = 6300;
 
+        //********************************Коллекции блоков*********************************************************************************************************
         /// <summary>
         /// Все юниты в шкафу
         /// </summary>
         public List<IBlock> AllBlocks;
 
         /// <summary>
-        /// Список DF юнитов секции 1
+        /// Список DF блоков секции 1
         /// </summary>
         public List<DF_Block> dF_Blocks_Sect1;
 
         /// <summary>
-        /// Список DF юнитов секции 2
+        /// Список DF блоков секции 2
         /// </summary>
         public List<DF_Block> dF_Blocks_Sect2;
+
+        /// <summary>
+        /// Список MCC блоков секции 1
+        /// </summary>
+        public List<MCC_Block> mCC_Blocks_Sect1;
+
+        /// <summary>
+        /// Список MCC блоков секции 2
+        /// </summary>
+        public List<MCC_Block> mCC_Blocks_Sect2;
 
 
         //********************************Секция 1*********************************************************************************************************
@@ -106,8 +117,10 @@ namespace Okken
             SumNumberOfUnits = 0; //Суммарное количество юнитов
             SumPrice = 0.0; //Суммарная стоимость
             AllBlocks = new List<IBlock>(); //Создаем экземпляр класса списка всех функциональных блоков
-            dF_Blocks_Sect1 = new List<DF_Block>(); //Создаем экземпляр класса списка фидерных функциональных блоков для секции 1
-            dF_Blocks_Sect2 = new List<DF_Block>(); //Создаем экземпляр класса списка фидерных функциональных блоков для секции 2
+            dF_Blocks_Sect1 = new List<DF_Block>(); //Создаем экземпляр класса списка DF блоков для секции 1
+            dF_Blocks_Sect2 = new List<DF_Block>(); //Создаем экземпляр класса списка DF блоков для секции 2
+            mCC_Blocks_Sect1 = new List<MCC_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 1
+            mCC_Blocks_Sect2 = new List<MCC_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 2
 
             #region Нахождение номинальных (CurrenOf5000, CurrenOf6300) токов самых больших аппаратов (5000А и 6300А) с учетом дирэйтинга и запись сообщения
             List<Derating> deratingCBs = @base.deratngCBs;
@@ -242,7 +255,7 @@ namespace Okken
             AddDFBlocks(panel.Sect1NumOfFider14, CurrenOf5000, 1); //Добавляем фидеры 5000А с учетом дирэйтинга
             AddDFBlocks(panel.Sect1NumOfFider15, CurrenOf6300, 1); //Добавляем фидеры 6300А с учетом дирэйтинга
 
-            //Добавляем в общую коллекцию фидеры 100А из секции 1
+            //Добавляем в общую коллекцию фидеры из секции 1
             foreach (DF_Block item in dF_Blocks_Sect1)
             {
                 AllBlocks.Add(item);
@@ -279,17 +292,74 @@ namespace Okken
             }
             #endregion
 
+            #region Исключение для MCC блоков при температуре >=50С, IP>=41 и токе КЗ 150кА
+            int shotCurr = panel.ShotCurr;
+            int temperature = panel.AmbTemperature;
+
+            //Ограничение по току КЗ(не более 100) и по температуре (не более 50)
+            if(shotCurr > 100 || temperature > 50)
+            {
+                if(shotCurr > 100)
+                    shotCurr = 100;
+
+                if(temperature > 50)
+                temperature = 50;
+
+                Message += "\n";
+
+                if (shotCurr > 100)
+                    Message += "\nДля моторных фидеров ток КЗ принят 100кА(максимально для MCC)";
+                if (temperature > 50)
+                    Message += "\nДля моторных фидеров температура принята 50°C(максимально для MCC)";
+            }
+
+            //Ограничение для MCC 250кВт - если IP>=41 и температура >= 50, то количество такиф фидеров обнуляется
+            if((panel.DegreeIP == "IP41" || panel.DegreeIP == "IP54" || panel.AmbTemperature >= 50) && (panel.Sect1NumOfMCC8 > 0 || panel.Sect2NumOfMCC8 > 0))
+            {
+                if(panel.Sect1NumOfMCC8 > 0)
+                    panel.Sect1NumOfMCC8 = 0;
+
+                if (panel.Sect2NumOfMCC8 > 0)
+                    panel.Sect2NumOfMCC8 = 0;
+
+                Message += "\nПо условиям дирэйтинга при 50°C и более или IP41 и более" +
+                    "\nне возможно подобрать MCC 250кВт, поэтому их количество принято равным 0";
+            }
+            #endregion
+
+            #region Поиск о добавление блоков MCC Секция 1 в список mCC_Blocks_Sect1 и в AllBlocks 
+            
+            AddMCCBlocks(panel.Sect1NumOfMCC1, 4, shotCurr, temperature, 1); //Добавляем фидеры 4кВт
+            AddMCCBlocks(panel.Sect1NumOfMCC2, 8, shotCurr, temperature, 1); //Добавляем фидеры 8кВт
+            AddMCCBlocks(panel.Sect1NumOfMCC3, 22, shotCurr, temperature, 1); //Добавляем фидеры 22кВт
+            AddMCCBlocks(panel.Sect1NumOfMCC4, 45, shotCurr, temperature, 1); //Добавляем фидеры 45кВт
+            AddMCCBlocks(panel.Sect1NumOfMCC5, 75, shotCurr, temperature, 1); //Добавляем фидеры 75кВт
+            AddMCCBlocks(panel.Sect1NumOfMCC6, 110, shotCurr, temperature, 1); //Добавляем фидеры 110кВт
+            AddMCCBlocks(panel.Sect1NumOfMCC7, 160, shotCurr, temperature, 1); //Добавляем фидеры 160кВт
+            AddMCCBlocks(panel.Sect1NumOfMCC8, 250, shotCurr, temperature, 1); //Добавляем фидеры 250кВт
+
+            //Добавляем в общую коллекцию фидеры из секции 1
+            foreach (MCC_Block item in mCC_Blocks_Sect1)
+            {
+                AllBlocks.Add(item);
+
+                SumNumberOfUnits += (int)item.NumOfUnit; //Считаем суммарное количество занимаемых модулей
+                SumPrice += (double)item.PriceOfUnit; //Суммарная стоимость
+            }
+
+            #endregion
+
             NuberOfBlocks = AllBlocks.Count(); //Считаем общее количество функциональных
         }
 
         /// <summary>
         /// Поиск фидера по току
         /// </summary>
-        /// <param name="RatedСurrent"></param>
-        /// <returns></returns>
+        /// <param name="RatedСurrent">Ток</param>
+        /// <returns>DF блок</returns>
         public DF_Block FindDF_Blocks(int? RatedСurrent)
         {
-            List<DF_Block> units = @base.dF_Units;
+            List<DF_Block> blocks = @base.dF_Blocks;
             List<Derating> deratingCBs = @base.deratngCBs;
 
             Derating deratingCB = new Derating();
@@ -371,20 +441,20 @@ namespace Okken
                 }
             }
 
-            var unit = from dfunits in units
-                       where dfunits.NumOfPole.ToString() + "P" == panel.NumOfPole
-                       where dfunits.ShortСircuitСurrent >= panel.ShotCurr
-                       where dfunits.Name == deratingCB.Name
-                       orderby dfunits.ShortСircuitСurrent
-                       select dfunits;
+            var block = from dfBlocks in blocks
+                       where dfBlocks.NumOfPole.ToString() + "P" == panel.NumOfPole
+                       where dfBlocks.ShortСircuitСurrent >= panel.ShotCurr
+                       where dfBlocks.Name == deratingCB.Name
+                       orderby dfBlocks.ShortСircuitСurrent
+                       select dfBlocks;
 
-            DF_Block baseUnit = (DF_Block)unit.First();
+            DF_Block baseBlock = (DF_Block)block.First();
 
-            return (DF_Block)baseUnit.Clone();
+            return (DF_Block)baseBlock.Clone();
         }
 
         /// <summary>
-        /// Функция добавления DF фидеров список фидеров секции 1
+        /// Функция добавления DF фидеров
         /// </summary>
         /// <param name="num">Количество</param>
         /// <param name="current">Номинальный ток</param>
@@ -408,6 +478,63 @@ namespace Okken
                     }
                 }
             }                   
+        }
+
+        /// <summary>
+        /// Поиск MCC блока
+        /// </summary>
+        /// <param name="Power">Моность</param>
+        /// <param name="ShotCurr">Ток КЗ</param>
+        /// <param name="Temperature">Температура</param>
+        /// <returns></returns>
+        public MCC_Block FindMCC_Blocks(int Power, int ShotCurr, int Temperature)
+        {
+            List<MCC_Block> blocks = @base.mCC_Blocks;
+
+            string degreeIP = panel.DegreeIP;
+
+            if (degreeIP == "IP41" || degreeIP == "IP54")
+                degreeIP = "IP41/54";
+
+            var block = from mccBlocks in blocks
+                        where mccBlocks.Power >= Power
+                        where mccBlocks.ShortСircuitСurrent >= ShotCurr
+                        where mccBlocks.DegreeOfProtection == degreeIP
+                        where mccBlocks.Temperature >= Temperature
+                        orderby mccBlocks.Power
+                        select mccBlocks;
+
+            MCC_Block baseBlock = (MCC_Block)block.First();
+            return (MCC_Block)baseBlock.Clone();
+        }
+
+        /// <summary>
+        /// Функция добавления DF фидеров
+        /// </summary>
+        /// <param name="num">Количество</param>
+        /// <param name="power">Мощность</param>
+        /// <param name="shotCurr">Ток КЗ</param>
+        /// <param name="temperature">Температура</param>
+        /// <param name="numOfSect">Номер секции</param>
+        public void AddMCCBlocks(int num, int power, int shotCurr, int temperature, int numOfSect)
+        {
+            if (num > 0)
+            {
+                if (numOfSect == 1)
+                {
+                    for (int i = 0; i < num; i++)
+                    {
+                        mCC_Blocks_Sect1.Add(FindMCC_Blocks(power, shotCurr, temperature));
+                    }
+                }
+                else if (numOfSect == 2)
+                {
+                    for (int i = 0; i < num; i++)
+                    {
+                        mCC_Blocks_Sect2.Add(FindMCC_Blocks(power, shotCurr, temperature));
+                    }
+                }
+            }
         }
     }
 }

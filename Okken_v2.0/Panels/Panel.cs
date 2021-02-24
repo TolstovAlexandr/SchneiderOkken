@@ -380,15 +380,14 @@ namespace Okken
 
         //---------------------------------------------------------------------------------------------------------------------------------
         //Управление двигателями Мощности
-        private double PowerMCC1 { get; } = 4;
-        private double PowerMCC2 { get; } = 7.5;
-        private double PowerMCC3 { get; } = 15.0;
-        private double PowerMCC4 { get; } = 22.0;
-        private double PowerMCC5 { get; } = 37.0;
-        private double PowerMCC6 { get; } = 75.0;
-        private double PowerMCC7 { get; } = 110.0;
-        private double PowerMCC8 { get; } = 160.0;
-        private double PowerMCC9 { get; } = 250.0;
+        private double PowerMCC1 { get; } = 4.0;
+        private double PowerMCC2 { get; } = 8.0;
+        private double PowerMCC3 { get; } = 22.0;
+        private double PowerMCC4 { get; } = 37.0;
+        private double PowerMCC5 { get; } = 75.0;
+        private double PowerMCC6 { get; } = 110.0;
+        private double PowerMCC7 { get; } = 160.0;
+        private double PowerMCC8 { get; } = 250.0;
 
         //Количество в Секции 1
         public int Sect1NumOfMCC1 { get; set; }
@@ -399,7 +398,6 @@ namespace Okken
         public int Sect1NumOfMCC6 { get; set; }
         public int Sect1NumOfMCC7 { get; set; }
         public int Sect1NumOfMCC8 { get; set; }
-        public int Sect1NumOfMCC9 { get; set; }
 
         //Количество в Секции 2
         public int Sect2NumOfMCC1 { get; set; }
@@ -410,7 +408,6 @@ namespace Okken
         public int Sect2NumOfMCC6 { get; set; }
         public int Sect2NumOfMCC7 { get; set; }
         public int Sect2NumOfMCC8 { get; set; }
-        public int Sect2NumOfMCC9 { get; set; }
 
         //---------------------------------------------------------------------------------------------------------------------------------
         //Плавный пуск SS
