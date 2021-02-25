@@ -34,6 +34,11 @@ namespace Okken
         public double SumPrice { get; set; }
 
         /// <summary>
+        /// Описание состава шкафа
+        /// </summary>
+        public string Discription { get; set; }
+
+        /// <summary>
         /// Сообщение для вывода предупреждений
         /// </summary>
         public string Message { get; set; }

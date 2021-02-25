@@ -10,6 +10,7 @@ namespace Okken
     {
         public string Type { get; set; }
         public string Name { get; set; }
+        public int? Current { get; set; }
         public int? NumOfPole { get; set; }
         public string TypeOfBreakingCapacity { get; set; }
         public int? ShortСircuitСurrent { get; set; }
@@ -19,6 +20,7 @@ namespace Okken
 
         public DF_Block(string Type,
             string Name,
+            int? Current,
             int? NumOfPole,
             string TypeOfBreakingCapacity,
             int? ShortСircuitСurrent,
@@ -28,6 +30,7 @@ namespace Okken
         {
             this.Type = Type;
             this.Name = Name;
+            this.Current = Current;
             this.NumOfPole = NumOfPole;
             this.TypeOfBreakingCapacity = TypeOfBreakingCapacity;
             this.ShortСircuitСurrent = ShortСircuitСurrent;
@@ -38,7 +41,13 @@ namespace Okken
 
         public object Clone()
         {
-            return new DF_Block(Type, Name, NumOfPole, TypeOfBreakingCapacity, ShortСircuitСurrent, NumOfUnit, Description, PriceOfUnit);
+            return new DF_Block(Type, Name, Current, NumOfPole, TypeOfBreakingCapacity, ShortСircuitСurrent, NumOfUnit, Description, PriceOfUnit);
+        }
+
+        public override string ToString()
+        {
+            string fullName = Type + "_" + Name + TypeOfBreakingCapacity + "_" + NumOfPole + "P" + "_" + Current + "A" + "_" + ShortСircuitСurrent + "кА";
+            return fullName;
         }
     }
 }

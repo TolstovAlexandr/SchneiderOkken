@@ -205,7 +205,7 @@ namespace Okken
                 description = ExcelWork.ReadString(i, 5, nameOfSheet: nameOfSheet);
                 priceOfUnit = ExcelWork.ReadDouble(i, 6, nameOfSheet: nameOfSheet);
 
-                Units.Add(new DF_Block(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, numOfUnit, description, priceOfUnit));
+                Units.Add(new DF_Block(type, name, 0, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }

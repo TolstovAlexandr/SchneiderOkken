@@ -41,19 +41,20 @@ namespace Okken
         /// </summary>
         public string Message { get; set; } = "";
 
-        //*****************************************Данные о блоках и шкафах********************************************************************************
-
+        //*****************************************Суммарные данные о блоках и шкафах********************************************************************************
+        public List<DF_Blocks_Sum> dF_Blocks_Sum_Sect1 { get; set; }
+        public List<DF_Blocks_Sum> dF_Blocks_Sum_Sect2 { get; set; }
 
         //********************************Номинальные токи с учетом дерэйтинга**************************************************************************************************
         /// <summary>
         /// Для фидера 5000А
         /// </summary>
-        public int CurrenOf5000 { get; set; } = 5000;
+        private int CurrenOf5000 { get; set; } = 5000;
 
         /// <summary>
         /// Для фидера 6300А
         /// </summary>
-        public int CurrenOf6300 { get; set; } = 6300;
+        private int CurrenOf6300 { get; set; } = 6300;
 
         //********************************Коллекции блоков*********************************************************************************************************
         /// <summary>
@@ -124,6 +125,9 @@ namespace Okken
             dF_Blocks_Sect2 = new List<DF_Block>(); //Создаем экземпляр класса списка DF блоков для секции 2
             mCC_Blocks_Sect1 = new List<MCC_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 1
             mCC_Blocks_Sect2 = new List<MCC_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 2
+
+            dF_Blocks_Sum_Sect1 = new List<DF_Blocks_Sum>(); //Создаем список Суммарных DF блоков распределенных по типам секции 1
+            dF_Blocks_Sum_Sect2 = new List<DF_Blocks_Sum>(); //Создаем список Суммарных DF блоков распределенных по типам секции 2
 
             //Для DF блоков**************************************************************************************************************************
             #region Нахождение номинальных (CurrenOf5000, CurrenOf6300) токов самых больших аппаратов (5000А и 6300А) с учетом дирэйтинга и запись сообщения
@@ -293,6 +297,7 @@ namespace Okken
 
                 //Считаем суммарное количество занимаемых модулей
                 SumNumberOfUnits += (int)item.NumOfUnit;
+                SumPrice += (double)item.PriceOfUnit; //Суммарная стоимость
             }
             #endregion
 
@@ -377,6 +382,7 @@ namespace Okken
             #endregion
 
             NuberOfBlocks = AllBlocks.Count(); //Считаем общее количество функциональных блоков
+
         }
 
         /// <summary>
@@ -391,6 +397,8 @@ namespace Okken
 
             Derating deratingCB = new Derating();
 
+            int Current = 0;
+
             if(panel.DegreeIP == "IP31")
             {
                 if(panel.AmbTemperature == 35)
@@ -399,6 +407,8 @@ namespace Okken
                                             where dCBs.RatedСurrent_IP31_35C >= RatedСurrent
                                             orderby dCBs.RatedСurrent_IP31_35C
                                             select dCBs).First();
+
+                    Current = (int)deratingCB.RatedСurrent_IP31_35C;
                 }
                 else if(panel.AmbTemperature == 40)
                 {
@@ -406,6 +416,8 @@ namespace Okken
                                             where dCBs.RatedСurrent_IP31_40C >= RatedСurrent
                                             orderby dCBs.RatedСurrent_IP31_40C
                                             select dCBs).First();
+
+                    Current = (int)deratingCB.RatedСurrent_IP31_40C;
                 }
                 else if (panel.AmbTemperature == 45)
                 {
@@ -413,6 +425,8 @@ namespace Okken
                                             where dCBs.RatedСurrent_IP31_45C >= RatedСurrent
                                             orderby dCBs.RatedСurrent_IP31_45C
                                             select dCBs).First();
+
+                    Current = (int)deratingCB.RatedСurrent_IP31_45C;
                 }
                 else if (panel.AmbTemperature == 50)
                 {
@@ -420,6 +434,8 @@ namespace Okken
                                             where dCBs.RatedСurrent_IP31_50C >= RatedСurrent
                                             orderby dCBs.RatedСurrent_IP31_50C
                                             select dCBs).First();
+
+                    Current = (int)deratingCB.RatedСurrent_IP31_50C;
                 }
                 else if (panel.AmbTemperature == 55)
                 {
@@ -427,6 +443,8 @@ namespace Okken
                                             where dCBs.RatedСurrent_IP31_55C >= RatedСurrent
                                             orderby dCBs.RatedСurrent_IP31_55C
                                             select dCBs).First();
+
+                    Current = (int)deratingCB.RatedСurrent_IP31_55C;
                 }
             }
             else if(panel.DegreeIP == "IP41" || panel.DegreeIP == "IP54")
@@ -437,6 +455,8 @@ namespace Okken
                                             where dCBs.RatedСurrent_IP41_35C >= RatedСurrent
                                             orderby dCBs.RatedСurrent_IP41_35C
                                             select dCBs).First();
+
+                    Current = (int)deratingCB.RatedСurrent_IP41_35C;
                 }
                 else if (panel.AmbTemperature == 40)
                 {
@@ -444,6 +464,8 @@ namespace Okken
                                             where dCBs.RatedСurrent_IP41_40C >= RatedСurrent
                                             orderby dCBs.RatedСurrent_IP41_40C
                                             select dCBs).First();
+
+                    Current = (int)deratingCB.RatedСurrent_IP41_40C;
                 }
                 else if (panel.AmbTemperature == 45)
                 {
@@ -451,6 +473,8 @@ namespace Okken
                                             where dCBs.RatedСurrent_IP41_45C >= RatedСurrent
                                             orderby dCBs.RatedСurrent_IP41_45C
                                             select dCBs).First();
+
+                    Current = (int)deratingCB.RatedСurrent_IP41_45C;
                 }
                 else if (panel.AmbTemperature == 50)
                 {
@@ -458,6 +482,8 @@ namespace Okken
                                             where dCBs.RatedСurrent_IP41_50C >= RatedСurrent
                                             orderby dCBs.RatedСurrent_IP41_50C
                                             select dCBs).First();
+
+                    Current = (int)deratingCB.RatedСurrent_IP41_50C;
                 }
                 else if (panel.AmbTemperature == 55)
                 {
@@ -465,6 +491,8 @@ namespace Okken
                                             where dCBs.RatedСurrent_IP41_55C >= RatedСurrent
                                             orderby dCBs.RatedСurrent_IP41_55C
                                             select dCBs).First();
+
+                    Current = (int)deratingCB.RatedСurrent_IP41_55C;
                 }
             }
 
@@ -477,6 +505,8 @@ namespace Okken
 
             DF_Block baseBlock = (DF_Block)block.First();
 
+            baseBlock.Current = Current;
+
             return (DF_Block)baseBlock.Clone();
         }
 
@@ -488,6 +518,7 @@ namespace Okken
         /// <param name="numOfSect">Номер секции</param>
         public void AddDFBlocks(int num, int current, int numOfSect)
         {
+            DF_Block dF_Block = FindDF_Blocks(current);
             if (num > 0)
             {
                 if (numOfSect == 1)
@@ -504,7 +535,18 @@ namespace Okken
                         dF_Blocks_Sect2.Add(FindDF_Blocks(current));
                     }
                 }
-            }                   
+            }
+
+            //Добавляем в общую коллекцию
+            if(num != 0)
+            {
+                DF_Blocks_Sum dF_Blocks_Sum = new DF_Blocks_Sum(dF_Block, num);
+
+                if (numOfSect == 1)
+                    dF_Blocks_Sum_Sect1.Add(dF_Blocks_Sum);
+                else if (numOfSect == 2)
+                    dF_Blocks_Sum_Sect2.Add(dF_Blocks_Sum);
+            }
         }
 
         /// <summary>
@@ -562,6 +604,31 @@ namespace Okken
                     }
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            string Message = "";
+
+            Message += "\tСекция 1:";
+            if (dF_Blocks_Sum_Sect1.Count != 0)
+            {
+                foreach (var item in dF_Blocks_Sum_Sect1)
+                {
+                    Message += "\n" + item.dF_block.ToString() + "- Количество: " + item.NumOfBlock + "; Суммарная стоимость: " + item.SumPrice;
+                } 
+            }
+
+            Message += "\n\tСекция 2:";
+            if (dF_Blocks_Sum_Sect2.Count != 0)
+            {
+                foreach (var item in dF_Blocks_Sum_Sect2)
+                {
+                    Message += "\n" + item.dF_block.ToString() + "- Количество: " + item.NumOfBlock + "; Суммарная стоимость: " + item.SumPrice;
+                }
+            }
+
+            return Message;
         }
     }
 }
