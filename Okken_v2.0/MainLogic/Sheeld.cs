@@ -122,6 +122,7 @@ namespace Okken
             mCC_Blocks_Sect1 = new List<MCC_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 1
             mCC_Blocks_Sect2 = new List<MCC_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 2
 
+            //Для DF блоков**************************************************************************************************************************
             #region Нахождение номинальных (CurrenOf5000, CurrenOf6300) токов самых больших аппаратов (5000А и 6300А) с учетом дирэйтинга и запись сообщения
             List<Derating> deratingCBs = @base.deratngCBs;
 
@@ -292,6 +293,7 @@ namespace Okken
             }
             #endregion
 
+            //Для MCC блоков**************************************************************************************************************************
             #region Исключение для MCC блоков при температуре >=50С, IP>=41 и токе КЗ 150кА
             int shotCurr = panel.ShotCurr;
             int temperature = panel.AmbTemperature;
@@ -349,7 +351,29 @@ namespace Okken
 
             #endregion
 
-            NuberOfBlocks = AllBlocks.Count(); //Считаем общее количество функциональных
+            #region Поиск о добавление блоков MCC Секция 2 в список mCC_Blocks_Sect2 и в AllBlocks 
+
+            AddMCCBlocks(panel.Sect2NumOfMCC1, 4, shotCurr, temperature, 2); //Добавляем фидеры 4кВт
+            AddMCCBlocks(panel.Sect2NumOfMCC2, 8, shotCurr, temperature, 2); //Добавляем фидеры 8кВт
+            AddMCCBlocks(panel.Sect1NumOfMCC3, 22, shotCurr, temperature, 2); //Добавляем фидеры 22кВт
+            AddMCCBlocks(panel.Sect2NumOfMCC4, 45, shotCurr, temperature, 2); //Добавляем фидеры 45кВт
+            AddMCCBlocks(panel.Sect2NumOfMCC5, 75, shotCurr, temperature, 2); //Добавляем фидеры 75кВт
+            AddMCCBlocks(panel.Sect2NumOfMCC6, 110, shotCurr, temperature, 2); //Добавляем фидеры 110кВт
+            AddMCCBlocks(panel.Sect2NumOfMCC7, 160, shotCurr, temperature, 2); //Добавляем фидеры 160кВт
+            AddMCCBlocks(panel.Sect2NumOfMCC8, 250, shotCurr, temperature, 2); //Добавляем фидеры 250кВт
+
+            //Добавляем в общую коллекцию фидеры из секции 1
+            foreach (MCC_Block item in mCC_Blocks_Sect2)
+            {
+                AllBlocks.Add(item);
+
+                SumNumberOfUnits += (int)item.NumOfUnit; //Считаем суммарное количество занимаемых модулей
+                SumPrice += (double)item.PriceOfUnit; //Суммарная стоимость
+            }
+
+            #endregion
+
+            NuberOfBlocks = AllBlocks.Count(); //Считаем общее количество функциональных блоков
         }
 
         /// <summary>
