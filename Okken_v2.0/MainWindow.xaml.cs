@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using System.Xml.Serialization;
 using System.Reflection;
 using System.Collections.ObjectModel;
+using System.Windows.Markup;
 
 namespace Okken
 {
@@ -611,6 +612,28 @@ namespace Okken
         private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Sect1FiderLastText.Header = "Билиберда";
+        }       
+    }
+
+    /// <summary>
+    /// Класс для развертывания детального описания шкафа
+    /// </summary>
+    [ValueConversion(typeof(Visibility), typeof(bool))]
+    public sealed class VisibilityToBooleanConverter : MarkupExtension, IValueConverter
+    {
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return this;
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value as Visibility? == Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value as bool? == true ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

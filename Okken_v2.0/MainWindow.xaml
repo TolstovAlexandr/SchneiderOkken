@@ -1289,7 +1289,8 @@
                                       FrozenColumnCount="3"
                                       HorizontalScrollBarVisibility="Auto"
                                       ScrollViewer.ScrollChanged="CalcDataGrid_ScrollChanged"       
-                                      MaxHeight="550">
+                                      MaxHeight="550"
+                                      RowDetailsVisibilityMode="Collapsed">
 
                             <DataGrid.Resources>
                                 <!--Стиль для выбранного столбца-->
@@ -1332,6 +1333,18 @@
                             </DataGrid.Items>
 
                             <DataGrid.Columns>
+                                
+                                <!--Кнопка развертывание детального описания-->
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ToggleButton Content="Details"
+                                                          Padding="5 0 5 0"
+                                                          IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridRow}, 
+                                                          Path=DetailsVisibility, Converter={local:VisibilityToBooleanConverter}, Mode=TwoWay}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
                                 <DataGridTextColumn 
                                         x:Name="CalcNoCol"
@@ -1364,16 +1377,22 @@
                                         Binding="{Binding Path=SumPrice, Mode=OneWay}" 
                                         Width="120"/>
 
-                                <DataGridTextColumn x:Name="CalcDescription"
-                                        Header="Описание состава шкафа"
-                                        HeaderStyle="{StaticResource ColumnHeaderStyle}"
-                                        Binding="{Binding Path=Discription, Mode=OneWay}"/>
-
                                 <DataGridTextColumn x:Name="CalcMessage"
                                         Header="Предупреждения"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                         Binding="{Binding Path=Message, Mode=OneWay}"/>
                             </DataGrid.Columns>
+                            
+                            <!--Описание шкафа-->
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock x:Name="CalcDescription"
+                                                   Text="{Binding Path=Discription, Mode=OneWay}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>   
+
                         </DataGrid>
                     </StackPanel>
                 </GroupBox>

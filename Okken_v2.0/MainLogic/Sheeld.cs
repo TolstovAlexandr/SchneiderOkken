@@ -42,8 +42,23 @@ namespace Okken
         public string Message { get; set; } = "";
 
         //*****************************************Суммарные данные о блоках и шкафах********************************************************************************
-        public List<DF_Blocks_Sum> dF_Blocks_Sum_Sect1 { get; set; }
-        public List<DF_Blocks_Sum> dF_Blocks_Sum_Sect2 { get; set; }
+        /// <summary>
+        /// Cуммарный список DF блоков для секции 1
+        /// </summary>
+        public List<Blocks_Sum> dF_Blocks_Sum_Sect1 { get; set; }
+        /// <summary>
+        /// Cуммарный список DF блоков для секции 2
+        /// </summary>
+        public List<Blocks_Sum> dF_Blocks_Sum_Sect2 { get; set; }
+
+        /// <summary>
+        /// Cуммарный список MCC блоков для секции 1
+        /// </summary>
+        public List<Blocks_Sum> mCC_Blocks_Sum_Sect1 { get; set; }
+        /// <summary>
+        /// Cуммарный список MCC блоков для секции 2
+        /// </summary>
+        public List<Blocks_Sum> mCC_Blocks_Sum_Sect2 { get; set; }
 
         //********************************Номинальные токи с учетом дерэйтинга**************************************************************************************************
         /// <summary>
@@ -126,8 +141,10 @@ namespace Okken
             mCC_Blocks_Sect1 = new List<MCC_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 1
             mCC_Blocks_Sect2 = new List<MCC_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 2
 
-            dF_Blocks_Sum_Sect1 = new List<DF_Blocks_Sum>(); //Создаем список Суммарных DF блоков распределенных по типам секции 1
-            dF_Blocks_Sum_Sect2 = new List<DF_Blocks_Sum>(); //Создаем список Суммарных DF блоков распределенных по типам секции 2
+            dF_Blocks_Sum_Sect1 = new List<Blocks_Sum>(); //Создаем список Суммарных DF блоков распределенных по типам секции 1
+            dF_Blocks_Sum_Sect2 = new List<Blocks_Sum>(); //Создаем список Суммарных DF блоков распределенных по типам секции 2
+            mCC_Blocks_Sum_Sect1 = new List<Blocks_Sum>(); //Создаем список Суммарных MCC блоков распределенных по типам секции 1
+            mCC_Blocks_Sum_Sect2 = new List<Blocks_Sum>(); //Создаем список Суммарных MCC блоков распределенных по типам секции 2
 
             //Для DF блоков**************************************************************************************************************************
             #region Нахождение номинальных (CurrenOf5000, CurrenOf6300) токов самых больших аппаратов (5000А и 6300А) с учетом дирэйтинга и запись сообщения
@@ -290,7 +307,7 @@ namespace Okken
             AddDFBlocks(panel.Sect2NumOfFider14, CurrenOf5000, 2); //Добавляем фидеры 5000А с учетом дирэйтинга
             AddDFBlocks(panel.Sect2NumOfFider15, CurrenOf6300, 2); //Добавляем фидеры 6300А с учетом дирэйтинга
 
-            //Добавляем в общую коллекцию фидеры 100А из секции 1
+            //Добавляем в общую коллекцию фидеры из секции 2
             foreach (DF_Block item in dF_Blocks_Sect2)
             {
                 AllBlocks.Add(item);
@@ -535,13 +552,9 @@ namespace Okken
                         dF_Blocks_Sect2.Add(FindDF_Blocks(current));
                     }
                 }
-            }
 
-            //Добавляем в общую коллекцию
-            if(num != 0)
-            {
-                DF_Blocks_Sum dF_Blocks_Sum = new DF_Blocks_Sum(dF_Block, num);
-
+                Blocks_Sum dF_Blocks_Sum = new Blocks_Sum(dF_Block, num);
+                //Добавляем в общую коллекцию
                 if (numOfSect == 1)
                     dF_Blocks_Sum_Sect1.Add(dF_Blocks_Sum);
                 else if (numOfSect == 2)
@@ -589,6 +602,8 @@ namespace Okken
         {
             if (num > 0)
             {
+                MCC_Block mCC_Block = FindMCC_Blocks(power, shotCurr, temperature);
+
                 if (numOfSect == 1)
                 {
                     for (int i = 0; i < num; i++)
@@ -603,6 +618,13 @@ namespace Okken
                         mCC_Blocks_Sect2.Add(FindMCC_Blocks(power, shotCurr, temperature));
                     }
                 }
+
+                Blocks_Sum mcc_Blocks_Sum = new Blocks_Sum(mCC_Block, num);
+                //Добавляем в общую коллекцию
+                if (numOfSect == 1)
+                    mCC_Blocks_Sum_Sect1.Add(mcc_Blocks_Sum);
+                else if (numOfSect == 2)
+                    mCC_Blocks_Sum_Sect2.Add(mcc_Blocks_Sum);
             }
         }
 
@@ -611,20 +633,34 @@ namespace Okken
             string Message = "";
 
             Message += "\tСекция 1:";
-            if (dF_Blocks_Sum_Sect1.Count != 0)
+            if(dF_Blocks_Sum_Sect1.Count != 0)
             {
                 foreach (var item in dF_Blocks_Sum_Sect1)
                 {
-                    Message += "\n" + item.dF_block.ToString() + "- Количество: " + item.NumOfBlock + "; Суммарная стоимость: " + item.SumPrice;
+                    Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
                 } 
+            }
+            if(mCC_Blocks_Sum_Sect1.Count != 0)
+            {
+                foreach (var item in mCC_Blocks_Sum_Sect1)
+                {
+                    Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
+                }
             }
 
             Message += "\n\tСекция 2:";
-            if (dF_Blocks_Sum_Sect2.Count != 0)
+            if(dF_Blocks_Sum_Sect2.Count != 0)
             {
                 foreach (var item in dF_Blocks_Sum_Sect2)
                 {
-                    Message += "\n" + item.dF_block.ToString() + "- Количество: " + item.NumOfBlock + "; Суммарная стоимость: " + item.SumPrice;
+                    Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
+                }
+            }
+            if (mCC_Blocks_Sum_Sect2.Count != 0)
+            {
+                foreach (var item in mCC_Blocks_Sum_Sect2)
+                {
+                    Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
                 }
             }
 

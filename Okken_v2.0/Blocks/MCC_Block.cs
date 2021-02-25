@@ -50,5 +50,11 @@ namespace Okken
         {
             return new MCC_Block(Type, Name, NumOfPole, TypeOfBreakingCapacity, ShortСircuitСurrent, Power, DegreeOfProtection, Temperature, NumOfUnit, Description, PriceOfUnit);
         }
+
+        public override string ToString()
+        {
+            string fullName = Type + "_" + Name + TypeOfBreakingCapacity + "_" + NumOfPole + "P" + "_" + Power + "кВт" + "_" + ShortСircuitСurrent + "кА";
+            return fullName;
+        }
     }
 }

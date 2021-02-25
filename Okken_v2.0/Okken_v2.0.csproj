@@ -64,7 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Blocks\DF_Blocks_Sum.cs" />
+    <Compile Include="Blocks\Blocks_Sum.cs" />
     <Compile Include="MainLogic\Colomn_115.cs" />
     <Compile Include="MainLogic\Colomn_70_2.cs" />
     <Compile Include="MainLogic\IColomn.cs" />

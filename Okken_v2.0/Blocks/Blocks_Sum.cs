@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace Okken
 {
-    public class DF_Blocks_Sum
+    /// <summary>
+    /// Суммарный класс блоков
+    /// </summary>
+    public class Blocks_Sum
     {
-        public DF_Block dF_block { get; set; }
+        public IBlock block { get; set; }
         public int NumOfBlock { get; set; }
         public double SumPrice { get; set; }
 
-        public DF_Blocks_Sum(DF_Block dF_block, int NumOfBlock)
+        public Blocks_Sum(IBlock dF_block, int NumOfBlock)
         {
-            this.dF_block = dF_block;
+            this.block = dF_block;
             this.NumOfBlock = NumOfBlock;
 
             SumPrice = (double)dF_block.PriceOfUnit * NumOfBlock;
