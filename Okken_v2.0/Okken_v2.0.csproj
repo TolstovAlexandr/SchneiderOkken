@@ -71,11 +71,11 @@
     <Compile Include="MainLogic\Sheeld.cs" />
     <Compile Include="Panels\CalcPanel.cs" />
     <Compile Include="Panels\CollectionOfCalcPanels.cs" />
-    <Compile Include="Units\Derating.cs" />
-    <Compile Include="Units\MCC_Block.cs" />
-    <Compile Include="Units\PFC_Block.cs" />
-    <Compile Include="Units\SS_Block.cs" />
-    <Compile Include="Units\VSD_Block.cs" />
+    <Compile Include="Blocks\Derating.cs" />
+    <Compile Include="Blocks\MCC_Block.cs" />
+    <Compile Include="Blocks\PFC_Block.cs" />
+    <Compile Include="Blocks\SS_Block.cs" />
+    <Compile Include="Blocks\VSD_Block.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,10 +85,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Collections\Base.cs" />
-    <Compile Include="Units\BC_Block.cs" />
-    <Compile Include="Units\DF_Block.cs" />
-    <Compile Include="Units\IBlock.cs" />
-    <Compile Include="Units\INC_Block.cs" />
+    <Compile Include="Blocks\BC_Block.cs" />
+    <Compile Include="Blocks\DF_Block.cs" />
+    <Compile Include="Blocks\IBlock.cs" />
+    <Compile Include="Blocks\INC_Block.cs" />
     <Compile Include="OpenDialogWindow.xaml.cs">
       <DependentUpon>OpenDialogWindow.xaml</DependentUpon>
     </Compile>
