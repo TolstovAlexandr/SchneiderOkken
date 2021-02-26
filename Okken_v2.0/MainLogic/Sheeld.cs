@@ -356,7 +356,7 @@ namespace Okken
             AddMCCBlocks(panel.Sect1NumOfMCC6, 110, shotCurr, temperature, 1); //Добавляем фидеры 110кВт
             AddMCCBlocks(panel.Sect1NumOfMCC7, 160, shotCurr, temperature, 1); //Добавляем фидеры 160кВт   
 
-            //Ограничение для MCC 250кВт - если IP>=41 и температура >= 50, то количество такие фидеры не считаются
+            //Ограничение для MCC 250кВт - если IP>=41 и температура >= 50, то такие фидеры не считаются
             if ((panel.DegreeIP != "IP41" && panel.DegreeIP != "IP54" && panel.AmbTemperature < 50))
                 AddMCCBlocks(panel.Sect1NumOfMCC8, 250, shotCurr, temperature, 1); //Добавляем фидеры 250кВт
                 
@@ -381,7 +381,7 @@ namespace Okken
             AddMCCBlocks(panel.Sect2NumOfMCC6, 110, shotCurr, temperature, 2); //Добавляем фидеры 110кВт
             AddMCCBlocks(panel.Sect2NumOfMCC7, 160, shotCurr, temperature, 2); //Добавляем фидеры 160кВт
 
-            //Ограничение для MCC 250кВт - если IP>=41 и температура >= 50, то количество такие фидеры не считаются
+            //Ограничение для MCC 250кВт - если IP>=41 и температура >= 50, то такие фидеры не считаются
             if ((panel.DegreeIP != "IP41" && panel.DegreeIP != "IP54" && panel.AmbTemperature < 50))
                 AddMCCBlocks(panel.Sect2NumOfMCC8, 250, shotCurr, temperature, 2); //Добавляем фидеры 250кВт                                        
 
