@@ -46,7 +46,7 @@ namespace Okken
 
         public override string ToString()
         {
-            string fullName = Type + "_" + Name + TypeOfBreakingCapacity + "_" + NumOfPole + "P" + "_" + Current + "A" + "_" + ShortСircuitСurrent + "кА";
+            string fullName = Name + TypeOfBreakingCapacity + "_" + NumOfPole + "P" + "_" + Current + "A" + "_" + ShortСircuitСurrent + "кА";
             return fullName;
         }
     }

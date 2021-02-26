@@ -409,8 +409,8 @@ namespace Okken
                     // Configure open file dialog box
                     Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
                     dlg.FileName = "Document"; // Default file name
-                    dlg.DefaultExt = ".xml"; // Default file extension
-                    dlg.Filter = "XML файл (.xml)|*.xml"; // Filter files by extension
+                    dlg.DefaultExt = ".ken"; // Default file extension
+                    dlg.Filter = "ken файл (.ken)|*.ken"; // Filter files by extension
 
                     // Show open file dialog box
                     Nullable<bool> result = dlg.ShowDialog();
@@ -498,6 +498,8 @@ namespace Okken
         //Событи создать новый файл
         private void New_Click(object sender, RoutedEventArgs e)
         {
+            fileNameToSave = null;
+
             SaveDialogWindow saveDialogWindow = new SaveDialogWindow();
             saveDialogWindow.Show();
             saveDialogWindow.YesSaveButton.Click += SaveAs_Click;

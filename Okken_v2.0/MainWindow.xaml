@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Okken"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1500"
+        Title="MainWindow" Height="950"  Width="1500"
         xmlns:ml="clr-namespace:MoralesLarios.Utilities.Excel;assembly=MoralesLarios.Utilities">
     <Window.Resources>
         <Style x:Key="ColumnHeaderStyle" TargetType="DataGridColumnHeader">
@@ -462,7 +462,7 @@
                                       FrozenColumnCount="3"
                                       HorizontalScrollBarVisibility="Auto"
                                       ScrollViewer.ScrollChanged="MainDataGrid_ScrollChanged"        
-                                      MaxHeight="550"
+                                      MaxHeight="700"
                                       SelectionChanged="MainDataGrid_SelectionChanged">
 
                                 <DataGrid.Resources>
@@ -1265,15 +1265,16 @@
                 <GroupBox Header="Итоговая таблица"
                               Margin="10"
                               Padding="10">
-                    <StackPanel Orientation="Vertical">
-                        
-                        <Button x:Name="CalculateButton"
+                    <ScrollViewer MaxHeight="800">
+                        <StackPanel Orientation="Vertical">
+
+                            <Button x:Name="CalculateButton"
                                 Margin="0 10 0 10"
                                 Click="CalculateButton_Click">
-                            Рассчитать панели
-                        </Button>
+                                Рассчитать панели
+                            </Button>
 
-                        <DataGrid x:Name="CalcDataGrid"
+                            <DataGrid x:Name="CalcDataGrid"
                                       AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray"
                                       RowBackground="LightGray" AlternatingRowBackground="White"
                                       ml:ExcelActions.EnabledCopyExcel="True"
@@ -1286,115 +1287,116 @@
                                       ml:ExcelActions.ShowErrorMessages="True"
                                       CanUserAddRows="False"
                                       CurrentCellChanged="CalcDataGrid_CurrentCellChanged"
-                                      FrozenColumnCount="3"
+                                      FrozenColumnCount="700"
                                       HorizontalScrollBarVisibility="Auto"
-                                      ScrollViewer.ScrollChanged="CalcDataGrid_ScrollChanged"       
-                                      MaxHeight="550"
+                                      
                                       RowDetailsVisibilityMode="Collapsed">
 
-                            <DataGrid.Resources>
-                                <!--Стиль для выбранного столбца-->
-                                <Style TargetType="DataGridCell" x:Key="SelectedColumnStyle">
-                                    <!--<Setter Property="Background" Value="#0079d8"/>-->
-                                    <Setter Property="Background" Value="Red"/>
-                                </Style>
+                                <DataGrid.Resources>
+                                    <!--Стиль для выбранного столбца-->
+                                    <Style TargetType="DataGridCell" x:Key="SelectedColumnStyle">
+                                        <!--<Setter Property="Background" Value="#0079d8"/>-->
+                                        <Setter Property="Background" Value="Red"/>
+                                    </Style>
 
-                                <!--Стиль для вводных аппаратов секции 1-->
-                                <Style TargetType="DataGridCell" x:Key="IncomerColumnStyle1">
-                                    <Setter Property="Background" Value="LightSteelBlue"/>
-                                </Style>
+                                    <!--Стиль для вводных аппаратов секции 1-->
+                                    <Style TargetType="DataGridCell" x:Key="IncomerColumnStyle1">
+                                        <Setter Property="Background" Value="LightSteelBlue"/>
+                                    </Style>
 
-                                <!--Стиль для вводных аппаратов секции 2-->
-                                <Style TargetType="DataGridCell" x:Key="IncomerColumnStyle2">
-                                    <Setter Property="Background" Value="MediumAquamarine"/>
-                                </Style>
+                                    <!--Стиль для вводных аппаратов секции 2-->
+                                    <Style TargetType="DataGridCell" x:Key="IncomerColumnStyle2">
+                                        <Setter Property="Background" Value="MediumAquamarine"/>
+                                    </Style>
 
-                                <Style TargetType="ScrollBar">
-                                    <Style.Triggers>
-                                        <Trigger Property="Orientation" Value="Horizontal">
-                                            <Setter Property="Height" Value="22"/>
-                                        </Trigger>
-                                        <Trigger Property="Orientation" Value="Vertical">
-                                            <Setter Property="Width" Value="22"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
+                                    <Style TargetType="ScrollBar">
+                                        <Style.Triggers>
+                                            <Trigger Property="Orientation" Value="Horizontal">
+                                                <Setter Property="Height" Value="22"/>
+                                            </Trigger>
+                                            <Trigger Property="Orientation" Value="Vertical">
+                                                <Setter Property="Width" Value="22"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
 
-                            </DataGrid.Resources>
+                                </DataGrid.Resources>
 
-                            <DataGrid.ColumnHeaderStyle>
-                                <Style TargetType="{x:Type DataGridColumnHeader}">
-                                    <Setter Property="FontWeight"  Value="Bold" />
-                                </Style>
-                            </DataGrid.ColumnHeaderStyle>
+                                <DataGrid.ColumnHeaderStyle>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="FontWeight"  Value="Bold" />
+                                    </Style>
+                                </DataGrid.ColumnHeaderStyle>
 
-                            <DataGrid.Items>
+                                <DataGrid.Items>
 
-                            </DataGrid.Items>
+                                </DataGrid.Items>
 
-                            <DataGrid.Columns>
-                                
-                                <!--Кнопка развертывание детального описания-->
-                                <DataGridTemplateColumn>
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <ToggleButton Content="Details"
+                                <DataGrid.Columns>
+
+                                    <!--Кнопка развертывание детального описания-->
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ToggleButton Content="Details"
                                                           Padding="5 0 5 0"
                                                           IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridRow}, 
                                                           Path=DetailsVisibility, Converter={local:VisibilityToBooleanConverter}, Mode=TwoWay}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
 
-                                <DataGridTextColumn 
+                                    <DataGridTextColumn 
                                         x:Name="CalcNoCol"
                                         Header="№"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                         Binding="{Binding Path=Id, Mode=OneWay}" 
                                         Width="40"/>
 
-                                <DataGridTextColumn x:Name="CalcNameOfSheet"
+                                    <DataGridTextColumn x:Name="CalcNameOfSheet"
                                         Header="Наименование щита"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                         Binding="{Binding Path=Name, Mode=OneWay}" 
                                         Width="120"/>
 
-                                <DataGridTextColumn x:Name="CalcNuberOfFuncUnits"
+                                    <DataGridTextColumn x:Name="CalcNuberOfFuncUnits"
                                         Header="Количество функциональных блоков"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                         Binding="{Binding Path=NuberOfFuncUnits, Mode=OneWay}" 
                                         Width="120"/>
 
-                                <DataGridTextColumn x:Name="CalcSumNumberOfUnits"
+                                    <DataGridTextColumn x:Name="CalcSumNumberOfUnits"
                                         Header="Суммарно количество юнитов"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                         Binding="{Binding Path=SumNumberOfUnits, Mode=OneWay}" 
                                         Width="120"/>
 
-                                <DataGridTextColumn x:Name="CalcSumPrice"
+                                    <DataGridTextColumn x:Name="CalcSumPrice"
                                         Header="Стоимость, EUR"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                         Binding="{Binding Path=SumPrice, Mode=OneWay}" 
                                         Width="120"/>
 
-                                <DataGridTextColumn x:Name="CalcMessage"
+                                    <DataGridTextColumn x:Name="CalcMessage"
                                         Header="Предупреждения"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                         Binding="{Binding Path=Message, Mode=OneWay}"/>
-                            </DataGrid.Columns>
-                            
-                            <!--Описание шкафа-->
-                            <DataGrid.RowDetailsTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock x:Name="CalcDescription"
-                                                   Text="{Binding Path=Discription, Mode=OneWay}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGrid.RowDetailsTemplate>   
+                                </DataGrid.Columns>
 
-                        </DataGrid>
-                    </StackPanel>
+                                <!--Описание шкафа-->
+                                <DataGrid.RowDetailsTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock x:Name="CalcDescription"
+                                                   Padding="30 5 0 20"
+                                                   Text="{Binding Path=Discription, Mode=OneWay}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGrid.RowDetailsTemplate>
+
+                            </DataGrid>
+                        </StackPanel>
+                    </ScrollViewer>
                 </GroupBox>
             </StackPanel>
         </TabItem>

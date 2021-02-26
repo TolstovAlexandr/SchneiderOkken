@@ -255,12 +255,12 @@ namespace Okken
                 }
             }
 
-            Message += "При: " + panel.DegreeIP + " и " + panel.AmbTemperature + "°C дирэйтинг:\n";
+            Message += "*При: " + panel.DegreeIP + " и " + panel.AmbTemperature + "°C дирэйтинг:\n";
             if (CurrenOf5000 < 5000)
             {
-                Message += "Для аппаратов 5000А - " + CurrenOf5000 + "А;\n";
+                Message += "-Для аппаратов 5000А - " + CurrenOf5000 + "А;\n";
             }
-            Message += "Для аппаратов 6300А - " + CurrenOf6300 + "А";
+            Message += "-Для аппаратов 6300А - " + CurrenOf6300 + "А;";
             #endregion
 
             #region Поиск о добавление фидерных блоков Секция 1 в список dF_Blocks_Sect1 и в AllBlocks            
@@ -326,45 +326,40 @@ namespace Okken
             //Ограничение по току КЗ(не более 100) и по температуре (не более 50)
             if(shotCurr > 100 || temperature > 50)
             {
-                if(shotCurr > 100)
-                    shotCurr = 100;
-
-                if(temperature > 50)
-                temperature = 50;
-
-                Message += "\n";
-
                 if (shotCurr > 100)
-                    Message += "\nДля моторных фидеров ток КЗ принят 100кА(максимально для MCC)";
+                {
+                    Message += "\n*Для моторных фидеров ток КЗ принят 100кА(максимально для MCC)";
+                    shotCurr = 100;
+                }
                 if (temperature > 50)
-                    Message += "\nДля моторных фидеров температура принята 50°C(максимально для MCC)";
+                {
+                    Message += "\n*Для моторных фидеров температура принята 50°C(максимально для MCC)";
+                    temperature = 50;
+                }
             }
 
-            //Ограничение для MCC 250кВт - если IP>=41 и температура >= 50, то количество такиф фидеров обнуляется
-            if((panel.DegreeIP == "IP41" || panel.DegreeIP == "IP54" || panel.AmbTemperature >= 50) && (panel.Sect1NumOfMCC8 > 0 || panel.Sect2NumOfMCC8 > 0))
+            //Ограничение для MCC 250кВт - если IP >= 41 и температура >= 50, то такие фидеры не учитываются при расчете
+            if ((panel.DegreeIP == "IP41" || panel.DegreeIP == "IP54" || panel.AmbTemperature >= 50) && (panel.Sect1NumOfMCC8 > 0 || panel.Sect2NumOfMCC8 > 0))
             {
-                if(panel.Sect1NumOfMCC8 > 0)
-                    panel.Sect1NumOfMCC8 = 0;
-
-                if (panel.Sect2NumOfMCC8 > 0)
-                    panel.Sect2NumOfMCC8 = 0;
-
-                Message += "\nПо условиям дирэйтинга при 50°C и более или IP41 и более" +
-                    "\nне возможно подобрать MCC 250кВт, поэтому их количество принято равным 0";
+                Message += "\n*По условиям дирэйтинга при 50°C и более или IP41 и более" +
+                    "\nне возможно подобрать MCC 250кВт, поэтому при расчете их количество принято равным 0";
             }
             #endregion
 
             #region Поиск о добавление блоков MCC Секция 1 в список mCC_Blocks_Sect1 и в AllBlocks 
-            
+
             AddMCCBlocks(panel.Sect1NumOfMCC1, 4, shotCurr, temperature, 1); //Добавляем фидеры 4кВт
             AddMCCBlocks(panel.Sect1NumOfMCC2, 8, shotCurr, temperature, 1); //Добавляем фидеры 8кВт
             AddMCCBlocks(panel.Sect1NumOfMCC3, 22, shotCurr, temperature, 1); //Добавляем фидеры 22кВт
             AddMCCBlocks(panel.Sect1NumOfMCC4, 45, shotCurr, temperature, 1); //Добавляем фидеры 45кВт
             AddMCCBlocks(panel.Sect1NumOfMCC5, 75, shotCurr, temperature, 1); //Добавляем фидеры 75кВт
             AddMCCBlocks(panel.Sect1NumOfMCC6, 110, shotCurr, temperature, 1); //Добавляем фидеры 110кВт
-            AddMCCBlocks(panel.Sect1NumOfMCC7, 160, shotCurr, temperature, 1); //Добавляем фидеры 160кВт
-            AddMCCBlocks(panel.Sect1NumOfMCC8, 250, shotCurr, temperature, 1); //Добавляем фидеры 250кВт
+            AddMCCBlocks(panel.Sect1NumOfMCC7, 160, shotCurr, temperature, 1); //Добавляем фидеры 160кВт   
 
+            //Ограничение для MCC 250кВт - если IP>=41 и температура >= 50, то количество такие фидеры не считаются
+            if ((panel.DegreeIP != "IP41" && panel.DegreeIP != "IP54" && panel.AmbTemperature < 50))
+                AddMCCBlocks(panel.Sect1NumOfMCC8, 250, shotCurr, temperature, 1); //Добавляем фидеры 250кВт
+                
             //Добавляем в общую коллекцию фидеры из секции 1
             foreach (MCC_Block item in mCC_Blocks_Sect1)
             {
@@ -385,7 +380,10 @@ namespace Okken
             AddMCCBlocks(panel.Sect2NumOfMCC5, 75, shotCurr, temperature, 2); //Добавляем фидеры 75кВт
             AddMCCBlocks(panel.Sect2NumOfMCC6, 110, shotCurr, temperature, 2); //Добавляем фидеры 110кВт
             AddMCCBlocks(panel.Sect2NumOfMCC7, 160, shotCurr, temperature, 2); //Добавляем фидеры 160кВт
-            AddMCCBlocks(panel.Sect2NumOfMCC8, 250, shotCurr, temperature, 2); //Добавляем фидеры 250кВт
+
+            //Ограничение для MCC 250кВт - если IP>=41 и температура >= 50, то количество такие фидеры не считаются
+            if ((panel.DegreeIP != "IP41" && panel.DegreeIP != "IP54" && panel.AmbTemperature < 50))
+                AddMCCBlocks(panel.Sect2NumOfMCC8, 250, shotCurr, temperature, 2); //Добавляем фидеры 250кВт                                        
 
             //Добавляем в общую коллекцию фидеры из секции 1
             foreach (MCC_Block item in mCC_Blocks_Sect2)
@@ -399,11 +397,11 @@ namespace Okken
             #endregion
 
             NuberOfBlocks = AllBlocks.Count(); //Считаем общее количество функциональных блоков
-
+           
         }
 
         /// <summary>
-        /// Поиск фидера по току
+        /// Поиск фидера по току в базе
         /// </summary>
         /// <param name="RatedСurrent">Ток</param>
         /// <returns>DF блок</returns>
@@ -521,14 +519,15 @@ namespace Okken
                        select dfBlocks;
 
             DF_Block baseBlock = (DF_Block)block.First();
+            DF_Block baseBlock_clone = (DF_Block)baseBlock.Clone();
 
-            baseBlock.Current = Current;
+            baseBlock_clone.Current = Current;
 
-            return (DF_Block)baseBlock.Clone();
+            return baseBlock_clone;
         }
 
         /// <summary>
-        /// Функция добавления DF фидеров
+        /// Функция добавления DF фидеров в список dF_Blocks_Sect1 или dF_Blocks_Sect2 и в общию клллекцию
         /// </summary>
         /// <param name="num">Количество</param>
         /// <param name="current">Номинальный ток</param>
@@ -563,7 +562,7 @@ namespace Okken
         }
 
         /// <summary>
-        /// Поиск MCC блока
+        /// Поиск MCC блока в базе
         /// </summary>
         /// <param name="Power">Моность</param>
         /// <param name="ShotCurr">Ток КЗ</param>
@@ -587,11 +586,15 @@ namespace Okken
                         select mccBlocks;
 
             MCC_Block baseBlock = (MCC_Block)block.First();
-            return (MCC_Block)baseBlock.Clone();
+            MCC_Block baseBlock_clone = (MCC_Block)baseBlock.Clone();
+
+            baseBlock_clone.Power = Power;
+
+            return baseBlock_clone;
         }
 
         /// <summary>
-        /// Функция добавления DF фидеров
+        /// Функция добавления DF фидеров в список mCC_Blocks_Sect1 или mCC_Blocks_Sect2 и в общию клллекцию
         /// </summary>
         /// <param name="num">Количество</param>
         /// <param name="power">Мощность</param>
@@ -628,36 +631,56 @@ namespace Okken
             }
         }
 
+        /// <summary>
+        /// Полное описание шкафа
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string Message = "";
 
-            Message += "\tСекция 1:";
-            if(dF_Blocks_Sum_Sect1.Count != 0)
+            //Секция 1**********************************************************************************************
+            if(dF_Blocks_Sum_Sect1.Count != 0 || mCC_Blocks_Sum_Sect1.Count != 0)
             {
+                Message += "\t***Секция 1:";
+            }
+           
+            if (dF_Blocks_Sum_Sect1.Count != 0)
+            {              
+                Message += "\n\n\tDF:";
                 foreach (var item in dF_Blocks_Sum_Sect1)
                 {
                     Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
                 } 
             }
-            if(mCC_Blocks_Sum_Sect1.Count != 0)
+            
+            if (mCC_Blocks_Sum_Sect1.Count != 0)
             {
+                Message += "\n\n\tMCC:";
                 foreach (var item in mCC_Blocks_Sum_Sect1)
                 {
                     Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
                 }
             }
 
-            Message += "\n\tСекция 2:";
-            if(dF_Blocks_Sum_Sect2.Count != 0)
+            //Секция 2**********************************************************************************************
+            if (dF_Blocks_Sum_Sect2.Count != 0 || mCC_Blocks_Sum_Sect2.Count != 0)
             {
+                Message += "\n\n\t***Секция 2:";
+            }
+            
+            if (dF_Blocks_Sum_Sect2.Count != 0)
+            {              
+                Message += "\n\n\tDF:";
                 foreach (var item in dF_Blocks_Sum_Sect2)
                 {
                     Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
                 }
             }
+            
             if (mCC_Blocks_Sum_Sect2.Count != 0)
             {
+                Message += "\n\n\tMCC:";
                 foreach (var item in mCC_Blocks_Sum_Sect2)
                 {
                     Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
