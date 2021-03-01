@@ -390,24 +390,349 @@ namespace Okken
         private double PowerMCC8 { get; } = 250.0;
 
         //Количество в Секции 1
-        public int Sect1NumOfMCC1 { get; set; }
-        public int Sect1NumOfMCC2 { get; set; }
-        public int Sect1NumOfMCC3 { get; set; }
-        public int Sect1NumOfMCC4 { get; set; }
-        public int Sect1NumOfMCC5 { get; set; }
-        public int Sect1NumOfMCC6 { get; set; }
-        public int Sect1NumOfMCC7 { get; set; }
-        public int Sect1NumOfMCC8 { get; set; }
+        private int sect1NumOfMCC1;
+        public int Sect1NumOfMCC1 
+        { 
+            get 
+            {
+                return sect1NumOfMCC1;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect1NumOfMCC1 = 0;
+                }
+                else sect1NumOfMCC1 = value;
+            } 
+        }
+
+        private int sect1NumOfMCC2;
+        public int Sect1NumOfMCC2
+        {
+            get
+            {
+                return sect1NumOfMCC2;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect1NumOfMCC2 = 0;
+                }
+                else sect1NumOfMCC2 = value;
+            }
+        }
+
+        private int sect1NumOfMCC3;
+        public int Sect1NumOfMCC3
+        {
+            get
+            {
+                return sect1NumOfMCC3;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect1NumOfMCC3 = 0;
+                }
+                else sect1NumOfMCC3 = value;
+            }
+        }
+
+        private int sect1NumOfMCC4;
+        public int Sect1NumOfMCC4
+        {
+            get
+            {
+                return sect1NumOfMCC4;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect1NumOfMCC4 = 0;
+                }
+                else sect1NumOfMCC4 = value;
+            }
+        }
+
+        private int sect1NumOfMCC5;
+        public int Sect1NumOfMCC5
+        {
+            get
+            {
+                return sect1NumOfMCC5;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect1NumOfMCC5 = 0;
+                }
+                else sect1NumOfMCC5 = value;
+            }
+        }
+
+        private int sect1NumOfMCC6;
+        public int Sect1NumOfMCC6
+        {
+            get
+            {
+                return sect1NumOfMCC6;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect1NumOfMCC6 = 0;
+                }
+                else sect1NumOfMCC6 = value;
+            }
+        }
+
+        private int sect1NumOfMCC7;
+        public int Sect1NumOfMCC7
+        {
+            get
+            {
+                return sect1NumOfMCC7;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect1NumOfMCC7 = 0;
+                }
+                else sect1NumOfMCC7 = value;
+            }
+        }
+
+        private int sect1NumOfMCC8;
+        public int Sect1NumOfMCC8
+        {
+            get
+            {
+                return sect1NumOfMCC8;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect1NumOfMCC8 = 0;
+                }
+                else sect1NumOfMCC8 = value;
+
+                //При IP41 или IP54 или температуре 50С не возможно подобрать MCC 250кВт
+                if (DegreeIP == "IP41" || DegreeIP == "IP54" || AmbTemperature >= 50)
+                {
+                    if (value != 0)
+                    {
+                        MessageBox.Show("При IP41 или IP54 или температуре 50С не возможно подобрать MCC 250кВт");
+                    }
+                    sect1NumOfMCC8 = 0;
+                }
+                else sect1NumOfMCC8 = value;
+            }
+        }
 
         //Количество в Секции 2
-        public int Sect2NumOfMCC1 { get; set; }
-        public int Sect2NumOfMCC2 { get; set; }
-        public int Sect2NumOfMCC3 { get; set; }
-        public int Sect2NumOfMCC4 { get; set; }
-        public int Sect2NumOfMCC5 { get; set; }
-        public int Sect2NumOfMCC6 { get; set; }
-        public int Sect2NumOfMCC7 { get; set; }
-        public int Sect2NumOfMCC8 { get; set; }
+        private int sect2NumOfMCC1;
+        public int Sect2NumOfMCC1
+        {
+            get
+            {
+                return sect2NumOfMCC1;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect2NumOfMCC1 = 0;
+                }
+                else sect2NumOfMCC1 = value;
+            }
+        }
+
+        private int sect2NumOfMCC2;
+        public int Sect2NumOfMCC2
+        {
+            get
+            {
+                return sect2NumOfMCC2;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect2NumOfMCC2 = 0;
+                }
+                else sect2NumOfMCC2 = value;
+            }
+        }
+
+        private int sect2NumOfMCC3;
+        public int Sect2NumOfMCC3
+        {
+            get
+            {
+                return sect2NumOfMCC3;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect2NumOfMCC3 = 0;
+                }
+                else sect2NumOfMCC3 = value;
+            }
+        }
+
+        private int sect2NumOfMCC4;
+        public int Sect2NumOfMCC4
+        {
+            get
+            {
+                return sect2NumOfMCC4;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect2NumOfMCC4 = 0;
+                }
+                else sect2NumOfMCC4 = value;
+            }
+        }
+
+        private int sect2NumOfMCC5;
+        public int Sect2NumOfMCC5
+        {
+            get
+            {
+                return sect2NumOfMCC5;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect2NumOfMCC5 = 0;
+                }
+                else sect2NumOfMCC5 = value;
+            }
+        }
+
+        private int sect2NumOfMCC6;
+        public int Sect2NumOfMCC6
+        {
+            get
+            {
+                return sect2NumOfMCC6;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect2NumOfMCC6 = 0;
+                }
+                else sect2NumOfMCC6 = value;
+            }
+        }
+
+        private int sect2NumOfMCC7;
+        public int Sect2NumOfMCC7
+        {
+            get
+            {
+                return sect2NumOfMCC7;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect2NumOfMCC7 = 0;
+                }
+                else sect2NumOfMCC7 = value;
+            }
+        }
+
+        private int sect2NumOfMCC8;
+        public int Sect2NumOfMCC8
+        {
+            get
+            {
+                return sect2NumOfMCC8;
+            }
+            set
+            {
+                //При температуре 55С или токе КЗ 150кА MCC - нельзя выбрать
+                if (AmbTemperature == 55 || ShotCurr == 150)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 55С или токе КЗ 150кА не воможно выбрать MCC");
+                    sect2NumOfMCC8 = 0;
+                }
+                else sect2NumOfMCC8 = value;
+
+                //При IP41 или IP54 или температуре 50С не возможно подобрать MCC 250кВт
+                if (DegreeIP == "IP41" || DegreeIP == "IP54" || AmbTemperature >= 50)
+                {
+                    if (value != 0)
+                    {
+                        MessageBox.Show("При IP41 или IP54 или температуре 50С не возможно подобрать MCC 250кВт");
+                    }
+                    sect2NumOfMCC8 = 0;                   
+                }                   
+                else sect2NumOfMCC8 = value;
+            }
+        }
+
 
         //---------------------------------------------------------------------------------------------------------------------------------
         //Плавный пуск SS

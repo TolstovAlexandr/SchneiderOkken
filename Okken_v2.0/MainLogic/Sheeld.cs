@@ -255,12 +255,16 @@ namespace Okken
                 }
             }
 
-            Message += "*При: " + panel.DegreeIP + " и " + panel.AmbTemperature + "°C дирэйтинг:\n";
-            if (CurrenOf5000 < 5000)
+            if(panel.Sect1NumOfFider14 != 0 || panel.Sect2NumOfFider14 != 0 || panel.Sect1NumOfFider15 != 0 || panel.Sect2NumOfFider15 != 0)
             {
-                Message += "-Для аппаратов 5000А - " + CurrenOf5000 + "А;\n";
-            }
-            Message += "-Для аппаратов 6300А - " + CurrenOf6300 + "А;";
+                Message += "*При: " + panel.DegreeIP + " и " + panel.AmbTemperature + "°C дирэйтинг:\n";
+                if (CurrenOf5000 < 5000 && (panel.Sect1NumOfFider14 != 0 || panel.Sect2NumOfFider14 != 0))
+                {
+                    Message += "-Для аппаратов 5000А - " + CurrenOf5000 + "А;\n";
+                }
+                if(panel.Sect1NumOfFider15 != 0 || panel.Sect2NumOfFider15 != 0)
+                    Message += "-Для аппаратов 6300А - " + CurrenOf6300 + "А;";
+            }            
             #endregion
 
             #region Поиск о добавление фидерных блоков Секция 1 в список dF_Blocks_Sect1 и в AllBlocks            
@@ -319,32 +323,9 @@ namespace Okken
             #endregion
 
             //Для MCC блоков**************************************************************************************************************************
-            #region Исключение для MCC блоков при температуре >=50С, IP>=41 и токе КЗ 150кА
+
             int shotCurr = panel.ShotCurr;
             int temperature = panel.AmbTemperature;
-
-            //Ограничение по току КЗ(не более 100) и по температуре (не более 50)
-            if(shotCurr > 100 || temperature > 50)
-            {
-                if (shotCurr > 100)
-                {
-                    Message += "\n*Для моторных фидеров ток КЗ принят 100кА(максимально для MCC)";
-                    shotCurr = 100;
-                }
-                if (temperature > 50)
-                {
-                    Message += "\n*Для моторных фидеров температура принята 50°C(максимально для MCC)";
-                    temperature = 50;
-                }
-            }
-
-            //Ограничение для MCC 250кВт - если IP >= 41 и температура >= 50, то такие фидеры не учитываются при расчете
-            if ((panel.DegreeIP == "IP41" || panel.DegreeIP == "IP54" || panel.AmbTemperature >= 50) && (panel.Sect1NumOfMCC8 > 0 || panel.Sect2NumOfMCC8 > 0))
-            {
-                Message += "\n*По условиям дирэйтинга при 50°C и более или IP41 и более" +
-                    "\nне возможно подобрать MCC 250кВт, поэтому при расчете их количество принято равным 0";
-            }
-            #endregion
 
             #region Поиск о добавление блоков MCC Секция 1 в список mCC_Blocks_Sect1 и в AllBlocks 
 
@@ -355,10 +336,7 @@ namespace Okken
             AddMCCBlocks(panel.Sect1NumOfMCC5, 75, shotCurr, temperature, 1); //Добавляем фидеры 75кВт
             AddMCCBlocks(panel.Sect1NumOfMCC6, 110, shotCurr, temperature, 1); //Добавляем фидеры 110кВт
             AddMCCBlocks(panel.Sect1NumOfMCC7, 160, shotCurr, temperature, 1); //Добавляем фидеры 160кВт   
-
-            //Ограничение для MCC 250кВт - если IP>=41 и температура >= 50, то такие фидеры не считаются
-            if ((panel.DegreeIP != "IP41" && panel.DegreeIP != "IP54" && panel.AmbTemperature < 50))
-                AddMCCBlocks(panel.Sect1NumOfMCC8, 250, shotCurr, temperature, 1); //Добавляем фидеры 250кВт
+            AddMCCBlocks(panel.Sect1NumOfMCC8, 250, shotCurr, temperature, 1); //Добавляем фидеры 250кВт
                 
             //Добавляем в общую коллекцию фидеры из секции 1
             foreach (MCC_Block item in mCC_Blocks_Sect1)
@@ -380,10 +358,7 @@ namespace Okken
             AddMCCBlocks(panel.Sect2NumOfMCC5, 75, shotCurr, temperature, 2); //Добавляем фидеры 75кВт
             AddMCCBlocks(panel.Sect2NumOfMCC6, 110, shotCurr, temperature, 2); //Добавляем фидеры 110кВт
             AddMCCBlocks(panel.Sect2NumOfMCC7, 160, shotCurr, temperature, 2); //Добавляем фидеры 160кВт
-
-            //Ограничение для MCC 250кВт - если IP>=41 и температура >= 50, то такие фидеры не считаются
-            if ((panel.DegreeIP != "IP41" && panel.DegreeIP != "IP54" && panel.AmbTemperature < 50))
-                AddMCCBlocks(panel.Sect2NumOfMCC8, 250, shotCurr, temperature, 2); //Добавляем фидеры 250кВт                                        
+            AddMCCBlocks(panel.Sect2NumOfMCC8, 250, shotCurr, temperature, 2); //Добавляем фидеры 250кВт                                        
 
             //Добавляем в общую коллекцию фидеры из секции 1
             foreach (MCC_Block item in mCC_Blocks_Sect2)
