@@ -38,9 +38,5 @@ namespace Okken
         /// </summary>
         public string Discription { get; set; }
 
-        /// <summary>
-        /// Сообщение для вывода предупреждений
-        /// </summary>
-        public string Message { get; set; }
     }
 }

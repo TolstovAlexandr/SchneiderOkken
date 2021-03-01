@@ -600,8 +600,6 @@ namespace Okken
                 calcPanel.SumPrice = sheeld.SumPrice;
                 calcPanel.Discription = sheeld.ToString();
 
-                calcPanel.Message = sheeld.Message;
-
                 CollectionOfCalcPanels.PanelList.Add(calcPanel);
             }
             #endregion

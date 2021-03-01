@@ -39,7 +39,7 @@ namespace Okken
         /// <summary>
         /// Сообщение предупреждение о дерэйтинге
         /// </summary>
-        public string Message { get; set; } = "";
+        public string Warning { get; set; } = "";
 
         //*****************************************Суммарные данные о блоках и шкафах********************************************************************************
         /// <summary>
@@ -257,13 +257,13 @@ namespace Okken
 
             if(panel.Sect1NumOfFider14 != 0 || panel.Sect2NumOfFider14 != 0 || panel.Sect1NumOfFider15 != 0 || panel.Sect2NumOfFider15 != 0)
             {
-                Message += "*При: " + panel.DegreeIP + " и " + panel.AmbTemperature + "°C дирэйтинг:\n";
+                Warning += "При: " + panel.DegreeIP + " и " + panel.AmbTemperature + "°C дирэйтинг:\n";
                 if (CurrenOf5000 < 5000 && (panel.Sect1NumOfFider14 != 0 || panel.Sect2NumOfFider14 != 0))
                 {
-                    Message += "-Для аппаратов 5000А - " + CurrenOf5000 + "А;\n";
+                    Warning += "-Для аппаратов 5000А - " + CurrenOf5000 + "А;\n";
                 }
                 if(panel.Sect1NumOfFider15 != 0 || panel.Sect2NumOfFider15 != 0)
-                    Message += "-Для аппаратов 6300А - " + CurrenOf6300 + "А;";
+                    Warning += "-Для аппаратов 6300А - " + CurrenOf6300 + "А;";
             }            
             #endregion
 
@@ -661,6 +661,9 @@ namespace Okken
                     Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
                 }
             }
+
+            if(Warning != "")
+                Message += "\n\n!!!" + Warning;
 
             return Message;
         }
