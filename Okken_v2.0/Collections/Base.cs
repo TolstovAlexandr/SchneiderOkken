@@ -83,13 +83,13 @@ namespace Okken
             try
             {
                 ExcelWork = new ExcelWork(pathToExcell);
-                iNC_Blocks = Get_INC_Units("INC", INC_Sheet);
-                bC_Blocks = Get_BC_Units("BC", BC_Sheet);
-                dF_Blocks = Get_DF_Units("DF", DF_Sheet);
-                mCC_Blocks = Get_MCC_Units("MCC", MCC_Sheet);
-                sS_Blocks = Get_SS_Units("SS", SS_Sheet);
-                vSD_Blocks = Get_VSD_Units("VSD", VSD_Sheet);
-                pFC_Blocks = Get_PFC_Units("PFC", PFC_Sheet);
+                iNC_Blocks = Get_INC_Blocks("INC", INC_Sheet);
+                bC_Blocks = Get_BC_Blocks("BC", BC_Sheet);
+                dF_Blocks = Get_DF_Blocks("DF", DF_Sheet);
+                mCC_Blocks = Get_MCC_Blocks("MCC", MCC_Sheet);
+                sS_Blocks = Get_SS_Blocks("SS", SS_Sheet);
+                vSD_Blocks = Get_VSD_Blocks("VSD", VSD_Sheet);
+                pFC_Blocks = Get_PFC_Blocks("PFC", PFC_Sheet);
                 deratngCBs = Get_DeratngCBs(derating_Sheet);
             }
             catch (Exception ex)
@@ -104,7 +104,7 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<INC_Block> Get_INC_Units(string type, string nameOfSheet)
+        public List<INC_Block> Get_INC_Blocks(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
@@ -142,7 +142,7 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<BC_Block> Get_BC_Units(string type, string nameOfSheet)
+        public List<BC_Block> Get_BC_Blocks(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
@@ -180,7 +180,7 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<DF_Block> Get_DF_Units(string type, string nameOfSheet)
+        public List<DF_Block> Get_DF_Blocks(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
@@ -216,7 +216,7 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<MCC_Block> Get_MCC_Units(string type, string nameOfSheet)
+        public List<MCC_Block> Get_MCC_Blocks(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
@@ -258,19 +258,21 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<SS_Block> Get_SS_Units(string type, string nameOfSheet)
+        public List<SS_Block> Get_SS_Blocks(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
 
             List<SS_Block> Units = new List<SS_Block>();
 
-        string name;
+            string name;
             int? numOfPole;
+            string typeOfBreakingCapacity;
             int? shortСircuitСurrent;
             int? ratedСurrent;
-            double? minPower;
-            double? maxPower;
+            double? power;
+            string degreeOfProtection;
+            int? temperature;
             int? numOfUnit;
             string description;
             double? priceOfUnit;
@@ -279,15 +281,17 @@ namespace Okken
             {
                 name = ExcelWork.ReadString(i, 0, nameOfSheet: nameOfSheet);
                 numOfPole = ExcelWork.ReadInt(i, 1, nameOfSheet: nameOfSheet);
-                shortСircuitСurrent = ExcelWork.ReadInt(i, 2, nameOfSheet: nameOfSheet);
-                ratedСurrent = ExcelWork.ReadInt(i, 3, nameOfSheet: nameOfSheet);
-                minPower = ExcelWork.ReadDouble(i, 4, nameOfSheet: nameOfSheet);
-                maxPower = ExcelWork.ReadDouble(i, 5, nameOfSheet: nameOfSheet);
-                numOfUnit = ExcelWork.ReadInt(i, 6, nameOfSheet: nameOfSheet);
-                description = ExcelWork.ReadString(i, 7, nameOfSheet: nameOfSheet);
-                priceOfUnit = ExcelWork.ReadDouble(i, 8, nameOfSheet: nameOfSheet);
+                typeOfBreakingCapacity = ExcelWork.ReadString(i, 2, nameOfSheet: nameOfSheet);
+                shortСircuitСurrent = ExcelWork.ReadInt(i, 3, nameOfSheet: nameOfSheet);
+                ratedСurrent = ExcelWork.ReadInt(i, 4, nameOfSheet: nameOfSheet);
+                power = ExcelWork.ReadDouble(i, 5, nameOfSheet: nameOfSheet);
+                degreeOfProtection = ExcelWork.ReadString(i, 6, nameOfSheet: nameOfSheet);
+                temperature = ExcelWork.ReadInt(i, 7, nameOfSheet: nameOfSheet);
+                numOfUnit = ExcelWork.ReadInt(i, 8, nameOfSheet: nameOfSheet);
+                description = ExcelWork.ReadString(i, 9, nameOfSheet: nameOfSheet);
+                priceOfUnit = ExcelWork.ReadDouble(i, 10, nameOfSheet: nameOfSheet);
 
-                Units.Add(new SS_Block(type, name, numOfPole, shortСircuitСurrent, ratedСurrent, minPower, maxPower, numOfUnit, description, priceOfUnit));
+                Units.Add(new SS_Block(type, name, numOfPole, typeOfBreakingCapacity, shortСircuitСurrent, ratedСurrent, power, degreeOfProtection, temperature, numOfUnit, description, priceOfUnit));
             }
             return Units;
         }
@@ -298,7 +302,7 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<VSD_Block> Get_VSD_Units(string type, string nameOfSheet)
+        public List<VSD_Block> Get_VSD_Blocks(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
@@ -338,7 +342,7 @@ namespace Okken
         /// <param name="type">Тип юнита</param>
         /// <param name="nameOfSheet">Имя листа</param>
         /// <returns></returns>
-        public List<PFC_Block> Get_PFC_Units(string type, string nameOfSheet)
+        public List<PFC_Block> Get_PFC_Blocks(string type, string nameOfSheet)
         {
             worksheet = ExcelWork.GetWorksheet(nameOfSheet);
             numOfRowCB = worksheet.Cells.MaxDataRow;
