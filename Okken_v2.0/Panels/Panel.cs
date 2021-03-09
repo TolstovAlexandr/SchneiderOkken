@@ -736,28 +736,503 @@ namespace Okken
 
         //---------------------------------------------------------------------------------------------------------------------------------
         //Плавный пуск SS
-        private double PowerSS1 { get; } = 5.5;
-        private double PowerSS2 { get; } = 18.5;
+        private double PowerSS1 { get; } = 7.5;
+        private double PowerSS2 { get; } = 30;
         private double PowerSS3 { get; } = 45;
-        private double PowerSS4 { get; } = 110;
-        private double PowerSS5 { get; } = 250;
-        private double PowerSS6 { get; } = 400;
+        private double PowerSS4 { get; } = 55;
+        private double PowerSS5 { get; } = 75;
+        private double PowerSS6 { get; } = 110;
+        private double PowerSS7 { get; } = 132;
+        private double PowerSS8 { get; } = 160;
+        private double PowerSS9 { get; } = 220;
 
         //Количество в Секции 1
-        public int Sect1NumOfSS1 { get; set; }
-        public int Sect1NumOfSS2 { get; set; }
-        public int Sect1NumOfSS3 { get; set; }
-        public int Sect1NumOfSS4 { get; set; }
-        public int Sect1NumOfSS5 { get; set; }
-        public int Sect1NumOfSS6 { get; set; }
+        private int sect1NumOfSS1;
+        public int Sect1NumOfSS1
+        {
+            get { return sect1NumOfSS1; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect1NumOfSS1 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect1NumOfSS1 = 0;
+                }
+                else
+                    sect1NumOfSS1 = value;
+            }
+        }
+
+        private int sect1NumOfSS2;
+        public int Sect1NumOfSS2
+        {
+            get { return sect1NumOfSS2; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect1NumOfSS2 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect1NumOfSS2 = 0;
+                }
+                else
+                    sect1NumOfSS2 = value;
+            }
+        }
+
+        private int sect1NumOfSS3;
+        public int Sect1NumOfSS3
+        {
+            get { return sect1NumOfSS3; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect1NumOfSS3 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect1NumOfSS3 = 0;
+                }
+                else
+                    sect1NumOfSS3 = value;
+            }
+        }
+
+        private int sect1NumOfSS4;
+        public int Sect1NumOfSS4
+        {
+            get { return sect1NumOfSS4; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect1NumOfSS4 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect1NumOfSS4 = 0;
+                }
+                else
+                    sect1NumOfSS4 = value;
+            }
+        }
+
+        private int sect1NumOfSS5;
+        public int Sect1NumOfSS5
+        {
+            get { return sect1NumOfSS5; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect1NumOfSS5 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect1NumOfSS5 = 0;
+                }
+                else if(ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 75кВт");
+                    sect1NumOfSS5 = 0;
+                }
+                else
+                    sect1NumOfSS5 = value;
+            }
+        }
+
+        private int sect1NumOfSS6;
+        public int Sect1NumOfSS6
+        {
+            get { return sect1NumOfSS6; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect1NumOfSS6 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect1NumOfSS6 = 0;
+                }
+                else if (ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 110кВт");
+                    sect1NumOfSS6 = 0;
+                }
+                else
+                    sect1NumOfSS6 = value;
+            }
+        }
+
+        private int sect1NumOfSS7;
+        public int Sect1NumOfSS7
+        {
+            get { return sect1NumOfSS7; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect1NumOfSS7 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect1NumOfSS7 = 0;
+                }
+                else if (ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 132кВт");
+                    sect1NumOfSS7 = 0;
+                }
+                else
+                    sect1NumOfSS7 = value;
+            }
+        }
+
+        private int sect1NumOfSS8;
+        public int Sect1NumOfSS8
+        {
+            get { return sect1NumOfSS8; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect1NumOfSS8 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect1NumOfSS8 = 0;
+                }
+                else if (ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 160кВт");
+                    sect1NumOfSS8 = 0;
+                }
+                else
+                    sect1NumOfSS8 = value;
+            }
+        }
+
+        private int sect1NumOfSS9;
+        public int Sect1NumOfSS9
+        {
+            get { return sect1NumOfSS9; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect1NumOfSS9 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect1NumOfSS9 = 0;
+                }
+                else if(AmbTemperature > 35)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С не воможно выбрать SS 220кВт");
+                    sect1NumOfSS9 = 0;
+                }
+                else if (ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 220кВт");
+                    sect1NumOfSS9 = 0;
+                }
+                else
+                    sect1NumOfSS9 = value;
+            }
+        }
 
         //Количество в Секции 2
-        public int Sect2NumOfSS1 { get; set; }
-        public int Sect2NumOfSS2 { get; set; }
-        public int Sect2NumOfSS3 { get; set; }
-        public int Sect2NumOfSS4 { get; set; }
-        public int Sect2NumOfSS5 { get; set; }
-        public int Sect2NumOfSS6 { get; set; }
+        private int sect2NumOfSS1;
+        public int Sect2NumOfSS1
+        {
+            get { return sect2NumOfSS1; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect2NumOfSS1 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect2NumOfSS1 = 0;
+                }
+                else
+                    sect2NumOfSS1 = value;
+            }
+        }
+
+        private int sect2NumOfSS2;
+        public int Sect2NumOfSS2
+        {
+            get { return sect2NumOfSS2; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect2NumOfSS2 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect2NumOfSS2 = 0;
+                }
+                else
+                    sect2NumOfSS2 = value;
+            }
+        }
+
+        private int sect2NumOfSS3;
+        public int Sect2NumOfSS3
+        {
+            get { return sect2NumOfSS3; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect2NumOfSS3 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect2NumOfSS3 = 0;
+                }
+                else
+                    sect2NumOfSS3 = value;
+            }
+        }
+
+        private int sect2NumOfSS4;
+        public int Sect2NumOfSS4
+        {
+            get { return sect2NumOfSS4; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect2NumOfSS4 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect2NumOfSS4 = 0;
+                }
+                else
+                    sect2NumOfSS4 = value;
+            }
+        }
+
+        private int sect2NumOfSS5;
+        public int Sect2NumOfSS5
+        {
+            get { return sect2NumOfSS5; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect2NumOfSS5 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect2NumOfSS5 = 0;
+                }
+                else if (ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 75кВт");
+                    sect2NumOfSS5 = 0;
+                }
+                else
+                    sect2NumOfSS5 = value;
+            }
+        }
+
+        private int sect2NumOfSS6;
+        public int Sect2NumOfSS6
+        {
+            get { return sect2NumOfSS6; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect2NumOfSS6 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect2NumOfSS6 = 0;
+                }
+                else if (ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 110кВт");
+                    sect2NumOfSS6 = 0;
+                }
+                else
+                    sect2NumOfSS6 = value;
+            }
+        }
+
+        private int sect2NumOfSS7;
+        public int Sect2NumOfSS7
+        {
+            get { return sect2NumOfSS7; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect2NumOfSS7 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect2NumOfSS7 = 0;
+                }
+                else if (ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 132кВт");
+                    sect2NumOfSS7 = 0;
+                }
+                else
+                    sect2NumOfSS7 = value;
+            }
+        }
+
+        private int sect2NumOfSS8;
+        public int Sect2NumOfSS8
+        {
+            get { return sect2NumOfSS8; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect2NumOfSS8 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect2NumOfSS8 = 0;
+                }
+                else if (ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 160кВт");
+                    sect2NumOfSS8 = 0;
+                }
+                else
+                    sect2NumOfSS8 = value;
+            }
+        }
+
+        private int sect2NumOfSS9;
+        public int Sect2NumOfSS9
+        {
+            get { return sect2NumOfSS9; }
+            set
+            {
+                if (AmbTemperature > 45 || ShotCurr > 100)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
+                    sect2NumOfSS9 = 0;
+                }
+                if (AmbTemperature > 35 && ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                    sect2NumOfSS9 = 0;
+                }
+                else if (AmbTemperature > 35)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При температуре более 35С не воможно выбрать SS 220кВт");
+                    sect2NumOfSS9 = 0;
+                }
+                else if (ShotCurr > 50)
+                {
+                    if (value != 0)
+                        MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 220кВт");
+                    sect2NumOfSS9 = 0;
+                }
+                else
+                    sect2NumOfSS9 = value;
+            }
+        }
 
         //---------------------------------------------------------------------------------------------------------------------------------
         //Частотный преобразователь VSD

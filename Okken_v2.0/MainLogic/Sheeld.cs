@@ -60,6 +60,15 @@ namespace Okken
         /// </summary>
         public List<Blocks_Sum> mCC_Blocks_Sum_Sect2 { get; set; }
 
+        /// <summary>
+        /// Cуммарный список SS блоков для секции 1
+        /// </summary>
+        public List<Blocks_Sum> sS_Blocks_Sum_Sect1 { get; set; }
+        /// <summary>
+        /// Cуммарный список SS блоков для секции 2
+        /// </summary>
+        public List<Blocks_Sum> sS_Blocks_Sum_Sect2 { get; set; }
+
         //********************************Номинальные токи с учетом дерэйтинга**************************************************************************************************
         /// <summary>
         /// Для фидера 5000А
@@ -96,6 +105,16 @@ namespace Okken
         /// Список MCC блоков секции 2
         /// </summary>
         public List<MCC_Block> mCC_Blocks_Sect2;
+
+        /// <summary>
+        /// Список SS блоков секции 1
+        /// </summary>
+        public List<SS_Block> sS_Blocks_Sect1;
+
+        /// <summary>
+        /// Список SS блоков секции 2
+        /// </summary>
+        public List<SS_Block> sS_Blocks_Sect2;
 
 
         //********************************Секция 1*********************************************************************************************************
@@ -140,11 +159,15 @@ namespace Okken
             dF_Blocks_Sect2 = new List<DF_Block>(); //Создаем экземпляр класса списка DF блоков для секции 2
             mCC_Blocks_Sect1 = new List<MCC_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 1
             mCC_Blocks_Sect2 = new List<MCC_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 2
+            sS_Blocks_Sect1 = new List<SS_Block>(); //Создаем экземпляр класса списка SS блоков для секции 1
+            sS_Blocks_Sect2 = new List<SS_Block>(); //Создаем экземпляр класса списка MCC блоков для секции 2
 
             dF_Blocks_Sum_Sect1 = new List<Blocks_Sum>(); //Создаем список Суммарных DF блоков распределенных по типам секции 1
             dF_Blocks_Sum_Sect2 = new List<Blocks_Sum>(); //Создаем список Суммарных DF блоков распределенных по типам секции 2
             mCC_Blocks_Sum_Sect1 = new List<Blocks_Sum>(); //Создаем список Суммарных MCC блоков распределенных по типам секции 1
             mCC_Blocks_Sum_Sect2 = new List<Blocks_Sum>(); //Создаем список Суммарных MCC блоков распределенных по типам секции 2
+            sS_Blocks_Sum_Sect1 = new List<Blocks_Sum>(); //Создаем список Суммарных SS блоков распределенных по типам секции 1
+            sS_Blocks_Sum_Sect2 = new List<Blocks_Sum>(); //Создаем список Суммарных SS блоков распределенных по типам секции 2
 
             //Для DF блоков**************************************************************************************************************************
             #region Нахождение номинальных (CurrenOf5000, CurrenOf6300) токов самых больших аппаратов (5000А и 6300А) с учетом дирэйтинга и запись сообщения
@@ -371,6 +394,54 @@ namespace Okken
 
             #endregion
 
+            //Для SS блоков**************************************************************************************************************************
+
+            #region Поиск о добавление блоков SS Секция 1 в список sS_Blocks_Sect1 и в AllBlocks 
+
+            AddSSBlocks(panel.Sect1NumOfSS1, 7.5, shotCurr, temperature, 1); //Добавляем SS 7.5кВт
+            AddSSBlocks(panel.Sect1NumOfSS2, 30, shotCurr, temperature, 1); //Добавляем SS 30кВт
+            AddSSBlocks(panel.Sect1NumOfSS3, 45, shotCurr, temperature, 1); //Добавляем SS 45кВт
+            AddSSBlocks(panel.Sect1NumOfSS4, 55, shotCurr, temperature, 1); //Добавляем SS 55кВт
+            AddSSBlocks(panel.Sect1NumOfSS5, 75, shotCurr, temperature, 1); //Добавляем SS 75кВт
+            AddSSBlocks(panel.Sect1NumOfSS6, 110, shotCurr, temperature, 1); //Добавляем SS 110кВт
+            AddSSBlocks(panel.Sect1NumOfSS7, 132, shotCurr, temperature, 1); //Добавляем SS 132кВт
+            AddSSBlocks(panel.Sect1NumOfSS8, 160, shotCurr, temperature, 1); //Добавляем SS 160кВт
+            AddSSBlocks(panel.Sect1NumOfSS9, 220, shotCurr, temperature, 1); //Добавляем SS 220кВт
+
+            //Добавляем в общую коллекцию фидеры из секции 1
+            foreach (SS_Block item in sS_Blocks_Sect1)
+            {
+                AllBlocks.Add(item);
+
+                SumNumberOfUnits += (int)item.NumOfUnit; //Считаем суммарное количество занимаемых модулей
+                SumPrice += (double)item.PriceOfUnit; //Суммарная стоимость
+            }
+
+            #endregion
+
+            #region Поиск о добавление блоков SS Секция 1 в список sS_Blocks_Sect2 и в AllBlocks 
+
+            AddSSBlocks(panel.Sect2NumOfSS1, 7.5, shotCurr, temperature, 2); //Добавляем SS 7.5кВт
+            AddSSBlocks(panel.Sect2NumOfSS2, 30, shotCurr, temperature, 2); //Добавляем SS 30кВт
+            AddSSBlocks(panel.Sect2NumOfSS3, 45, shotCurr, temperature, 2); //Добавляем SS 45кВт
+            AddSSBlocks(panel.Sect2NumOfSS4, 55, shotCurr, temperature, 2); //Добавляем SS 55кВт
+            AddSSBlocks(panel.Sect2NumOfSS5, 75, shotCurr, temperature, 2); //Добавляем SS 75кВт
+            AddSSBlocks(panel.Sect2NumOfSS6, 110, shotCurr, temperature, 2); //Добавляем SS 110кВт
+            AddSSBlocks(panel.Sect2NumOfSS7, 132, shotCurr, temperature, 2); //Добавляем SS 132кВт
+            AddSSBlocks(panel.Sect2NumOfSS8, 160, shotCurr, temperature, 2); //Добавляем SS 160кВт
+            AddSSBlocks(panel.Sect2NumOfSS9, 220, shotCurr, temperature, 2); //Добавляем SS 220кВт
+
+            //Добавляем в общую коллекцию фидеры из секции 1
+            foreach (SS_Block item in sS_Blocks_Sect2)
+            {
+                AllBlocks.Add(item);
+
+                SumNumberOfUnits += (int)item.NumOfUnit; //Считаем суммарное количество занимаемых модулей
+                SumPrice += (double)item.PriceOfUnit; //Суммарная стоимость
+            }
+
+            #endregion
+
             NuberOfBlocks = AllBlocks.Count(); //Считаем общее количество функциональных блоков
            
         }
@@ -569,7 +640,7 @@ namespace Okken
         }
 
         /// <summary>
-        /// Функция добавления DF фидеров в список mCC_Blocks_Sect1 или mCC_Blocks_Sect2 и в общию клллекцию
+        /// Функция добавления MCC фидеров в список mCC_Blocks_Sect1 или mCC_Blocks_Sect2 и в общию клллекцию
         /// </summary>
         /// <param name="num">Количество</param>
         /// <param name="power">Мощность</param>
@@ -607,6 +678,70 @@ namespace Okken
         }
 
         /// <summary>
+        /// Поиск SS блока в базе
+        /// </summary>
+        /// <param name="Power">Моность</param>
+        /// <param name="ShotCurr">Ток КЗ</param>
+        /// <param name="Temperature">Температура</param>
+        /// <returns></returns>
+        public SS_Block FindSS_Blocks(double Power, int ShotCurr, int Temperature)
+        {
+            List<SS_Block> blocks = @base.sS_Blocks;
+
+            var block = from ssBlocks in blocks
+                        where ssBlocks.Power >= Power
+                        where ssBlocks.ShortСircuitСurrent >= ShotCurr
+                        where ssBlocks.Temperature >= Temperature
+                        orderby ssBlocks.Power
+                        select ssBlocks;
+
+            SS_Block baseBlock = (SS_Block)block.First();
+            SS_Block baseBlock_clone = (SS_Block)baseBlock.Clone();
+
+            baseBlock_clone.Power = Power;
+
+            return baseBlock_clone;
+        }
+
+        /// <summary>
+        /// Функция добавления SS фидеров в список sS_Blocks_Sect1 или sS_Blocks_Sect2 и в общию клллекцию
+        /// </summary>
+        /// <param name="num">Количество</param>
+        /// <param name="power">Мощность</param>
+        /// <param name="shotCurr">Ток КЗ</param>
+        /// <param name="temperature">Температура</param>
+        /// <param name="numOfSect">Номер секции</param>
+        public void AddSSBlocks(int num, double power, int shotCurr, int temperature, int numOfSect)
+        {
+            if (num > 0)
+            {
+                SS_Block sS_Block = FindSS_Blocks(power, shotCurr, temperature);
+
+                if (numOfSect == 1)
+                {
+                    for (int i = 0; i < num; i++)
+                    {
+                        sS_Blocks_Sect1.Add(FindSS_Blocks(power, shotCurr, temperature));
+                    }
+                }
+                else if (numOfSect == 2)
+                {
+                    for (int i = 0; i < num; i++)
+                    {
+                        sS_Blocks_Sect2.Add(FindSS_Blocks(power, shotCurr, temperature));
+                    }
+                }
+
+                Blocks_Sum ss_Blocks_Sum = new Blocks_Sum(sS_Block, num);
+                //Добавляем в общую коллекцию
+                if (numOfSect == 1)
+                    sS_Blocks_Sum_Sect1.Add(ss_Blocks_Sum);
+                else if (numOfSect == 2)
+                    sS_Blocks_Sum_Sect2.Add(ss_Blocks_Sum);
+            }
+        }
+
+        /// <summary>
         /// Полное описание шкафа
         /// </summary>
         /// <returns></returns>
@@ -638,6 +773,15 @@ namespace Okken
                 }
             }
 
+            if (sS_Blocks_Sum_Sect1.Count != 0)
+            {
+                Message += "\n\n\tSS:";
+                foreach (var item in sS_Blocks_Sum_Sect1)
+                {
+                    Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
+                }
+            }
+
             //Секция 2**********************************************************************************************
             if (dF_Blocks_Sum_Sect2.Count != 0 || mCC_Blocks_Sum_Sect2.Count != 0)
             {
@@ -662,7 +806,16 @@ namespace Okken
                 }
             }
 
-            if(Warning != "")
+            if (sS_Blocks_Sum_Sect2.Count != 0)
+            {
+                Message += "\n\n\tSS:";
+                foreach (var item in sS_Blocks_Sum_Sect2)
+                {
+                    Message += "\n" + item.block.ToString() + " - " + item.NumOfBlock + "шт., " + item.SumPrice + " EUR;";
+                }
+            }
+
+            if (Warning != "")
                 Message += "\n\n!!!" + Warning;
 
             return Message;

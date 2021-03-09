@@ -289,6 +289,9 @@
                                         <ColumnDefinition Width="{Binding ElementName=Sect1SS3, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect1SS4, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect1SS5, Path=ActualWidth, Mode=OneWay}"/>
+                                        <ColumnDefinition Width="{Binding ElementName=Sect1SS6, Path=ActualWidth, Mode=OneWay}"/>
+                                        <ColumnDefinition Width="{Binding ElementName=Sect1SS7, Path=ActualWidth, Mode=OneWay}"/>
+                                        <ColumnDefinition Width="{Binding ElementName=Sect1SS8, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect1SS_Last, Path=ActualWidth, Mode=OneWay}"/>
 
                                         <ColumnDefinition Width="{Binding ElementName=Sect2SS1, Path=ActualWidth, Mode=OneWay}"/>
@@ -296,6 +299,9 @@
                                         <ColumnDefinition Width="{Binding ElementName=Sect2SS3, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect2SS4, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect2SS5, Path=ActualWidth, Mode=OneWay}"/>
+                                        <ColumnDefinition Width="{Binding ElementName=Sect2SS6, Path=ActualWidth, Mode=OneWay}"/>
+                                        <ColumnDefinition Width="{Binding ElementName=Sect2SS7, Path=ActualWidth, Mode=OneWay}"/>
+                                        <ColumnDefinition Width="{Binding ElementName=Sect2SS8, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect2SS_Last, Path=ActualWidth, Mode=OneWay}"/>
 
                                         <ColumnDefinition Width="{Binding ElementName=Sect1VSD1, Path=ActualWidth, Mode=OneWay}"/>
@@ -715,7 +721,9 @@
                                         Header="100А"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfFider1, Mode=TwoWay}" 
-                                        Width="25"/>
+                                        Width="25"
+                                        PastingCellClipboardContent="PastingChange"
+                                        />
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1Fider2Text"
@@ -1038,87 +1046,129 @@
                                     <!--Плавный пуск SS секция 1/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                                     <DataGridTextColumn 
                                         x:Name="Sect1SS1"
-                                        Header="5,5kW"
+                                        Header="7,5kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfSS1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1SS2"
-                                        Header="7,5-18,5kW"
+                                        Header="7,6-30kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfSS2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1SS3"
-                                        Header="22-45kW"
+                                        Header="31-45kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfSS3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1SS4"
-                                        Header="55-110kW"
+                                        Header="46-55kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfSS4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect1SS5"
-                                        Header="132-250kW"
+                                        Header="56-75kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfSS5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
-                                        x:Name="Sect1SS_Last"
-                                        Header="315-400kW"
+                                        x:Name="Sect1SS6"
+                                        Header="76-110kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle3}"
                                         Binding="{Binding Path=Sect1NumOfSS6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                                    <DataGridTextColumn 
+                                        x:Name="Sect1SS7"
+                                        Header="111-132kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfSS7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                                    <DataGridTextColumn 
+                                        x:Name="Sect1SS8"
+                                        Header="133-160kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfSS8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                                    <DataGridTextColumn 
+                                        x:Name="Sect1SS_Last"
+                                        Header="161-220kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle3}"
+                                        Binding="{Binding Path=Sect1NumOfSS9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <!--Плавный пуск SS секция 2/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                                     <DataGridTextColumn 
                                         x:Name="Sect2SS1"
-                                        Header="5,5kW"
+                                        Header="7,5kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfSS1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect2SS2"
-                                        Header="7,5-18,5kW"
+                                        Header="7,6-30kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfSS2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect2SS3"
-                                        Header="22-45kW"
+                                        Header="31-45kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfSS3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect2SS4"
-                                        Header="55-110kW"
+                                        Header="46-55kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfSS4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
                                         x:Name="Sect2SS5"
-                                        Header="132-250kW"
+                                        Header="56-75kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfSS5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <DataGridTextColumn 
-                                        x:Name="Sect2SS_Last"
-                                        Header="315-400kW"
+                                        x:Name="Sect2SS6"
+                                        Header="76-110kW"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle4}"
                                         Binding="{Binding Path=Sect2NumOfSS6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                                    <DataGridTextColumn 
+                                        x:Name="Sect2SS7"
+                                        Header="111-132kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfSS7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                                    <DataGridTextColumn 
+                                        x:Name="Sect2SS8"
+                                        Header="133-160kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfSS8, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                                        Width="25"/>
+
+                                    <DataGridTextColumn 
+                                        x:Name="Sect2SS_Last"
+                                        Header="161-220kW"
+                                        HeaderStyle="{StaticResource ColumnHeaderStyle4}"
+                                        Binding="{Binding Path=Sect2NumOfSS9, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                         Width="25"/>
 
                                     <!--Частотный преобразователь VSD секция 1/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->

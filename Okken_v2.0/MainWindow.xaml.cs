@@ -612,7 +612,12 @@ namespace Okken
         private void MainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Sect1FiderLastText.Header = "Билиберда";
-        }       
+        }
+
+        private void PastingChange(object sender, DataGridCellClipboardEventArgs e)
+        {
+            ((DataGridTextColumn)sender).Foreground = Brushes.LightGreen;
+        }
     }
 
     /// <summary>
