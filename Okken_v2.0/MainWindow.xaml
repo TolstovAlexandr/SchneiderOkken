@@ -234,6 +234,9 @@
                                         <ColumnDefinition Width="{Binding ElementName=BusTieComboBox, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=TypeOfBusTieComboBox, Path=ActualWidth, Mode=OneWay}"/>
 
+                                        <ColumnDefinition Width="{Binding ElementName=TypeOfFidersComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                                        <ColumnDefinition Width="{Binding ElementName=TypeOfFiderConnectionComboBox, Path=ActualWidth, Mode=OneWay}"/>
+                                        
                                         <ColumnDefinition Width="{Binding ElementName=Sect1Fider1Text, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect1Fider2Text, Path=ActualWidth, Mode=OneWay}"/>
                                         <ColumnDefinition Width="{Binding ElementName=Sect1Fider3Text, Path=ActualWidth, Mode=OneWay}"/>
@@ -342,6 +345,14 @@
                                         Grid.Row="1">
                                         <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center"  FontWeight="Bold" FontSize="12">
                                             Секционный аппарат
+                                        </TextBlock>
+                                    </Border>
+
+                                    <Border x:Name="CharacteristicFidersBorder"
+                                        Style="{StaticResource HeaderBorderStyle1}"
+                                        Grid.Row="1">
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">
+                                            Характеристики фидеров
                                         </TextBlock>
                                     </Border>
 
@@ -715,7 +726,28 @@
                                             DisplayMemberPath="{Binding TypeOfSectApps}">
                                     </DataGridComboBoxColumn>
 
+                                    <!--Отходящие фидеры Характеристики/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+                                    <DataGridComboBoxColumn x:Name="TypeOfFidersComboBox"
+                                            Header="Тип установки"
+                                            Width="100"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding TypeOfFider, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding TypeOfFiders}">
+                                    </DataGridComboBoxColumn>
+
+                                    <DataGridComboBoxColumn x:Name="TypeOfFiderConnectionComboBox"
+                                            Header="Подключение"
+                                            Width="110"
+                                            ElementStyle="{StaticResource ComboBoxStyle}"
+                                            HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                            SelectedValueBinding="{Binding TypeOfFiderConnection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                            DisplayMemberPath="{Binding TypeOfFiderConnections}">
+                                    </DataGridComboBoxColumn>
+
                                     <!--Отходящие фидеры секция 1/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                                    
                                     <DataGridTextColumn 
                                         x:Name="Sect1Fider1Text"
                                         Header="100А"
@@ -1416,7 +1448,7 @@
                                         Width="120"/>
 
                                     <DataGridTextColumn x:Name="CalcSumNumberOfUnits"
-                                        Header="Суммарно количество юнитов"
+                                        Header="Суммарно количество модулей"
                                         HeaderStyle="{StaticResource ColumnHeaderStyle}"
                                         Binding="{Binding Path=SumNumberOfUnits, Mode=OneWay}" 
                                         Width="120"/>

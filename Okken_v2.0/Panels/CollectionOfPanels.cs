@@ -42,11 +42,6 @@ namespace Okken
         public ObservableCollection<string> TypeOfServices { get; set; }
 
         /// <summary>
-        /// Коллекция типов установки
-        /// </summary>
-        //public ObservableCollection<string> TypesOfInstall { get; set; }
-
-        /// <summary>
         /// Коллекция типов подключения
         /// </summary>
         public ObservableCollection<string> TypeOfConnections { get; set; }
@@ -121,6 +116,16 @@ namespace Okken
         public ObservableCollection<string> TypeOfSectApps { get; set; }
 
         /// <summary>
+        /// Коллекция типов подключения фидеров
+        /// </summary>
+        public ObservableCollection<string> TypeOfFiderConnections { get; set; }
+
+        /// <summary>
+        /// Типы отходящих фидеров
+        /// </summary>
+        public ObservableCollection<string> TypeOfFiders { get; set; }
+
+        /// <summary>
         /// Коллекция реактивных мощностей
         /// </summary>
         public ObservableCollection<string> CompPowers { get; set; }
@@ -138,10 +143,6 @@ namespace Okken
             TypeOfServices = new ObservableCollection<string>();
             TypeOfServices.Add("Одностороннее");
             TypeOfServices.Add("Двухстороннее");
-
-            //TypesOfInstall = new ObservableCollection<string>();
-            //TypesOfInstall.Add("Втычной");
-            //TypesOfInstall.Add("Выкатной");
 
             TypesOfAutomation = new ObservableCollection<string>();
             TypesOfAutomation.Add("Стандартный");
@@ -179,6 +180,10 @@ namespace Okken
             PowerSupplys.Add("Шинопровод");
             PowerSupplys.Add("Кабель");
 
+            TypeOfFiderConnections = new ObservableCollection<string>();
+            TypeOfFiderConnections.Add("Заднее");
+            TypeOfFiderConnections.Add("Боковое");
+
             MetalBusCoatings = new ObservableCollection<string>();
             MetalBusCoatings.Add("НЕТ");
             MetalBusCoatings.Add("Серебро");
@@ -198,6 +203,10 @@ namespace Okken
             {
                 SpaceReserves.Add(i.ToString());
             }
+
+            TypeOfFiders = new ObservableCollection<string>();
+            TypeOfFiders.Add("Втычной");
+            TypeOfFiders.Add("Выкатной");
 
             ATSPresents = new ObservableCollection<string>();
             ATSPresents.Add("ДА");

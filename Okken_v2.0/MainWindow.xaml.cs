@@ -43,6 +43,8 @@ namespace Okken
         static int numOfCol_Inc; //Номер столбца Вводных аппаратов
         static int numOfCol_Sect; //Номер столбца Секционника
 
+        static int numOfCol_CharecteristicsOfFiders; //Номер столбца с характеристиками фидеров
+
         static int numOfCol_Sect1Fider_First; //Номер столбца 1-го фидера секции 1
         static int numOfCol_Sect1Fider_Last; //Номер столбца последнего фидера секции 1
 
@@ -82,6 +84,8 @@ namespace Okken
             numOfCol_Inc = MainDataGrid.Columns.IndexOf(INCLocationComboBox);
             numOfCol_Sect = MainDataGrid.Columns.IndexOf(BusTieComboBox);
 
+            numOfCol_CharecteristicsOfFiders = MainDataGrid.Columns.IndexOf(TypeOfFidersComboBox);
+
             numOfCol_Sect1Fider_First = MainDataGrid.Columns.IndexOf(Sect1Fider1Text);
             numOfCol_Sect1Fider_Last = MainDataGrid.Columns.IndexOf(Sect1FiderLastText);
 
@@ -115,14 +119,20 @@ namespace Okken
             Grid.SetColumn(BTBorder, numOfCol_Sect - 3); //Для секционника
             Grid.SetColumnSpan(BTBorder, 2); //Объеденяем
 
+            Grid.SetColumn(CharacteristicFidersBorder, numOfCol_CharecteristicsOfFiders - 3); //Для характеристи фидеров
+            Grid.SetColumnSpan(CharacteristicFidersBorder, 2); //Объеденяем
+
             Grid.SetColumn(Sec1FidersBorder, numOfCol_Sect1Fider_First - 3); //Для вводных аппаратов секция 1
             Grid.SetColumnSpan(Sec1FidersBorder, numOfCol_Sect1Fider_Last - numOfCol_Sect1Fider_First + 1); //Объединяем
 
             Grid.SetColumn(Sec2FidersBorder, numOfCol_Sect2Fider_First - 3); //Для вводных аппаратов секция 2
             Grid.SetColumnSpan(Sec2FidersBorder, numOfCol_Sect2Fider_Last - numOfCol_Sect2Fider_First + 1); //Объединяем
 
-            Grid.SetColumn(FiderBorder, numOfCol_Sect1Fider_First - 3); //Для зоголовка "Отходящие фидеры"
-            Grid.SetColumnSpan(FiderBorder, numOfCol_Sect2Fider_Last - numOfCol_Sect1Fider_First + 1); //Объединяем
+
+
+
+            Grid.SetColumn(FiderBorder, numOfCol_CharecteristicsOfFiders - 3); //Для зоголовка "Отходящие фидеры"
+            Grid.SetColumnSpan(FiderBorder, numOfCol_Sect2Fider_Last - numOfCol_CharecteristicsOfFiders + 1); //Объединяем
 
             Grid.SetColumn(Sec1MCCBorder, numOfCol_Sect1MCC_First - 3); //Для MCC секция 1
             Grid.SetColumnSpan(Sec1MCCBorder, numOfCol_Sect1MCC_Last - numOfCol_Sect1MCC_First + 1); //Объединяем
@@ -172,9 +182,11 @@ namespace Okken
                 EpoxyBusCoating = "НЕТ",
                 Painting = "RAL 9003",
                 SpaceReserve = "10",
+                TypeOfFider = "Втычной",
                 ATSPresent = "НЕТ",
                 IncomerLocation = "По краям",
                 TypeOfConnection = "Сверху",
+                TypeOfFiderConnection = "Заднее",
                 StringIncomerCurrent_Sect1 = "НЕТ",
                 StringIncomerCurrent_Sect2 = "НЕТ",
                 StringIncomerCurrent_Sect3 = "НЕТ",
@@ -198,11 +210,13 @@ namespace Okken
             DegreeIPComboBox.ItemsSource = CollectionOfPanels.DegreeIPs;
             AmbTemperaturComboBox.ItemsSource = CollectionOfPanels.AmbTemperatures;
             PowerSupplyComboBox.ItemsSource = CollectionOfPanels.PowerSupplys;
+            TypeOfFiderConnectionComboBox.ItemsSource = CollectionOfPanels.TypeOfFiderConnections;
             MetalBusCoatingComboBox.ItemsSource = CollectionOfPanels.MetalBusCoatings;
             EpoxyBusCoatingComboBox.ItemsSource = CollectionOfPanels.EpoxyBusCoatings;
             PaintingComboBox.ItemsSource = CollectionOfPanels.Paintings;
             ATSPresentComboBox.ItemsSource = CollectionOfPanels.ATSPresents;
             SpaceReserveComboBox.ItemsSource = CollectionOfPanels.SpaceReserves;
+            TypeOfFidersComboBox.ItemsSource = CollectionOfPanels.TypeOfFiders;
             INCLocationComboBox.ItemsSource = CollectionOfPanels.IncomerLocations;
             INCConnectionComboBox.ItemsSource = CollectionOfPanels.TypeOfConnections;
             INC1ComboBox.ItemsSource = CollectionOfPanels.StringIncomersCurrents;
@@ -296,6 +310,7 @@ namespace Okken
                     DegreeIP = CollectionOfPanels.PanelList[Lastindex].DegreeIP,
                     AmbTemperature = CollectionOfPanels.PanelList[Lastindex].AmbTemperature,
                     PowerSupply = CollectionOfPanels.PanelList[Lastindex].PowerSupply,
+                    TypeOfFiderConnection = CollectionOfPanels.PanelList[Lastindex].TypeOfFiderConnection,
                     MetalBusCoating = CollectionOfPanels.PanelList[Lastindex].MetalBusCoating,
                     EpoxyBusCoating = CollectionOfPanels.PanelList[Lastindex].EpoxyBusCoating,
                     Painting = CollectionOfPanels.PanelList[Lastindex].Painting,
@@ -304,6 +319,7 @@ namespace Okken
                     StringIncomerCurrent_Sect3 = CollectionOfPanels.PanelList[Lastindex].StringIncomerCurrent_Sect3,
                     StringBustieCurrent = CollectionOfPanels.PanelList[Lastindex].StringBustieCurrent,
                     SpaceReserve = CollectionOfPanels.PanelList[Lastindex].SpaceReserve,
+                    TypeOfFider = CollectionOfPanels.PanelList[Lastindex].TypeOfFider,
                     ATSPresent = CollectionOfPanels.PanelList[Lastindex].ATSPresent,
                     IncomerLocation = CollectionOfPanels.PanelList[Lastindex].IncomerLocation,
                     TypeOfConnection = CollectionOfPanels.PanelList[Lastindex].TypeOfConnection,
@@ -328,9 +344,11 @@ namespace Okken
                 EpoxyBusCoating = "НЕТ",
                 Painting = "RAL 9003",
                 SpaceReserve = "10",
+                TypeOfFider = "Втычной",
                 ATSPresent = "НЕТ",
                 IncomerLocation = "По краям",
                 TypeOfConnection = "Сверху",
+                TypeOfFiderConnection = "Заднее",
                 StringIncomerCurrent_Sect1 = "НЕТ",
                 StringIncomerCurrent_Sect2 = "НЕТ",
                 StringIncomerCurrent_Sect3 = "НЕТ",
@@ -521,9 +539,11 @@ namespace Okken
                 EpoxyBusCoating = "НЕТ",
                 Painting = "RAL 9003",
                 SpaceReserve = "10",
+                TypeOfFider = "Втычной",
                 ATSPresent = "НЕТ",
                 IncomerLocation = "По краям",
                 TypeOfConnection = "Сверху",
+                TypeOfFiderConnection = "Заднее",
                 StringIncomerCurrent_Sect1 = "НЕТ",
                 StringIncomerCurrent_Sect2 = "НЕТ",
                 StringIncomerCurrent_Sect3 = "НЕТ",

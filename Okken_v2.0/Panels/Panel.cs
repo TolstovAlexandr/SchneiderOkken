@@ -326,7 +326,18 @@ namespace Okken
         /// </summary>
         public string TypeOfSectApp { get; set; }
 
-        //---------------------------------------------------------------------------------------------------------------------------------
+        //Фидеры---------------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Тип отходящих фидеров
+        /// </summary>
+        public string TypeOfFider { get; set; }
+
+        /// <summary>
+        /// Тип подключения отходящих фидеров
+        /// </summary>
+        public string TypeOfFiderConnection { get; set; }
+
         //Токи фидеров
         private int CurrenOfFider1 { get; } = 100;
         private int CurrenOfFider2 { get; } = 160;
@@ -759,10 +770,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect1NumOfSS1 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if (AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect1NumOfSS1 = 0;
                 }
                 else
@@ -782,10 +793,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect1NumOfSS2 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect1NumOfSS2 = 0;
                 }
                 else
@@ -805,10 +816,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect1NumOfSS3 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect1NumOfSS3 = 0;
                 }
                 else
@@ -828,10 +839,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect1NumOfSS4 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect1NumOfSS4 = 0;
                 }
                 else
@@ -851,13 +862,13 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect1NumOfSS5 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect1NumOfSS5 = 0;
                 }
-                else if(ShotCurr > 50)
+                else if (ShotCurr > 50)
                 {
                     if (value != 0)
                         MessageBox.Show("При токе КЗ более 50кА не воможно выбрать SS 75кВт");
@@ -880,10 +891,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect1NumOfSS6 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect1NumOfSS6 = 0;
                 }
                 else if (ShotCurr > 50)
@@ -909,10 +920,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect1NumOfSS7 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect1NumOfSS7 = 0;
                 }
                 else if (ShotCurr > 50)
@@ -938,10 +949,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect1NumOfSS8 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect1NumOfSS8 = 0;
                 }
                 else if (ShotCurr > 50)
@@ -967,10 +978,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect1NumOfSS9 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect1NumOfSS9 = 0;
                 }
                 else if(AmbTemperature > 35)
@@ -1003,10 +1014,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect2NumOfSS1 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect2NumOfSS1 = 0;
                 }
                 else
@@ -1026,10 +1037,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect2NumOfSS2 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect2NumOfSS2 = 0;
                 }
                 else
@@ -1049,10 +1060,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect2NumOfSS3 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect2NumOfSS3 = 0;
                 }
                 else
@@ -1072,10 +1083,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect2NumOfSS4 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect2NumOfSS4 = 0;
                 }
                 else
@@ -1095,10 +1106,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect2NumOfSS5 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect2NumOfSS5 = 0;
                 }
                 else if (ShotCurr > 50)
@@ -1124,10 +1135,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect2NumOfSS6 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect2NumOfSS6 = 0;
                 }
                 else if (ShotCurr > 50)
@@ -1153,10 +1164,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect2NumOfSS7 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect2NumOfSS7 = 0;
                 }
                 else if (ShotCurr > 50)
@@ -1182,10 +1193,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect2NumOfSS8 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect2NumOfSS8 = 0;
                 }
                 else if (ShotCurr > 50)
@@ -1211,10 +1222,10 @@ namespace Okken
                         MessageBox.Show("При температуре 50С и более или токе КЗ 150кА не воможно выбрать SS");
                     sect2NumOfSS9 = 0;
                 }
-                if (AmbTemperature > 35 && ShotCurr > 50)
+                else if(AmbTemperature > 35 && ShotCurr > 50)
                 {
                     if (value != 0)
-                        MessageBox.Show("При температуре более 35С и более и токе КЗ более 50кА не воможно выбрать SS");
+                        MessageBox.Show("При температуре 40С и более и токе КЗ более 65кА и более не воможно выбрать SS");
                     sect2NumOfSS9 = 0;
                 }
                 else if (AmbTemperature > 35)
